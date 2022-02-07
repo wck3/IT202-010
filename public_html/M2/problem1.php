@@ -8,9 +8,15 @@ function processArray($arr) {
     echo "<br>Processing Array:<br><pre>" . var_export($arr, true) . "</pre>";
     echo "<br>Odds output:<br>";
     //TODO add logic here to echo out only odd values
+    foreach($arr as &$num) {    //loop through array
+        if(($num % 2) != 0){    //if number is not divisible by 2 it is odd
+            echo "$num <br> ";      //print if this condition is true
+        }
+    }
 
 }
 echo "Problem 1: Odd Output<br>";
+
 ?>
 <table>
     <thread>

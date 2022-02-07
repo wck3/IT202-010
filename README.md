@@ -1,2 +1,4 @@
 # IT202-010
-hi
+## William Kaminski
+IT202-010
+I like video games

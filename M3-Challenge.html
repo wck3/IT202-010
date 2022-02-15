@@ -5,21 +5,68 @@
     <title>Problem 1</title>
     <meta charset="utf-8" />
     <script>
+        
         window.addEventListener("load", () => {
             console.log("loaded via javascript");
+             
             //TODO: add any extra onload processing you may need here
+            getCurrentSelection();
+           
         });
         function getCurrentSelection() {
             setTimeout(() => {
                 //added this delay here as some solutions may require it to update properly (i.e., click code may complete before the navigation changes)
-                //TODO: add code for processing the current selection 
+                //TODO: add code for processing the current selection
+                
+                window.addEventListener("click", (e) =>{
+                    //track click on link
+                    if(e.target.nodeName=="A") {
+                        var text=e.target.innerText;
+                        console.log(text);
+                        updateCurrentPage(text);
+                    } 
+                });
 
-                //Note: likely you'll want to call updateCurrentPage towards the end
-            }, 100);
+            }, 100); 
         }
     </script>
     <style>
         /* TODO: make edits here */
+        /*make navigation horizontal*/
+        nav li{
+            display: inline;   
+        }
+        /*add a backround to navigation*/
+        nav ul{
+            list-style: none;
+            display: block;
+            padding: 8px;
+            font-family: "Comic Sans MS";
+            background-color: black;
+        }
+        /*links*/
+        nav a:link{
+            color:white;
+            text-decoration: none;
+        }
+        nav a:visited{
+            color:gray;
+            text-decoration: none;
+        }
+        nav a:hover{
+            color:white;
+            text-decoration: underline;
+            background-color: darkslategrey;
+            padding: 8px;
+        }
+        /*change bullets to check marks in the list*/
+        ul{
+            list-style: '✓';
+        }
+        /*captitalize <a> and <h1> tags*/
+        a,h1{
+            text-transform: capitalize;
+        }    
     </style>
     <!-- make the necessary edits above this line -->
 

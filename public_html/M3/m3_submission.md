@@ -86,6 +86,6 @@
 <tr><td> <em>Sub-Task 2: </em> Add a link to your pull request (hw branch to dev only)</td></tr>
 <tr><td> <a rel="noreferrer noopener" target="_blank" href="https://github.com/wck3/IT202-010/pull/7">https://github.com/wck3/IT202-010/pull/7</a> </td></tr>
 <tr><td> <em>Sub-Task 3: </em> Add a link to your solution html file from prod (again you can assume the url at this point)</td></tr>
-<tr><td> <a rel="noreferrer noopener" target="_blank" href="https://wck3-prod.herokuapp.com/M3/M3-Challenge.html">https://github.com/wck3/IT202-010/blob/prod/M3-Challenge.html</a> </td></tr>
+<tr><td> <a rel="noreferrer noopener" target="_blank" href="https://wck3-prod.herokuapp.com/M3/M3-Challenge.html">https://wck3-prod.herokuapp.com/M3/M3-Challenge.html</a> </td></tr>
 </table></td></tr>
 <table><tr><td><em>Grading Link: </em><a rel="noreferrer noopener" href="https://learn.ethereallab.app/homework/IT202-010-S22/javascript-csschallenge/grade/wck3" target="_blank">Grading</a></td></tr></table>

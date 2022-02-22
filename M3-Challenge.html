@@ -10,6 +10,7 @@
             console.log("loaded via javascript");
              
             //TODO: add any extra onload processing you may need here
+            //once page is loaded, runs function to get the current selection
             getCurrentSelection();
            
         });
@@ -17,16 +18,15 @@
             setTimeout(() => {
                 //added this delay here as some solutions may require it to update properly (i.e., click code may complete before the navigation changes)
                 //TODO: add code for processing the current selection
-                
+               
                 window.addEventListener("click", (e) =>{
-                    //track click on link
-                    if(e.target.nodeName=="A") {
-                        var text=e.target.innerText;
-                        console.log(text);
-                        updateCurrentPage(text);
+                    //track all clicks on the page. If a nav link is clicked, update <h1> and <title> tags
+                    if(e.target.tagName=="A") {
+                      var text=e.target.innerText;
+                      updateCurrentPage(text); 
                     } 
+                   
                 });
-
             }, 100); 
         }
     </script>
@@ -38,6 +38,7 @@
         }
         /*add a backround to navigation*/
         nav ul{
+            /*remove nav list item markers*/
             list-style: none;
             display: block;
             padding: 8px;
@@ -60,7 +61,7 @@
             padding: 8px;
         }
         /*change bullets to check marks in the list*/
-        ul{
+        li,ul{
             list-style: '✓';
         }
         /*captitalize <a> and <h1> tags*/

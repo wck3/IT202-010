@@ -51,7 +51,7 @@ if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm
         $hasError = true;
     }
     if (strlen($password) < 8) {
-        echo "Password must be >8 characters";
+        echo "Password must be > 8 characters";
         $hasError = true;
     }
     if (strlen($password) > 0 && $password !== $confirm) {

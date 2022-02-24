@@ -5,7 +5,7 @@ if (strpos($domain, ":")) {
     $domain = explode(":", $domain)[0];
 }
 $localWorks = true; //some people have issues with localhost for the cookie params
-//if you're one of those people make this false
+//if you're one of those people make this false (might need on mac)
 
 //this is an extra condition added to "resolve" the localhost issue for the session cookie
 if (($localWorks && $domain == "localhost") || $domain != "localhost") {

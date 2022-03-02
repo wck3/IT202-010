@@ -119,12 +119,12 @@
         - This will be recorded as money_received
       - [ ] Ask for Address/shipping information
         - You’ll need to concatenate this into a single string to insert into the DB
-  - [ ] User will be asked for their Address for shipping purposes
+    - [ ] User will be asked for their Address for shipping purposes
     - [ ] Address form should validate correctly
       - Use this as a rough guide (likely you’ll want to prefill some of the data you already have about the user)
-(IMAGE)
+      (IMAGE)
 
-  - [ ] Order process (comment each part of the process):
+    - [ ] Order process (comment each part of the process):
     - [ ] Calculate Cart Items
     - [ ] Verify the current product price against the Products table
       - Since our Cart is table-based it can be long lived so if a user added a Product at a sale and they attempt to purchase afterwards, it should pull the true Product cost.

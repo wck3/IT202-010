@@ -183,7 +183,7 @@
       - Pagination should account for this new filter
       - Recommended to have the filter applied as a given value (i.e., where quantity is <= value)
   - [ ] User can sort products by average rating on the Shop Page
-      -Hint: may want to add an “average rating” field to the Products table and update this value any time a new rating is given for the product using an aggregate function
+      - Hint: may want to add an “average rating” field to the Products table and update this value any time a new rating is given for the product using an aggregate function
 
 ### Intructions
 #### Don't delete this

@@ -17,11 +17,11 @@
 ### Proposal Checklist and Evidence
 
 - Milestone 1
-  - [] User will be able to register a new account
+  - [ ] User will be able to register a new account
 
     -Form Fields
-      -[] Username, email, password, confirm password(other fields optional)
-      -[] Email is required and must be validated
+      -[ ] Username, email, password, confirm password(other fields optional)
+      -[ ] Email is required and must be validated
       -[] Username is required
       -[] Confirm password's match
     - Users Table

@@ -42,7 +42,7 @@
     - User will be directed to a landing page upon login
       - [ ] This is a protected page (non-logged in users shouldn’t have access)
       - [ ] This can be home, profile, a dashboard, etc
-  - [ ]User will be able to logout
+  - [ ] User will be able to logout
     - Logging out will redirect to login page
     - User should see a message that they’ve successfully logged out
     - Session should be destroyed (so the back button doesn’t allow them access back in)
@@ -104,53 +104,53 @@
   -[]User will be able to clear their entire cart via a button click
 
 - Milestone 3
-  -[]User will be able to purchase items in their Cart
-    -Create an Orders table (id, user_id, created, total_price, address, payment_method, money_received)
-      -[]Payment method will simply record (Cash, Visa, MasterCard, Amex, etc) We will not be recording CC numbers or anything of that nature, this is just a sample and in real world projects you’d commonly use a third party payment processor
-      -[]Hint: This must be inserted first before you can insert into the OrderItems table
-    -Create an OrderItems table (id, order_id, product_id, quantity, unit_price)
-      -[]Hint: This is basically a copy of the data from the Cart table, just persisted as a purchase
-    -Checkout Form
-      -[]Ask for payment method (Cash, Visa, MasterCard, Amex, etc)
-      -[]Do not ask for credit card number, this is just a sample
-      -[]Ask for a numerical value to be entered 
-        -Note: this will be a fake payment check to compare against the cart total to determine if the payment succeeds
-        -This will be recorded as money_received
-      -[]Ask for Address/shipping information
-        -You’ll need to concatenate this into a single string to insert into the DB
-  -[]User will be asked for their Address for shipping purposes
-    -[]Address form should validate correctly
-      -Use this as a rough guide (likely you’ll want to prefill some of the data you already have about the user)
+  - [ ] User will be able to purchase items in their Cart
+    - Create an Orders table (id, user_id, created, total_price, address, payment_method, money_received)
+      - [ ] Payment method will simply record (Cash, Visa, MasterCard, Amex, etc) We will not be recording CC numbers or anything of that nature, this is just a sample and in real world projects you’d commonly use a third party payment processor
+      - [ ] Hint: This must be inserted first before you can insert into the OrderItems table
+    - Create an OrderItems table (id, order_id, product_id, quantity, unit_price)
+      - [ ] Hint: This is basically a copy of the data from the Cart table, just persisted as a purchase
+    - Checkout Form
+      - [ ] Ask for payment method (Cash, Visa, MasterCard, Amex, etc)
+      - [ ] Do not ask for credit card number, this is just a sample
+      - [ ] Ask for a numerical value to be entered 
+        - Note: this will be a fake payment check to compare against the cart total to determine if the payment succeeds
+        - This will be recorded as money_received
+      - [ ] Ask for Address/shipping information
+        - You’ll need to concatenate this into a single string to insert into the DB
+  - [ ] User will be asked for their Address for shipping purposes
+    - [ ] Address form should validate correctly
+      - Use this as a rough guide (likely you’ll want to prefill some of the data you already have about the user)
 (IMAGE)
 
-  -[]Order process (comment each part of the process):
-    -[]Calculate Cart Items
-    -[]Verify the current product price against the Products table
-      -Since our Cart is table-based it can be long lived so if a user added a Product at a sale and they attempt to purchase afterwards, it should pull the true Product cost.
-      -You can also show the Cart.unit_price vs Product.unit_price to show a sale or an increase in price
-    -[]Verify desired product and desired quantity are still available in the Products table
-      -Users can’t purchase more than what’s in stock
-      -Show an error message and prevent order from going through if something isn’t available
-      -Let the user update their cart and try again
-      -Clearly show what the issue is (which product isn’t available, how much quantity is available if the cart exceeds it)
-    -[]Make an entry into the Orders table
-    -[]Get last Order ID from Orders table
-    -[]Copy the cart details into the OrderItems tables with the Order ID from the previous step
-    -[]Update the Products table Stock for each item to deduct the Ordered Quantity
-    -[]Clear out the user’s cart after successful order
-    -[]Redirect user to Order Confirmation Page
-  -    Order Confirmation Page
-Show the entire order details from the Order and OrderItems table (similar to cart)
-Including a the cost of each line item and the total value
-Show how they purchased and how much they paid
-Displays a Thank you message
-User will be able to see their Purchase History
-For now limit to 10 most recent orders
-Show a summary of relevant information
-A list item can be clicked to view the full details in the Order Details Page (similar to Order Confirmation Page except no “Thank you” message)
-Store Owner will be able to see all Purchase History
-For now limit to 10 most recent orders
-A list item can be clicked to view the full details in the Order Details Page (similar to Order Confirmation Page except no “Thank you” message)
+  - [ ] Order process (comment each part of the process):
+    - [ ] Calculate Cart Items
+    - [ ] Verify the current product price against the Products table
+      - Since our Cart is table-based it can be long lived so if a user added a Product at a sale and they attempt to purchase afterwards, it should pull the true Product cost.
+      - You can also show the Cart.unit_price vs Product.unit_price to show a sale or an increase in price
+    - [ ] Verify desired product and desired quantity are still available in the Products table
+      - Users can’t purchase more than what’s in stock
+      - Show an error message and prevent order from going through if something isn’t available
+      - Let the user update their cart and try again
+      - Clearly show what the issue is (which product isn’t available, how much quantity is available if the cart exceeds it)
+    - [ ] Make an entry into the Orders table
+    - [ ] Get last Order ID from Orders table
+    - [ ] Copy the cart details into the OrderItems tables with the Order ID from the previous step
+    - [ ] Update the Products table Stock for each item to deduct the Ordered Quantity
+    - [ ] Clear out the user’s cart after successful order
+    - [ ] Redirect user to Order Confirmation Page
+  - [ ] Order Confirmation Page
+      - Show the entire order details from the Order and OrderItems table (similar to cart)
+        - [ ] Including a the cost of each line item and the total value
+        - [ ] Show how they purchased and how much they paid
+      - Displays a Thank you message
+  - [] User will be able to see their Purchase History
+      - For now limit to 10 most recent orders
+      - Show a summary of relevant information
+      - A list item can be clicked to view the full details in the Order Details Page (similar to Order Confirmation Page except no “Thank you” message)
+  - [ ] Store Owner will be able to see all Purchase History
+      - For now limit to 10 most recent orders
+      - A list item can be clicked to view the full details in the Order Details Page (similar to Order Confirmation Page except no “Thank you” message)
 
 - Milestone 4
   - (duplicate template here for Milestone 1 features)

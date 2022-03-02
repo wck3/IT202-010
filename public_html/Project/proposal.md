@@ -100,8 +100,9 @@
   - [ ] User will be able to change quantity of items in their cart
     - Quantity of 0 should also remove from cart
     - A negative Quantity is not valid
-  -[]User will be able to remove a single item from their cart via button click
-  -[]User will be able to clear their entire cart via a button click
+  -[ ] User will be able to remove a single item from their cart via button click
+  -[ ] User will be able to clear their entire cart via a button click
+  
 
 - Milestone 3
   - [ ] User will be able to purchase items in their Cart

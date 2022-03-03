@@ -2,7 +2,7 @@
 ## Project Summary: This project will create a simple e-commerce site for users. Administrators or store owners will be able to manage inventory and users will be able to manage their cart and place orders.
 ## Github Link: https://github.com/wck3/IT202-010/tree/prod/public_html/Project
 ## Project Board Link: https://github.com/wck3/IT202-010/projects/1
-## Website Link: https://wck3-prod.herokuapp.com/Projects
+## Website Link: https://wck3-prod.herokuapp.com/Project
 ## Your Name: William Kaminski
 
 <!-- Line item / Feature template (use this for each bullet point) -- DO NOT DELETE THIS SECTION

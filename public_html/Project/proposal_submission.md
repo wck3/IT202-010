@@ -35,7 +35,7 @@
 <tr><td><table><tr><td> <em>Sub-Task 1: </em> Add the direct link to your proposal.md file from the Proposal branch (There should be at least 9 major line items added for Milestone 1)</td></tr>
 <tr><td> <a rel="noreferrer noopener" target="_blank" href="https://github.com/wck3/IT202-010/blob/Proposal/public_html/Project/proposal.md">https://github.com/wck3/IT202-010/blob/Proposal/public_html/Project/proposal.md</a> </td></tr>
 <tr><td> <em>Sub-Task 2: </em> Add the link to the pull request from Proposal to Milestone 1</td></tr>
-<tr><td> <a rel="noreferrer noopener" target="_blank" href="https://github.com/wck3/IT202-010/pull/23">https://github.com/wck3/IT202-010/pull/23</a> </td></tr>
+<tr><td> <a rel="noreferrer noopener" target="_blank" href="https://github.com/wck3/IT202-010/pull/31">https://github.com/wck3/IT202-010/pull/31</a> </td></tr>
 </table></td></tr>
 <table><tr><td> <em>Deliverable 2: </em> Github Issues and Project Board </td></tr><tr><td><em>Status: </em> <img width="100" height="20" src="https://via.placeholder.com/400x120/009955/fff?text=Complete"></td></tr>
 <tr><td><table><tr><td> <em>Sub-Task 1: </em> Add Screenshots showing the generated Issues on Github (there should be at least 9; 1 per major bullet point)</td></tr>

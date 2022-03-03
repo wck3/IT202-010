@@ -29,28 +29,28 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
     //TODO 3
     $hasError = false;
     if (empty($email)) {
-        flash("Email must not be empty", "danger");
+        flash("Email must not be empty");
         $hasError = true;
     }
     //sanitize
     $email = sanitize_email($email);
     //validate
     if (!is_valid_email($email)) {
-        flash("Invalid email address", "danger");
+        flash("Invalid email address");
         $hasError = true;
     }
     if (empty($password)) {
-        flash("password must not be empty", "danger");
+        flash("password must not be empty");
         $hasError = true;
     }
     if (strlen($password) < 8) {
-        flash("Password too short", "danger");
+        flash("Password too short");
         $hasError = true;
     }
     if (!$hasError) {
         //TODO 4
         $db = getDB();
-        $stmt = $db->prepare("SELECT id, email, username, password from Users where email = :email");
+        $stmt = $db->prepare("SELECT email, password from Users where email = :email");
         try {
             $r = $stmt->execute([":email" => $email]);
             if ($r) {
@@ -59,14 +59,14 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
                     $hash = $user["password"];
                     unset($user["password"]);
                     if (password_verify($password, $hash)) {
-                        flash("Welcome $email");
+                        flash("Weclome $email");
                         $_SESSION["user"] = $user;
                         die(header("Location: home.php"));
                     } else {
-                        flash("Invalid password", "danger");
+                        flash("Invalid password");
                     }
                 } else {
-                    flash("Email not found", "danger");
+                    flash("Email not found");
                 }
             }
         } catch (Exception $e) {

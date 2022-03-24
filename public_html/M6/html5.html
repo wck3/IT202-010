@@ -14,6 +14,7 @@
 <script>
 // Arcade Shooter game
 
+
 // Get a reference to the canvas DOM element
 var canvas = document.getElementById('canvas');
 // Get the canvas drawing context
@@ -76,6 +77,7 @@ function isColliding(a, b) {
 
 // Track the user's score
 var score = 0;
+
 // The delay between enemies (in milliseconds)
 var timeBetweenEnemies = 5 * 1000;
 // ID to track the spawn timeout
@@ -159,32 +161,48 @@ function shoot() {
     bullet.y = ship.y + ship.l / 2;
   }
 }
-  
-// The main draw loop
-function draw() {
-  
-  //Track the player's lives
-  var lives = 3;
-  erase();
-  var gameOver = false;
 
+//**wck3 3-24-2022**
+//used for mod 2: ship speed and ship length increase on scoring
+var len=0;
+var speed=5;
+
+//**wck3 3-23-2022**
+// The main draw loop 
+function draw() {
+  erase(); 
+  var lives = 3;
+  var gameOver = false;
   // Move and draw the enemies
-  enemies.forEach(function(enemy) {
+  enemies.forEach(function(enemy, i) {
     enemy.x -= enemy.s;
-    if (enemy.x < 0 || isColliding(enemy, ship)) {
-      //if player misses enemy or collides, they lose a life
+    if (enemy.x < 0) {
+      //**wck3 3-23-2022**
+      //if player misses enemy they lose a life
+       lives--;
+    }
+    //**wck3 3-23-2022**
+    //if enemy collides with ship it will "disappear"
+    if (isColliding(enemy, ship)) {
+      var collided = true;
+      //a bit janky sending the enemy to the end and making it invisible
+        enemy.l=0;
+        enemy.x=0;
+    } 
+    //**wck3 3-23-2022**
+    //if enemy collides with the ship and it "disappears" player loses a life
+    if(collided && enemy.x < 0){
       lives--;
     }
-
+    //**wck3 3-23-2022**
+    //game over if player runs out of lives
     if(lives==0){
       gameOver=true;
     }
-
     context.fillStyle = '#00FF00';
     enemy.draw();
   });
-
-
+  
   // Move the ship
   if (down) {
     ship.y += ship.s;
@@ -198,8 +216,23 @@ function draw() {
   }
   if (ship.y > canvas.height - ship.l) {
     ship.y = canvas.height - ship.l;
-  }
-  // Draw the ship
+  } 
+
+//**wck3 3-24-2022**
+// function to increase the size of the ship by given length
+function increaseSize(x, y, length, speed, len) {
+  return {
+    x: x,
+    y: y,
+    l: length,
+    s: speed,
+    draw: function() {
+      context.fillRect(this.x, this.y, this.l, this.l+len);
+
+    }
+  };
+}
+ // Draw the ship
   context.fillStyle = '#FF0000';
   ship.draw();
   // Move and draw the bullet
@@ -212,7 +245,14 @@ function draw() {
         enemies.splice(i, 1);
         score++;
         shooting = false;
-        // Make the game harder
+        
+        //Make the game harder
+        //**wck3 3-24-2022**
+        //each time the player scores the length of the ship increases by 15px and speed will increase by 0.25
+        len=len+15;
+        speed=speed+0.25;
+        ship=increaseSize(50, canvas.height / 2 - 25,  50, speed, len);
+        
         if (score % 10 === 0 && timeBetweenEnemies > 1000) {
           clearInterval(timeoutId);
           timeBetweenEnemies -= 1000;
@@ -222,6 +262,7 @@ function draw() {
         }
       }
     });
+
     // Collide with the wall
     if (bullet.x > canvas.width) {
       shooting = false;
@@ -229,6 +270,7 @@ function draw() {
     // Draw the bullet
     context.fillStyle = '#0000FF';
     bullet.draw();
+  
   }
   // Draw the score
   context.fillStyle = '#000000';
@@ -236,6 +278,7 @@ function draw() {
   context.textAlign = 'left';
   context.fillText('Score: ' + score, 1, 25)
 
+  //**wck3 3-2-2022**
   // Draw remaining lives
   context.fillStyle = '#000000';
   context.font = '24px Arial';

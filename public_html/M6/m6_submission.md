@@ -37,7 +37,7 @@
 <tr><td> <em>Sub-Task 2: </em> Add the direct link to the html5.html file from Heroku Prod (i.e., https://mt85-prod.herokuapp.com/M6/html5.html)</td></tr>
 <tr><td> <a rel="noreferrer noopener" target="_blank" href="https://wck3-prod.herokuapp.com/M6/html5.html">https://wck3-prod.herokuapp.com/M6/html5.html</a> </td></tr>
 <tr><td> <em>Sub-Task 3: </em> Add the pull request link for this assignment from M6-HTML5-Canvas to dev</td></tr>
-<tr><td> <a rel="noreferrer noopener" target="_blank" href="https://github.com/wck3/IT202-010/pull/35">https://github.com/wck3/IT202-010/pull/35</a> </td></tr>
+<tr><td> <a rel="noreferrer noopener" target="_blank" href="https://github.com/wck3/IT202-010/pull/37">https://github.com/wck3/IT202-010/pull/37</a> </td></tr>
 </table></td></tr>
 <table><tr><td> <em>Deliverable 2: </em> Significant Change #1 </td></tr><tr><td><em>Status: </em> <img width="100" height="20" src="https://via.placeholder.com/400x120/009955/fff?text=Complete"></td></tr>
 <tr><td><table><tr><td> <em>Sub-Task 1: </em> Describe your change/modification</td></tr>

@@ -1,5 +1,5 @@
 .alert-success {
-    background-color: green
+    background-color: grey
 }
 
 .alert-warning {
@@ -11,13 +11,32 @@
 }
 
 .alert-info {
-    background-color: teal;
+    background-color: grey;
 }
-nav li{display: inline; background-color: rebeccapurple;}
-nav li a{color: hotpink}
-input{border-radius: 50%;}
+nav ul{
+  
+    list-style: inline;
+    
+    padding: 8px;
+    background-color: black;
+}
+/*links*/
+nav a:link{
+    color:white;
+    text-decoration: none;
+}
+nav a:hover{
+    color:white;
+    text-decoration: underline;
+    background-color: grey;
+    padding: 8px;
+}
+
+nav li{display: inline; background-color: black;}
+nav li a{color: white}
+
 body{
-    background-color: hotpink;
-    color: rgb(153, 0, 153);
+    background-color: darkslategray;
+    color: white;
 
 }

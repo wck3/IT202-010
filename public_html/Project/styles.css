@@ -1,0 +1,42 @@
+.alert-success {
+    background-color: grey
+}
+
+.alert-warning {
+    background-color: yellow;
+}
+
+.alert-danger {
+    background-color: red;
+}
+
+.alert-info {
+    background-color: grey;
+}
+nav ul{
+  
+    list-style: inline;
+    
+    padding: 8px;
+    background-color: black;
+}
+/*links*/
+nav a:link{
+    color:white;
+    text-decoration: none;
+}
+nav a:hover{
+    color:white;
+    text-decoration: underline;
+    background-color: grey;
+    padding: 8px;
+}
+
+nav li{display: inline; background-color: black;}
+nav li a{color: white}
+
+body{
+    background-color: darkslategray;
+    color: white;
+
+}

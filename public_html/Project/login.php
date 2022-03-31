@@ -25,18 +25,18 @@ require(__DIR__ . "/../../partials/nav.php");
         var usernamePattern = /[a-zA-Z0-9_-]*/;
         if(!email.test(emailPattern)){
             isValid=false;
-            <? flash("Invalid email address", "danger"); ?>
+            flash("Invalid email address1", "danger");
         }
         if((username.length < 3 || username.length > 16) && !username.test(usernamePattern)){
             isValid=false;
-            <? flash("Invalid username", "danger"); ?>
+            flash("Invalid username", "danger"); 
         }
        
     
         return isValid;
         //TODO update clientside validation to check if it should
         //valid email or username
-        return true;
+        //return true;
     }
 </script>
 <?php
@@ -113,6 +113,7 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
                     }
                 } else {
                     flash("Email not found");
+                    $hasError=true;
                 }
             }
         } catch (Exception $e) {

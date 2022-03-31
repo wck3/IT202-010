@@ -131,18 +131,16 @@ $username = get_username();
         var usernamePattern = /[a-zA-Z0-9_-]*/;
         if(!email.test(emailPattern)){
             isValid=false;
-            <? flash("Invalid email address", "danger"); ?>
+            flash("Invalid email address", "danger");
         }
         if((username.length < 3 || username.length > 16) && !username.test(usernamePattern)){
             isValid=false;
-            <? flash("Invalid username", "danger"); ?>
+            flash("Invalid username", "danger");
         }
         if(confirm != password){
             isValid=false;
-            <? flash("Passwords must match", "danger"); ?>
+            flash("Passwords must match", "danger");
         }
-        
-
         return isValid;
     }
 </script>

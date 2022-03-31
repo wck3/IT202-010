@@ -25,7 +25,19 @@ reset_session();
     function validate(form) {
         //TODO 1: implement JavaScript validation
         //ensure it returns false for an error and true for success
-        return true;
+        let email=form.email.value;
+        let username=form.email.value;
+        let password=form.email.password;
+        let confirm=form.email.confirm;
+        let isValid=true;
+        var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        if(!email.test(emailPattern)){
+            isValid=false;
+            <? flash("Invalid email address", "danger"); ?>
+        }
+        
+
+        return isValid;
     }
 </script>
 <?php

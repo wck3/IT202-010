@@ -27,15 +27,12 @@ require(__DIR__ . "/../../partials/nav.php");
         if(!loginPattern.test(login) || (login.length < 3 || login.length > 16)){
             isValid=false;
             flash("Invalid username/email address", "danger");
-            
         }
         if(password.length < 8){
             isValid=false;
             flash("Password must be 8 characters long", "danger");
         }
         return isValid;
-      
-       
     }
 </script>
 <?php

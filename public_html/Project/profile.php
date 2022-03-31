@@ -1,4 +1,3 @@
-
 <?php
 require_once(__DIR__ . "/../../partials/nav.php");
 is_logged_in(true);
@@ -46,14 +45,15 @@ if (isset($_POST["save"])) {
             //echo "<pre>" . var_export($e->errorInfo, true) . "</pre>";
         }
     }
- 
+
+
     //check/update password
     $current_password = se($_POST, "currentPassword", null, false);
     $new_password = se($_POST, "newPassword", null, false);
     $confirm_password = se($_POST, "confirmPassword", null, false);
     if (!empty($current_password) && !empty($new_password) && !empty($confirm_password)) {
         $hasError = false;
-        if (!is_valid_password($new_password)) {
+        if (!is_valid_password($password)) {
             flash("Password too short", "danger");
             $hasError = true;
         }
@@ -86,7 +86,6 @@ if (isset($_POST["save"])) {
             }
         }
     }
-    
 }
 ?>
 
@@ -124,27 +123,35 @@ $username = get_username();
     function validate(form) {
         let email=form.email.value;
         let username=form.username.value;
-        let currentPassword=form.current_Password.value;
-        let newPassword=form.new_Password.value;
-        let confirm=form.confirm.value;
-        let isValid=true;
-        var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-        var usernamePattern = /[a-zA-Z0-9_-]*/;
+        let pw = form.newPassword.value;
+        let currPassword=form.currentPassword.value;
+        let con = form.confirmPassword.value;
+        let isValid = true;
+        //TODO add other client side validation....
+        
+        var emailPattern = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,4}$/;
+        var usernamePattern = /[a-zA-Z0-9_-]{3,16}$/;
         
         if(!emailPattern.test(email)){
             isValid=false;
             flash("Invalid email address", "danger");
         }
-        if((username.length < 3 || username.length > 16) && !usernamePattern.test(username)){
+        if((username.length < 3 || username.length > 16) || !usernamePattern.test(username)){
             isValid=false;
-            flash("Invalid username", "danger");
+            flash("Invalid username. Username must only contain 3-16 characters a-z, 0-9, _, or -", "danger");
         }
-        if(confirm != newPassword){
+       if(currPassword.length < 8){
+            flash("Current password is too short", "danger");
             isValid=false;
-            flash("Passwords must match1", "danger");
+        }  
+        
+        if (pw !== con) {
+            flash("Password and Confirm password must match", "warning");
+            isValid = false;
         }
         return isValid;
     }
 </script>
 <?php
 require_once(__DIR__ . "/../../partials/flash.php");
+?>

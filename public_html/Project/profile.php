@@ -124,22 +124,24 @@ $username = get_username();
     function validate(form) {
         let email=form.email.value;
         let username=form.username.value;
-        let password=form.password.value;
+        let currentPassword=form.current_Password.value;
+        let newPassword=form.new_Password.value;
         let confirm=form.confirm.value;
         let isValid=true;
         var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
         var usernamePattern = /[a-zA-Z0-9_-]*/;
-        if(!email.test(emailPattern)){
+        
+        if(!emailPattern.test(email)){
             isValid=false;
             flash("Invalid email address", "danger");
         }
-        if((username.length < 3 || username.length > 16) && !username.test(usernamePattern)){
+        if((username.length < 3 || username.length > 16) && !usernamePattern.test(username)){
             isValid=false;
             flash("Invalid username", "danger");
         }
-        if(confirm != password){
+        if(confirm != newPassword){
             isValid=false;
-            flash("Passwords must match", "danger");
+            flash("Passwords must match1", "danger");
         }
         return isValid;
     }

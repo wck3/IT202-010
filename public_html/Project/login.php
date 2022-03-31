@@ -4,39 +4,38 @@ require(__DIR__ . "/../../partials/nav.php");
 <form onsubmit="return validate(this)" method="POST">
     <div>
         <label for="email">Email/Username</label>
-        <input type="text" name="email" required />
+        <input type="text" name="email"/>
     </div>
     <div>
         <label for="pw">Password</label>
-        <input type="password" id="pw" name="password" required minlength="8" />
+        <input type="password" id="pw" name="password"/>
     </div>
     <input type="submit" value="Login" />
 </form>
 <script>
-    function validate(form) {
+     function validate(form) {
+
         //TODO 1: implement JavaScript validation
         //ensure it returns false for an error and true for success
-        let email=form.email.value;
-        let username=form.username.value;
+        let login=form.email.value;
         let password=form.password.value;
-        
-        let isValid=true;
-        var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-        var usernamePattern = /[a-zA-Z0-9_-]*/;
-        if(!email.test(emailPattern)){
-            isValid=false;
-            flash("Invalid email address1", "danger");
-        }
-        if((username.length < 3 || username.length > 16) && !username.test(usernamePattern)){
-            isValid=false;
-            flash("Invalid username", "danger"); 
-        }
-       
     
-        return isValid;
-        //TODO update clientside validation to check if it should
+        let isValid=true;
+        var loginPattern = /^[a-z0-9_-]+@*[a-z]*\.*[a-z]*$/;
+         //TODO update clientside validation to check if it should
         //valid email or username
-        //return true;
+        if(!loginPattern.test(login) || (login.length < 3 || login.length > 16)){
+            isValid=false;
+            flash("Invalid username/email address", "danger");
+            
+        }
+        if(password.length < 8){
+            isValid=false;
+            flash("Password must be 8 characters long", "danger");
+        }
+        return isValid;
+      
+       
     }
 </script>
 <?php
@@ -82,8 +81,7 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
         //flash("Welcome, $email");
         //TODO 4
         $db = getDB();
-        $stmt = $db->prepare("SELECT id, email, username, password from Users 
-        where email = :email or username = :email");
+        $stmt = $db->prepare("SELECT id, email, username, password from Users where email = :email or username = :email");
         try {
             $r = $stmt->execute([":email" => $email]);
             if ($r) {
@@ -112,8 +110,7 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
                         flash("Invalid password");
                     }
                 } else {
-                    flash("Email not found");
-                    $hasError=true;
+                    flash("Email/Username not found");
                 }
             }
         } catch (Exception $e) {

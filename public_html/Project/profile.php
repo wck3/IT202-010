@@ -19,6 +19,48 @@ if (isset($_POST["save"])) {
         flash("Username must only contain 3-16 characters a-z, 0-9, _, or -", "danger");
         $hasError = true;
     }
+
+     //check/update password
+     $current_password = se($_POST, "currentPassword", null, false);
+     $new_password = se($_POST, "newPassword", null, false);
+     $confirm_password = se($_POST, "confirmPassword", null, false);
+     if (!empty($current_password) && !empty($new_password) && !empty($confirm_password)) {
+         $hasError = false;
+         if (!is_valid_password($new_password)) {
+             flash("Password too short", "danger");
+             $hasError = true;
+         }
+         if (!$hasError) {
+             if ($new_password === $confirm_password) {
+                 //TODO validate current
+                 $stmt = $db->prepare("SELECT password from Users where id = :id");
+                 try {
+                     $stmt->execute([":id" => get_user_id()]);
+                     $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                     if (isset($result["password"])) {
+                         if (password_verify($current_password, $result["password"])) {
+                             $query = "UPDATE Users set password = :password where id = :id";
+                             $stmt = $db->prepare($query);
+                             $stmt->execute([
+                                 ":id" => get_user_id(),
+                                 ":password" => password_hash($new_password, PASSWORD_BCRYPT)
+                             ]);
+ 
+                             flash("Password reset", "success");
+                         } else {
+                             flash("Current password is invalid", "warning");
+                         }
+                     }
+                 } catch (Exception $e) {
+                     echo "<pre>" . var_export($e->errorInfo, true) . "</pre>";
+                 }
+             } else { 
+                 $hasError=true;
+                 flash("New passwords don't match", "warning");
+                
+             }
+         }
+     }
     if (!$hasError) {
         $params = [":email" => $email, ":username" => $username, ":id" => get_user_id()];
         $db = getDB();
@@ -47,46 +89,6 @@ if (isset($_POST["save"])) {
         }
     }
 
-
-    //check/update password
-    $current_password = se($_POST, "currentPassword", null, false);
-    $new_password = se($_POST, "newPassword", null, false);
-    $confirm_password = se($_POST, "confirmPassword", null, false);
-    if (!empty($current_password) && !empty($new_password) && !empty($confirm_password)) {
-        $hasError = false;
-        if (!is_valid_password($password)) {
-            flash("Password too short", "danger");
-            $hasError = true;
-        }
-        if (!$hasError) {
-            if ($new_password === $confirm_password) {
-                //TODO validate current
-                $stmt = $db->prepare("SELECT password from Users where id = :id");
-                try {
-                    $stmt->execute([":id" => get_user_id()]);
-                    $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                    if (isset($result["password"])) {
-                        if (password_verify($current_password, $result["password"])) {
-                            $query = "UPDATE Users set password = :password where id = :id";
-                            $stmt = $db->prepare($query);
-                            $stmt->execute([
-                                ":id" => get_user_id(),
-                                ":password" => password_hash($new_password, PASSWORD_BCRYPT)
-                            ]);
-
-                            flash("Password reset", "success");
-                        } else {
-                            flash("Current password is invalid", "warning");
-                        }
-                    }
-                } catch (Exception $e) {
-                    echo "<pre>" . var_export($e->errorInfo, true) . "</pre>";
-                }
-            } else {
-                flash("New passwords don't match", "warning");
-            }
-        }
-    }
 }
 ?>
 
@@ -126,8 +128,10 @@ $username = get_username();
         let con = form.confirmPassword.value;
         let isValid = true;
         //TODO add other client side validation....
-
-        //example of using flash via javascript
+        let email=form.Email.value;
+        let user=form.Username.value;
+       
+            //example of using flash via javascript
         //find the flash container, create a new element, appendChild
         if (pw !== con) {
             flash("Password and Confrim password must match", "warning");

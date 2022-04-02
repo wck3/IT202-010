@@ -1,4 +1,3 @@
-
 <?php
 require_once(__DIR__ . "/../../partials/nav.php");
 is_logged_in(true);
@@ -54,8 +53,12 @@ if (isset($_POST["save"])) {
     $confirm_password = se($_POST, "confirmPassword", null, false);
     if (!empty($current_password) && !empty($new_password) && !empty($confirm_password)) {
         $hasError = false;
-        if (!is_valid_password($password)) {
+        if (!is_valid_password($current_password)) {
             flash("Password too short", "danger");
+            $hasError = true;
+        }
+        if (!is_valid_password($new_password)) {
+            flash("New password too short", "danger");
             $hasError = true;
         }
         if (!$hasError) {
@@ -122,15 +125,36 @@ $username = get_username();
 
 <script>
     function validate(form) {
+        let email=form.email.value;
+        let username=form.username.value;
         let pw = form.newPassword.value;
+        let currPassword=form.currentPassword.value;
         let con = form.confirmPassword.value;
         let isValid = true;
         //TODO add other client side validation....
-
-        //example of using flash via javascript
-        //find the flash container, create a new element, appendChild
+        
+        var emailPattern = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,4}$/;
+        var usernamePattern = /[a-zA-Z0-9_-]{3,16}$/;
+        
+        if(!emailPattern.test(email)){
+            isValid=false;
+            flash("Invalid email address", "danger");
+        }
+        if((username.length < 3 || username.length > 16) || !usernamePattern.test(username)){
+            isValid=false;
+            flash("Invalid username. Username must only contain 3-16 characters a-z, 0-9, _, or -", "danger");
+        }
+       if(currPassword && currPassword.length < 8){
+            flash("Current password is too short", "danger");
+            isValid=false;
+        }  
+        if(pw && pw.length < 8){
+            flash("New password is too short", "danger");
+            isValid=false;
+        }
+        
         if (pw !== con) {
-            flash("Password and Confrim password must match", "warning");
+            flash("Password and Confirm password must match", "warning");
             isValid = false;
         }
         return isValid;
@@ -138,3 +162,4 @@ $username = get_username();
 </script>
 <?php
 require_once(__DIR__ . "/../../partials/flash.php");
+?>

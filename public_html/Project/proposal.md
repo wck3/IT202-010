@@ -2,7 +2,7 @@
 ## Project Summary: This project will create a simple e-commerce site for users. Administrators or store owners will be able to manage inventory and users will be able to manage their cart and place orders.
 ## Github Link: https://github.com/wck3/IT202-010/tree/prod/public_html/Project
 ## Project Board Link: https://github.com/wck3/IT202-010/projects/1
-## Website Link: https://wck3-prod.herokuapp.com/Project
+## Website Link: https://wck3-prod.herokuapp.com/Project/login.php
 ## Your Name: William Kaminski
 
 <!-- Line item / Feature template (use this for each bullet point) -- DO NOT DELETE THIS SECTION
@@ -17,10 +17,10 @@
 ### Proposal Checklist and Evidence
 
 - Milestone 1
-  - [Milestone1.md](https://github.com/wck3/IT202-010/blob/Milestone1/public_html/Project/milestone1.md)
+ 
   - [x] (02/22/2022) User will be able to register a new account
-    - [Pull Request](https://github.com/wck3/IT202-010/pull/10)
-    - [Registration Page](https://wck3-prod.herokuapp.com/Project/register.php)
+    - [Milestone1.md](https://github.com/wck3/IT202-010/blob/Milestone1/public_html/Project/milestone1.md)
+    - [https://wck3-prod.herokuapp.com/Project/register.php](https://wck3-prod.herokuapp.com/Project/register.php)
 
     - Form Fields
     
@@ -36,8 +36,8 @@
     - System should let user know if username or email is taken and allow the user to correct the error without wiping/clearing the form
       - [x] The only fields that may be cleared are the password fields
   - [x] (02/24/2022) User will be able to login to their account (given they enter the correct credentials)
-    - [Pull Request](https://github.com/wck3/IT202-010/pull/12)
-    - [Login Page](https://wck3-prod.herokuapp.com/Project/login.php)
+    - [Milestone1.md](https://github.com/wck3/IT202-010/blob/Milestone1/public_html/Project/milestone1.md)
+    - [https://wck3-prod.herokuapp.com/Project/login.php](https://wck3-prod.herokuapp.com/Project/login.php)
     - Form
       - [x] User can login with email or username
         - This can be done as a single field or as two separate fields
@@ -48,39 +48,43 @@
       - [x] This is a protected page (non-logged in users shouldn’t have access)
       - [x] This can be home, profile, a dashboard, etc
   - [x] (02/24/2022) User will be able to logout
-    - [Pull Request](https://github.com/wck3/IT202-010/pull/12) NOTE: This feature is in the first "nav finished" commit \
-    - [Logout URL](https://wck3-prod.herokuapp.com/Project/login.php)
+    - [Milestone1.md](https://github.com/wck3/IT202-010/blob/Milestone1/public_html/Project/milestone1.md)
+    - [https://wck3-prod.herokuapp.com/Project/logout.php](https://wck3-prod.herokuapp.com/Project/logout.php)
     - Logging out will redirect to login page
     - User should see a message that they’ve successfully logged out
     - Session should be destroyed (so the back button doesn’t allow them access back in)
   - [x] (03/29/2022) Basic security rules implemented
-    - [Pull Request](https://github.com/wck3/IT202-010/pull/39)  
+    - [Milestone1.md](https://github.com/wck3/IT202-010/blob/Milestone1/public_html/Project/milestone1.md)
+    - [https://wck3-prod.herokuapp.com/Project/profile.php](https://wck3-prod.herokuapp.com/Project/profile.php)
     - Authentication
       - [x] Function to check if user is logged in 
       - [x] Function should be called on appropriate pages that only allow logged in users
     - Roles/Authorization
       - [x] Have a roles table (see below)
   - [x] (03/29/2022) Basic Roles implemented
-    - [Pull Request](https://github.com/wck3/IT202-010/pull/39)
-    - [Create Roles](https://wck3-prod.herokuapp.com/Project/admin/create_role.php)
-    - [List Roles](https://wck3-prod.herokuapp.com/Project/admin/list_roles.php)
-    - [Assign Roles](https://wck3-prod.herokuapp.com/Project/admin/assign_roles.php)
+    - [Milestone1.md](https://github.com/wck3/IT202-010/blob/Milestone1/public_html/Project/milestone1.md)
+    - [https://wck3-prod.herokuapp.com/Project/admin/create_role.php](https://wck3-prod.herokuapp.com/Project/admin/create_role.php)
+    - [https://wck3-prod.herokuapp.com/Project/admin/list_roles.php](https://wck3-prod.herokuapp.com/Project/admin/list_roles.php)
+    - [https://wck3-prod.herokuapp.com/Project/admin/assign_roles.php](https://wck3-prod.herokuapp.com/Project/admin/assign_roles.php)
     - Have a Roles table    (id, name, description, is_active, modified, created)
     - Have a User Roles table (id, user_id, role_id, is_active, created, modified)
     - Include a function to check if a user has a specific role (we won’t use it for this milestone but it should be usable in the future)
   - [x] (03/30/2022) Site should have basic styles/theme applied; everything should be styled
-    - [Pull Request 1](https://github.com/wck3/IT202-010/pull/34), [Pull Request 2](https://github.com/wck3/IT202-010/pull/40) 
-    - [Styles](https://wck3-prod.herokuapp.com/Project/styles.css)
+    - [Milestone1.md](https://github.com/wck3/IT202-010/blob/Milestone1/public_html/Project/milestone1.md)
+    - [https://wck3-prod.herokuapp.com/Project/styles.css](https://wck3-prod.herokuapp.com/Project/styles.css)
+    - [https://wck3-prod.herokuapp.com/Project/home.php](https://wck3-prod.herokuapp.com/Project/home.php)
     - I.e., forms/input, navigation bar, etc
   - [x] (03/01/2022) Any output messages/errors should be “user friendly”
-    - [Pull Request](https://github.com/wck3/IT202-010/pull/26)
+    - [Milestone1.md](https://github.com/wck3/IT202-010/blob/Milestone1/public_html/Project/milestone1.md)
+    - [https://wck3-prod.herokuapp.com/Project/login.php](https://wck3-prod.herokuapp.com/Project/login.php)
     - Any technical errors or debug output displayed will result in a loss of points
   - [x] (03/03/2022) User will be able to see their profile
-    - [Pull Request](https://github.com/wck3/IT202-010/pull/29)
-    - [Profile Page](https://wck3-prod.herokuapp.com/Project/profile.php)
+    - [Milestone1.md](https://github.com/wck3/IT202-010/blob/Milestone1/public_html/Project/milestone1.md)
+    - [https://wck3-prod.herokuapp.com/Project/profile.php](https://wck3-prod.herokuapp.com/Project/profile.php)
     - Email, username, etc
   - [x] (03/03/2022) User will be able to edit their profile
-    - [Pull Request](https://github.com/wck3/IT202-010/pull/29) 
+    - [Milestone1.md](https://github.com/wck3/IT202-010/blob/Milestone1/public_html/Project/milestone1.md)
+    - [https://wck3-prod.herokuapp.com/Project/profile.php](https://wck3-prod.herokuapp.com/Project/profile.php)
     - Changing username/email should properly check to see if it’s available before allowing the change
     - Any other fields should be properly validated
     - Allow password reset (only if the existing correct password is provided)

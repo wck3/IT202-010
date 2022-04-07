@@ -89,6 +89,41 @@
     - Any other fields should be properly validated
     - Allow password reset (only if the existing correct password is provided)
       - [x] Hint: logic for the password check would be similar to login
+- Milestone 2
+  - [ ] (mm/dd/yyyy) User with an admin role or shop owner role will be able to add products to inventory
+    - Table should be called Products (id, name, description, category, stock, created, modified, unit_price, visibility [true, false])
+  - [ ] (mm/dd/yyyy) Any user will be able to see products with visibility = true on the Shop page
+    - Product list page will be public (i.e. doesn’t require login)
+    - For now limit results to 10 most recent
+    - User will be able to filter results by category
+    - User will be able to filter results by partial matches on the name
+    - User will be able to sort results by price
+    - All filters are additive
+  - [ ] (mm/dd/yyyy) Admin/Shop owner will be able to see products with any visibility
+    - This should be a separate page from Shop, but will be similar
+    - This page should only be accessible to the appropriate role(s)
+  - [ ] (mm/dd/yyyy) Admin/Shop owner will be able to edit any product
+    - Edit button should be accessible for the appropriate role(s) anywhere a product is shown (Shop list, Product Details Page, etc)
+    - Edit name, description, category, stock, unit_price, visibility
+  - [ ] (mm/dd/yyyy) User will be able to click an item from a list and view a full page with more info about the item /(Product Details Page/)
+    - Name, description, unit_price, stock, category
+  - [ ] (mm/dd/yyyy) User must be logged in for any Cart related activity below
+  - [ ] (mm/dd/yyyy) User will be able to add items to Cart
+    - Cart will be table-based /(id, product_id, user_id, desired_quantity, unit_price, created, modified/)
+      - [ ] Choose one and cross out which one you won’t support
+        - [ ] If a user can have only 1 cart product_id and user_id should be a composite unique key
+        - [ ] If a user can have more than 1 cart, add a field called cart_id and cart_id, user_id, and product_id will be a composite unique key
+    - Adding items to Cart will not affect the Product's quantity in the Products table
+  - [ ] (mm/dd/yyyy) User will be able to see their cart
+    - List all the items
+    - Show subtotal for each line item based on desired_quantity * unit_price (from the cart)
+    - Show total cart value (sum of line item subtotals)
+    - Will be able to click an item to see more details (Product Details Page)
+  - [ ] (mm/dd/yyyy) User will be able to change quantity of items in their cart
+    - Quantity of 0 should also remove from cart
+    - A negative Quantity is not valid
+  - [ ] (mm/dd/yyyy) User will be able to remove a single item from their cart via button click
+  - [ ] (mm/dd/yyyy) User will be able to clear their entire cart via a button click
 
 - Milestone 2
   - [ ] (mm/dd/yyyy) User with an admin role or shop owner role will be able to add products to inventory

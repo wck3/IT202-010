@@ -77,10 +77,10 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
         flash("password must not be empty");
         $hasError = true;
     }
-    if (!is_valid_password($password)) {
+   /* if (!is_valid_password($password)) {
         flash("Password too short");
         $hasError = true;
-    }
+    } */
     if (!$hasError) {
         //flash("Welcome, $email");
         //TODO 4

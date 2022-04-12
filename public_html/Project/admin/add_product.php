@@ -18,18 +18,37 @@ $columns = get_columns($TABLE_NAME);
 $ignore = ["id", "modified", "created"];
 ?>
 <div class="container-fluid">
-    <h1>Add Item</h1>
+    <h1>Add a Product</h1>
     <form method="POST">
         <?php foreach ($columns as $index => $column) : ?>
             <?php /* Lazily ignoring fields via hardcoded array*/ ?>
             <?php if (!in_array($column["Field"], $ignore)) : ?>
-                <div class="mb-4">
-                    <label class="form-label" for="<?php se($column, "Field"); ?>"><?php se($column, "Field"); ?></label>
-                    <input class="form-control" id="<?php se($column, "Field"); ?>" type="<?php echo input_map(se($column, "Type", "", false)); ?>" name="<?php se($column, "Field"); ?>" />
+                <?php if($column["Type"]=="tinyint") : ?>
+                    <label> Is Visible </label>
+                    <br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" id="<?php se($column, "Field"); ?>" type="radio" name="<?php se($column, "Field"); ?>" value="1">
+                        <label class="form-check-label" for="inlineRadio1">Yes</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" id="<?php se($column, "Field"); ?>" type="radio" name="<?php se($column, "Field"); ?>" value="0" checked>
+                        <label class="form-check-label" for="inlineRadio2">No</label>
+                    </div>
                 </div>
+            
+                <?php else : ?>
+                <div class="col-2">  
+                    <div class="mb-4">
+                        <label class="form-label" for="<?php se($column, "Field"); ?>"><?php se($column, "Field"); ?></label>
+                        <input class="form-control" id="<?php se($column, "Field"); ?>" type="<?php echo input_map(se($column, "Type", "", false)); ?>" name="<?php se($column, "Field"); ?>" />
+                       
+                    </div>
+                </div>
+                <?php endif; ?>
             <?php endif; ?>
         <?php endforeach; ?>
-        <input class="btn btn-primary" type="submit" value="Create" name="submit" />
+        <br>
+        <input class="btn btn-primary" type="submit" value="Add Product" name="submit" />
     </form>
 </div>
 <?php

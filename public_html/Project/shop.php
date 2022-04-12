@@ -3,7 +3,7 @@ require(__DIR__ . "/../../partials/nav.php");
 
 $results = [];
 $db = getDB();
-$stmt = $db->prepare("SELECT id, name, description, cost, stock, image FROM Shop_items WHERE stock > 0 LIMIT 50");
+$stmt = $db->prepare("SELECT id, name, description, CAST(price / 100.00 AS decimal(18,2)) AS price, stock, image FROM Shop_Items WHERE stock > 0 LIMIT 100");
 try {
     $stmt->execute();
     $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -11,6 +11,7 @@ try {
         $results = $r;
     }
 } catch (PDOException $e) {
+    echo $e;
     error_log(var_export($e, true));
     flash("Error fetching items", "danger");
 }
@@ -28,21 +29,21 @@ try {
     <div class="row row-cols-1 row-cols-md-5 g-4">
         <?php foreach ($results as $item) : ?>
             <div class="col">
-                <div class="card bg-light">
+                <div class="card bg-dark">
                     <div class="card-header">
-                        RM Placeholder
+                        <?php se($item, "category");?>
                     </div>
                     <?php if (se($item, "image", "", false)) : ?>
                         <img src="<?php se($item, "image"); ?>" class="card-img-top" alt="...">
                     <?php endif; ?>
-
-                    <div class="card-body">
+                     <div class="card-body">
                         <h5 class="card-title">Name: <?php se($item, "name"); ?></h5>
                         <p class="card-text">Description: <?php se($item, "description"); ?></p>
                     </div>
                     <div class="card-footer">
-                        Cost: <?php se($item, "cost"); ?>
-                        <button onclick="purchase('<?php se($item, 'id'); ?>')" class="btn btn-primary">Buy Now</button>
+                        <!-- TODO convert pennies to dollars -->
+                        Price: $<?php se($item, "price");?>
+                        <button onclick="purchase('<?php se($item, 'id'); ?>')" class="btn btn-secondary">Buy Now</button>
                     </div>
                 </div>
             </div>

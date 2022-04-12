@@ -8,6 +8,7 @@ if (!has_role("Admin")) {
 }
 if (isset($_POST["submit"])) {
     $id = save_data($TABLE_NAME, $_POST);
+    die(header("Location: $BASE_PATH/admin/add_product.php"));
     if ($id > 0) {
         flash("Created Item with id $id", "success");
     }
@@ -48,7 +49,7 @@ $ignore = ["id", "modified", "created"];
             <?php endif; ?>
         <?php endforeach; ?>
         <br>
-        <input class="btn btn-primary" type="submit" value="Add Product" name="submit" />
+        <input class="btn btn-secondary" type="submit" value="Add Product" name="submit" />
     </form>
 </div>
 <?php

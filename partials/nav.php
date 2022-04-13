@@ -58,7 +58,17 @@ session_start();
                             <li><a class="dropdown-item" href="<?php echo get_url('admin/create_role.php'); ?>">Create Roles</a></li>
                             <li><a class="dropdown-item" href="<?php echo get_url('admin/list_roles.php'); ?>">List Roles</a></li>
                             <li><a class="dropdown-item" href="<?php echo get_url('admin/assign_roles.php'); ?>">Assign Roles</a></li>
+                           
+                        </ul>
+                    </li>
+                    <!-- WCK3 04/13/2022 Adding Admin item settings dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="rolesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Admin Items
+                        </a>
+                        <ul class="dropdown-menu bg-secondary" aria-labelledby="itemsDropdown">
                              <li><a class="dropdown-item" href="<?php echo get_url('admin/add_product.php'); ?>">Add a Product</a></li>
+                             <li><a class="dropdown-item" href="<?php echo get_url('admin/list_products.php'); ?>">List of Products</a></li>
                         </ul>
                     </li>
                 <?php endif; ?>

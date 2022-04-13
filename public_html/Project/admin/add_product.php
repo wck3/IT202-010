@@ -24,19 +24,19 @@ $ignore = ["id", "modified", "created"];
         <?php foreach ($columns as $index => $column) : ?>
             <?php /* Lazily ignoring fields via hardcoded array*/ ?>
             <?php if (!in_array($column["Field"], $ignore)) : ?>
+                
+                <!-- WCK3 4/12/2022 make visibility a radio option-->
                 <?php if($column["Type"]=="tinyint") : ?>
-                    <label> Is Visible </label>
+                    <label>make item public?</label>
                     <br>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" id="<?php se($column, "Field"); ?>" type="radio" name="<?php se($column, "Field"); ?>" value="1">
                         <label class="form-check-label" for="inlineRadio1">Yes</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" id="<?php se($column, "Field"); ?>" type="radio" name="<?php se($column, "Field"); ?>" value="0" checked>
+                        <input class="form-check-input" id="<?php se($column, "Field"); ?>" type="radio" name="<?php se($column, "Field"); ?>" value="0" >
                         <label class="form-check-label" for="inlineRadio2">No</label>
                     </div>
-                </div>
-            
                 <?php else : ?>
                 <div class="col-2">  
                     <div class="mb-4">
@@ -54,4 +54,6 @@ $ignore = ["id", "modified", "created"];
 </div>
 <?php
 //note we need to go up 1 more directory
-#require_once(__DIR__ . "/../../../partials/footer.php");
+require_once(__DIR__ . "/../../../partials/flash.php");
+
+?>

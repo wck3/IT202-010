@@ -38,13 +38,12 @@ $ignore = ["id", "modified", "created"];
                         <label class="form-check-label" for="inlineRadio2">No</label>
                     </div>
                 <?php else : ?>
-                <div class="col-2">  
-                    <div class="mb-4">
-                        <label class="form-label" for="<?php se($column, "Field"); ?>"><?php se($column, "Field"); ?></label>
-                        <input class="form-control" id="<?php se($column, "Field"); ?>" type="<?php echo input_map(se($column, "Type", "", false)); ?>" name="<?php se($column, "Field"); ?>" />
-                       
+                    <div class="col-2">  
+                        <div class="mb-4">
+                            <label class="form-label" for="<?php se($column, "Field"); ?>"><?php se($column, "Field"); ?></label>
+                            <input class="form-control" id="<?php se($column, "Field"); ?>" type="<?php echo input_map(se($column, "Type", "", false)); ?>" name="<?php se($column, "Field"); ?>" />
+                        </div>
                     </div>
-                </div>
                 <?php endif; ?>
             <?php endif; ?>
         <?php endforeach; ?>

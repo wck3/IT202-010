@@ -21,7 +21,7 @@ function save_data($table, $data, $ignore = ["submit"])
     try {
         $stmt->execute($params);
         //https://www.php.net/manual/en/pdo.lastinsertid.php
-        //echo "Successfully added new record with id " . $db->lastInsertId();
+        echo "Successfully added new record with id " . $db->lastInsertId();
         return $db->lastInsertId();
     } catch (PDOException $e) {
         error_log(var_export($e->errorInfo, true));

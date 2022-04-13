@@ -91,7 +91,7 @@
       - [x] Hint: logic for the password check would be similar to login
 
 - Milestone 2
-  - [ ] (mm/dd/yyyy) User with an admin role or shop owner role will be able to add products to inventory
+  - [x] (04/12/2022) User with an admin role or shop owner role will be able to add products to inventory
     - Table should be called Products (id, name, description, category, stock, created, modified, unit_price, visibility [true, false])
   - [ ] (mm/dd/yyyy) Any user will be able to see products with visibility = true on the Shop page
     - Product list page will be public (i.e. doesn’t require login)
@@ -103,10 +103,10 @@
   - [ ] (mm/dd/yyyy) Admin/Shop owner will be able to see products with any visibility
     - This should be a separate page from Shop, but will be similar
     - This page should only be accessible to the appropriate role(s)
-  - [ ] (mm/dd/yyyy) Admin/Shop owner will be able to edit any product
+  - [x] (04/13/2022) Admin/Shop owner will be able to edit any product
     - Edit button should be accessible for the appropriate role(s) anywhere a product is shown (Shop list, Product Details Page, etc)
     - Edit name, description, category, stock, unit_price, visibility
-  - [ ] (mm/dd/yyyy) User will be able to click an item from a list and view a full page with more info about the item /(Product Details Page/)
+  - [x] (04/12/2022) User will be able to click an item from a list and view a full page with more info about the item /(Product Details Page/)
     - Name, description, unit_price, stock, category
   - [ ] (mm/dd/yyyy) User must be logged in for any Cart related activity below
   - [ ] (mm/dd/yyyy) User will be able to add items to Cart

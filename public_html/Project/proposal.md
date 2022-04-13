@@ -93,7 +93,7 @@
 - Milestone 2
   - [x] (04/12/2022) User with an admin role or shop owner role will be able to add products to inventory
     - [Milestone2.md]() 
-    - [https://wck3-prod.herokuapp.com/Project/register.php](https://wck3-prod.herokuapp.com/Project/admin/add_product.php)
+    - [https://wck3-prod.herokuapp.com/Project/add_product.php](https://wck3-prod.herokuapp.com/Project/admin/add_product.php)
     - Table should be called Products (id, name, description, category, stock, created, modified, unit_price, visibility [true, false])
   - [ ] (mm/dd/yyyy) Any user will be able to see products with visibility = true on the Shop page
     - Product list page will be public (i.e. doesn’t require login)
@@ -106,12 +106,12 @@
     - [Milestone2.md]()
     - [https://wck3-prod.herokuapp.com/Project/shop.php](https://wck3-prod.herokuapp.com/Project/shop.php)
       or
-    - [https://wck3-prod.herokuapp.com/Project/shop.php](https://wck3-prod.herokuapp.com/Project/admin/list_products.php)
+    - [https://wck3-prod.herokuapp.com/Project/admin/list_products.php](https://wck3-prod.herokuapp.com/Project/admin/list_products.php)
     - This should be a separate page from Shop, but will be similar
     - This page should only be accessible to the appropriate role(s)
   - [x] (04/13/2022) Admin/Shop owner will be able to edit any product
     - [Milestone2.md]()
-    - [https://wck3-prod.herokuapp.com/Project/register.php](https://wck3-prod.herokuapp.com/Project/admin/edit_item.php) 
+    - [https://wck3-prod.herokuapp.com/Project/edit_item.php](https://wck3-prod.herokuapp.com/Project/admin/edit_item.php) 
     - Edit button should be accessible for the appropriate role(s) anywhere a product is shown (Shop list, Product Details Page, etc)
     - Edit name, description, category, stock, unit_price, visibility
   - [x] (04/12/2022) User will be able to click an item from a list and view a full page with more info about the item (Product Details Page)

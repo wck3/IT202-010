@@ -34,17 +34,19 @@ try {
     }
 </script>
 <div class="container-fluid">
-    <h1>More Details</h1>
+        <h1>More Details</h1>
         <?php foreach ($results as $item) : ?>
-            <?php if(se($item, "visibility", "", false)==1) : ?> <!---->
-                <div class="row row-cols-1 row-cols-md-5 g-4">
+            
+            <?php if(se($item, "visibility", "", false)==1 || has_role("Admin")) : ?> <!---->
+                <div class="row row-cols-4 cols-md-7">
+              
                     <div class = "col md">
                         <?php if (se($item, "image", "", false)) : ?>
                         <img src="<?php se($item, "image"); ?>" class="card-img-top" alt="...">
                         <?php endif; ?>
                             
                         <div class="card-body"> 
-                            <h4 class="card-title">Product: <?php se($item, "name"); ?></h4>
+                            <h4 class="card-title"><?php se($item, "name"); ?></h4>
                             <h6 class="card-text">Category: <?php se($item, "category"); ?></h6>
                             <p class="card-text">Description: <?php se($item, "description");?> <br> Stock: <?php se($item, "stock"); ?> items remain</p>
                         </div>

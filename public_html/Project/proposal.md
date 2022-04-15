@@ -95,7 +95,9 @@
     - [Milestone2.md]() 
     - [https://wck3-prod.herokuapp.com/Project/add_product.php](https://wck3-prod.herokuapp.com/Project/admin/add_product.php)
     - Table should be called Products (id, name, description, category, stock, created, modified, unit_price, visibility [true, false])
-  - [ ] (mm/dd/yyyy) Any user will be able to see products with visibility = true on the Shop page
+  - [x] (04/15/2022) Any user will be able to see products with visibility = true on the Shop page
+    - [Milestone2.md]()
+    - [https://wck3-prod.herokuapp.com/Project/shop.php](https://wck3-prod.herokuapp.com/Project/shop.php)
     - Product list page will be public (i.e. doesn’t require login)
     - For now limit results to 10 most recent
     - User will be able to filter results by category

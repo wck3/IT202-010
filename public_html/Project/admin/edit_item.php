@@ -11,7 +11,6 @@ if (!has_role("Admin")) {
 if (isset($_POST["submit"])) {
     if (update_data($TABLE_NAME, $_GET["id"], $_POST)) {
         flash("Updated item", "success");
-        echo $_GET["id"];
     }
 }
 

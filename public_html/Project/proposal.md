@@ -89,44 +89,67 @@
     - Any other fields should be properly validated
     - Allow password reset (only if the existing correct password is provided)
       - [x] Hint: logic for the password check would be similar to login
+
 - Milestone 2
-  - [ ] (mm/dd/yyyy) User with an admin role or shop owner role will be able to add products to inventory
+  - [x] (04/12/2022) User with an admin role or shop owner role will be able to add products to inventory
+    - [Milestone2.md](https://github.com/wck3/IT202-010/blob/Milestone2/public_html/Project/milestone2.md)
+    - [https://wck3-prod.herokuapp.com/Project/add_product.php](https://wck3-prod.herokuapp.com/Project/admin/add_product.php)
     - Table should be called Products (id, name, description, category, stock, created, modified, unit_price, visibility [true, false])
-  - [ ] (mm/dd/yyyy) Any user will be able to see products with visibility = true on the Shop page
+  - [x] (04/15/2022) Any user will be able to see products with visibility = true on the Shop page
+    - [Milestone2.md](https://github.com/wck3/IT202-010/blob/Milestone2/public_html/Project/milestone2.md)
+    - [https://wck3-prod.herokuapp.com/Project/shop.php](https://wck3-prod.herokuapp.com/Project/shop.php)
     - Product list page will be public (i.e. doesn’t require login)
     - For now limit results to 10 most recent
     - User will be able to filter results by category
     - User will be able to filter results by partial matches on the name
     - User will be able to sort results by price
     - All filters are additive
-  - [ ] (mm/dd/yyyy) Admin/Shop owner will be able to see products with any visibility
+  - [x] (04/13/2022) Admin/Shop owner will be able to see products with any visibility
+    - [Milestone2.md](https://github.com/wck3/IT202-010/blob/Milestone2/public_html/Project/milestone2.md)
+    - [https://wck3-prod.herokuapp.com/Project/shop.php](https://wck3-prod.herokuapp.com/Project/shop.php)
+      or
+    - [https://wck3-prod.herokuapp.com/Project/admin/list_products.php](https://wck3-prod.herokuapp.com/Project/admin/list_products.php)
     - This should be a separate page from Shop, but will be similar
     - This page should only be accessible to the appropriate role(s)
-  - [ ] (mm/dd/yyyy) Admin/Shop owner will be able to edit any product
+  - [x] (04/13/2022) Admin/Shop owner will be able to edit any product
+    - [Milestone2.md](https://github.com/wck3/IT202-010/blob/Milestone2/public_html/Project/milestone2.md)
+    - [https://wck3-prod.herokuapp.com/Project/edit_item.php](https://wck3-prod.herokuapp.com/Project/admin/edit_item.php) 
     - Edit button should be accessible for the appropriate role(s) anywhere a product is shown (Shop list, Product Details Page, etc)
     - Edit name, description, category, stock, unit_price, visibility
-  - [ ] (mm/dd/yyyy) User will be able to click an item from a list and view a full page with more info about the item /(Product Details Page/)
+  - [x] (04/12/2022) User will be able to click an item from a list and view a full page with more info about the item (Product Details Page)
+    - [Milestone2.md](https://github.com/wck3/IT202-010/blob/Milestone2/public_html/Project/milestone2.md)
+    - [https://wck3-prod.herokuapp.com/Project/product_details.php](https://wck3-prod.herokuapp.com/Project/product_details.php)
     - Name, description, unit_price, stock, category
-  - [ ] (mm/dd/yyyy) User must be logged in for any Cart related activity below
-  - [ ] (mm/dd/yyyy) User will be able to add items to Cart
+  - [x] (04/16/2022) User must be logged in for any Cart related activity below
+    - [Milestone2.md](https://github.com/wck3/IT202-010/blob/Milestone2/public_html/Project/milestone2.md)
+    - [https://wck3-prod.herokuapp.com/Project/cart.php](https://wck3-prod.herokuapp.com/Project/admin/cart.php) 
+  - [x] (04/16/2022) User will be able to add items to Cart
+    - [Milestone2.md](https://github.com/wck3/IT202-010/blob/Milestone2/public_html/Project/milestone2.md)
+    - [https://wck3-prod.herokuapp.com/Project/shop.php](https://wck3-prod.herokuapp.com/Project/shop.php)
     - Cart will be table-based /(id, product_id, user_id, desired_quantity, unit_price, created, modified/)
-      - [ ] Choose one and cross out which one you won’t support
-        - [ ] If a user can have only 1 cart product_id and user_id should be a composite unique key
-        - [ ] If a user can have more than 1 cart, add a field called cart_id and cart_id, user_id, and product_id will be a composite unique key
+      - [x] Choose one and cross out which one you won’t support
+        - [x] If a user can have only 1 cart product_id and user_id should be a composite unique key
+        - [ ] ~~If a user can have more than 1 cart, add a field called cart_id and cart_id, user_id, and product_id will be a composite unique key~~
     - Adding items to Cart will not affect the Product's quantity in the Products table
-  - [ ] (mm/dd/yyyy) User will be able to see their cart
+  - [x] (04/16/2022) User will be able to see their cart
+    - [Milestone2.md](https://github.com/wck3/IT202-010/blob/Milestone2/public_html/Project/milestone2.md)
+    - [https://wck3-prod.herokuapp.com/Project/cart.php](https://wck3-prod.herokuapp.com/Project/admin/cart.php)  
     - List all the items
     - Show subtotal for each line item based on desired_quantity * unit_price (from the cart)
     - Show total cart value (sum of line item subtotals)
     - Will be able to click an item to see more details (Product Details Page)
-  - [ ] (mm/dd/yyyy) User will be able to change quantity of items in their cart
+  - [x] (04/17/2022) User will be able to change quantity of items in their cart
+    - [Milestone2.md](https://github.com/wck3/IT202-010/blob/Milestone2/public_html/Project/milestone2.md)
+    - [https://wck3-prod.herokuapp.com/Project/cart.php](https://wck3-prod.herokuapp.com/Project/admin/cart.php)  
     - Quantity of 0 should also remove from cart
     - A negative Quantity is not valid
-  - [ ] (mm/dd/yyyy) User will be able to remove a single item from their cart via button click
-  - [ ] (mm/dd/yyyy) User will be able to clear their entire cart via a button click
-  
-
-- Milestone 3
+  - [x] (04/16/2022) User will be able to remove a single item from their cart via button click
+    - [Milestone2.md](https://github.com/wck3/IT202-010/blob/Milestone2/public_html/Project/milestone2.md)
+    - [https://wck3-prod.herokuapp.com/Project/cart.php](https://wck3-prod.herokuapp.com/Project/admin/cart.php) 
+  - [x] (04/17/2022) User will be able to clear their entire cart via a button click
+    - [Milestone2.md](https://github.com/wck3/IT202-010/blob/Milestone2/public_html/Project/milestone2.md)
+    - [https://wck3-prod.herokuapp.com/Project/cart.php](https://wck3-prod.herokuapp.com/Project/admin/cart.php)  
+ - Milestone 3
   - [ ] (mm/dd/yyyy) User will be able to purchase items in their Cart
     - Create an Orders table (id, user_id, created, total_price, address, payment_method, money_received)
       - [ ] Payment method will simply record (Cash, Visa, MasterCard, Amex, etc) We will not be recording CC numbers or anything of that nature, this is just a sample and in real world projects you’d commonly use a third party payment processor

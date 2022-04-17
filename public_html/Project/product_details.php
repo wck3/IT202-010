@@ -1,5 +1,6 @@
 <?php
 require(__DIR__ . "/../../partials/nav.php");
+require(__DIR__ . "/cart_helpers.php");
 
 
 if(isset($_GET['product_id'])){
@@ -29,22 +30,27 @@ try {
 <script>
     function purchase(item) {
         console.log("TODO purchase item", item);
-        alert("It's almost like you purchased an item, but not really");
+        //alert("It's almost like you purchased an item, but not really");
         //TODO create JS helper to update all show-balance elements
+        if (add_to_cart) {
+            add_to_cart(item);
+        }
     }
 </script>
 <div class="container-fluid">
-        <h1>More Details</h1>
+      
         <?php foreach ($results as $item) : ?>
             
-            <?php if(se($item, "visibility", "", false)==1 || has_role("Admin")) : ?> <!---->
-                <div class="row row-cols-4 cols-md-7">
-              
-                    <div class = "col md">
+            <br>
+               
+                  <div class="card bg-dark">
+                    <div class = "col">
                         <?php if (se($item, "image", "", false)) : ?>
                         <img src="<?php se($item, "image"); ?>" class="card-img-top" alt="...">
                         <?php endif; ?>
-                            
+                        <div class="card-header">
+                            <h1>More Details</h1>
+                        </div>
                         <div class="card-body"> 
                             <h4 class="card-title"><?php se($item, "name"); ?></h4>
                             <h6 class="card-text">Category: <?php se($item, "category"); ?></h6>
@@ -52,10 +58,11 @@ try {
                         </div>
                         <div class="card-footer">
                             Price: $<?php se($item, "price");?><br>
-                            <div class="row">
+                            <div class="row sm-1">
                                 <div class="col">
-                                    <button onclick="purchase('<?php se($item, 'id'); ?>')" class="btn btn-sm btn-secondary">Buy Now</button>
+                                    <button onclick="purchase('<?php se($item, 'id'); ?>')" class="btn btn-sm btn-secondary">Add to Cart</button>
                                 </div>
+                             
                                 <div class="col">
                                     <!-- WCK3 04/12/2022 edit items button --> 
                                     <?php if(has_role("Admin")) : ?> 
@@ -68,10 +75,12 @@ try {
                                     </form>
                                     <?php endif;?> 
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
-        <?php endif; endforeach; ?>
+                           
+        <?php endforeach; ?>
 </div>
         
  

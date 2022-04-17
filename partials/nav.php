@@ -39,17 +39,14 @@ session_start();
         <div class="collapse navbar-collapse" id="navContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <?php if (is_logged_in()) : ?>
-
                     <li class="nav-item"><a class="nav-link" href="<?php echo get_url('profile.php'); ?>">Profile</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?php echo get_url('shop.php'); ?>">Shop</a></li>
-                        
-                        
                 <?php endif; ?>
                 <?php if (!is_logged_in()) : ?>
                     <li class="nav-item"><a class="nav-link" href="<?php echo get_url('shop.php'); ?>">Shop</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?php echo get_url('login.php'); ?>">Login</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?php echo get_url('register.php'); ?>">Register</a></li>
-                <?php endif; ?>
+                <?php endif; ?> 
                 <?php if (has_role("Admin")) : ?>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="rolesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -73,10 +70,11 @@ session_start();
                         </ul>
                     </li>
                 <?php endif; ?>
+                <li class="nav-item"><a class="nav-link" href="<?php echo get_url('cart.php'); ?>">Cart</a></li>
                 <?php if (is_logged_in()) : ?>
                     <li class="nav-item"><a class="nav-link" href="<?php echo get_url('logout.php'); ?>">Logout</a></li>
                 <?php endif; ?>
-            </ul>
+                </ul>
         </div>
     </div>
 

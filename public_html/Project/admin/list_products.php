@@ -34,7 +34,7 @@ if (isset($_POST["itemName"])) {
     <?php if (count($results) == 0) : ?>
         <p>No results to show</p>
     <?php else : ?>
-        <table class="table">
+        <table class="table text-white">
             <?php foreach ($results as $index => $record) : ?>
                 <?php if ($index == 0) : ?>
                     <thead>

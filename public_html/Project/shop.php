@@ -1,11 +1,18 @@
 <?php
 require(__DIR__ . "/../../partials/nav.php");
+require(__DIR__ . "/cart_helpers.php");
+
 ?>
 <script>
     function purchase(item) {
-        console.log("TODO purchase item", item);
-        alert("It's almost like you purchased an item, but not really");
+        //console.log("TODO purchase item", item);
+        //alert("It's almost like you purchased an item, but not really");
         //TODO create JS helper to update all show-balance elements
+        console.log("TODO purchase item", item);
+        //alert("It's almost like you purchased an item, but not really");
+        if (add_to_cart) {
+            add_to_cart(item);
+        }
     }
 </script>
 
@@ -58,7 +65,7 @@ if (!empty($col) && !empty($order)) {
 $query .= " LIMIT 10 ";
 
 $stmt = $db->prepare($query); //dynamically generated query
-//$stmt = $db->prepare("SELECT id, name, description, cost, stock, image FROM BGD_Items WHERE stock > 0 LIMIT 50");
+
 try {
     $stmt->execute($params); //dynamically populated params to bind
     $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -66,8 +73,7 @@ try {
         $results = $r;
     }
 } catch (PDOException $e) {
-    error_log(var_export($e, true));
-    echo $e;
+    error_log(var_export($e, true));  
     flash("Error fetching items", "danger");
 }
 
@@ -163,8 +169,9 @@ try {
                                 $<?php se($item, "price");?> </br>
                                 <div class="row">
                                     <div class="col">
-                                        <button onclick="purchase('<?php se($item, 'id'); ?>')" class="btn btn-sm btn-secondary">Buy Now</button>
+                                        <button onclick="purchase('<?php se($item, 'id'); ?>')" class="btn btn-sm btn-secondary">Add to Cart</button>
                                     </div>
+                                    
                                     <!-- WCK3 04/12/2022 more details button -->
                                     <div class="col">
                                         <form action="product_details.php" method="GET">
@@ -196,5 +203,6 @@ try {
 </div> 
 
 <?php
+//equire_once(__DIR__ . "/cart.php");
 require_once(__DIR__ . "/../../partials/flash.php");
 ?>

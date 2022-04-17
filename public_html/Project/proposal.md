@@ -120,25 +120,36 @@
     - [Milestone2.md]()
     - [https://wck3-prod.herokuapp.com/Project/product_details.php](https://wck3-prod.herokuapp.com/Project/product_details.php)
     - Name, description, unit_price, stock, category
-  - [ ] (mm/dd/yyyy) User must be logged in for any Cart related activity below
-  - [ ] (mm/dd/yyyy) User will be able to add items to Cart
+  - [x] (04/16/2022) User must be logged in for any Cart related activity below
+    - [Milestone2.md]()
+    - [https://wck3-prod.herokuapp.com/Project/cart.php](https://wck3-prod.herokuapp.com/Project/admin/cart.php) 
+  - [x] (04/16/2022) User will be able to add items to Cart
+    - [Milestone2.md]()
+    - [https://wck3-prod.herokuapp.com/Project/shop.php](https://wck3-prod.herokuapp.com/Project/shop.php)
     - Cart will be table-based /(id, product_id, user_id, desired_quantity, unit_price, created, modified/)
-      - [ ] Choose one and cross out which one you won’t support
-        - [ ] If a user can have only 1 cart product_id and user_id should be a composite unique key
-        - [ ] If a user can have more than 1 cart, add a field called cart_id and cart_id, user_id, and product_id will be a composite unique key
+      - [x] Choose one and cross out which one you won’t support
+        - [x] If a user can have only 1 cart product_id and user_id should be a composite unique key
+        - [ ] ~~If a user can have more than 1 cart, add a field called cart_id and cart_id, user_id, and product_id will be a composite unique key~~
     - Adding items to Cart will not affect the Product's quantity in the Products table
-  - [ ] (mm/dd/yyyy) User will be able to see their cart
+  - [x] (04/16/2022) User will be able to see their cart
+    - [Milestone2.md]()
+    - [https://wck3-prod.herokuapp.com/Project/cart.php](https://wck3-prod.herokuapp.com/Project/admin/cart.php)  
     - List all the items
     - Show subtotal for each line item based on desired_quantity * unit_price (from the cart)
     - Show total cart value (sum of line item subtotals)
     - Will be able to click an item to see more details (Product Details Page)
   - [ ] (mm/dd/yyyy) User will be able to change quantity of items in their cart
+    - [Milestone2.md]()
+    - [https://wck3-prod.herokuapp.com/Project/cart.php](https://wck3-prod.herokuapp.com/Project/admin/cart.php)  
     - Quantity of 0 should also remove from cart
     - A negative Quantity is not valid
-  - [ ] (mm/dd/yyyy) User will be able to remove a single item from their cart via button click
+  - [x] (04/16/2022) User will be able to remove a single item from their cart via button click
+    - [Milestone2.md]()
+    - [https://wck3-prod.herokuapp.com/Project/cart.php](https://wck3-prod.herokuapp.com/Project/admin/cart.php) 
   - [ ] (mm/dd/yyyy) User will be able to clear their entire cart via a button click
-  
-- Milestone 3
+    - [Milestone2.md]()
+    - [https://wck3-prod.herokuapp.com/Project/cart.php](https://wck3-prod.herokuapp.com/Project/admin/cart.php)  
+ - Milestone 3
   - [ ] (mm/dd/yyyy) User will be able to purchase items in their Cart
     - Create an Orders table (id, user_id, created, total_price, address, payment_method, money_received)
       - [ ] Payment method will simply record (Cash, Visa, MasterCard, Amex, etc) We will not be recording CC numbers or anything of that nature, this is just a sample and in real world projects you’d commonly use a third party payment processor

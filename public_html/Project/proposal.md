@@ -138,7 +138,7 @@
     - Show subtotal for each line item based on desired_quantity * unit_price (from the cart)
     - Show total cart value (sum of line item subtotals)
     - Will be able to click an item to see more details (Product Details Page)
-  - [ ] (mm/dd/yyyy) User will be able to change quantity of items in their cart
+  - [x] (04/17/2022) User will be able to change quantity of items in their cart
     - [Milestone2.md]()
     - [https://wck3-prod.herokuapp.com/Project/cart.php](https://wck3-prod.herokuapp.com/Project/admin/cart.php)  
     - Quantity of 0 should also remove from cart
@@ -146,7 +146,7 @@
   - [x] (04/16/2022) User will be able to remove a single item from their cart via button click
     - [Milestone2.md]()
     - [https://wck3-prod.herokuapp.com/Project/cart.php](https://wck3-prod.herokuapp.com/Project/admin/cart.php) 
-  - [ ] (mm/dd/yyyy) User will be able to clear their entire cart via a button click
+  - [x] (04/17/2022) User will be able to clear their entire cart via a button click
     - [Milestone2.md]()
     - [https://wck3-prod.herokuapp.com/Project/cart.php](https://wck3-prod.herokuapp.com/Project/admin/cart.php)  
  - Milestone 3

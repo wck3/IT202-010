@@ -1,7 +1,6 @@
 <?php
 require(__DIR__ . "/../../partials/nav.php");
 require_once(__DIR__ . "/../../lib/functions.php");
-require(__DIR__ . "/cart_helpers.php");
 require(__DIR__ . "/api/delete_cart.php");
 ?>
 
@@ -11,7 +10,7 @@ require(__DIR__ . "/api/delete_cart.php");
     flash("You must be logged in to view the cart.", "warning");
     die(header("Location: $BASE_PATH/login.php"));
 }
-
+require(__DIR__ . "/cart_helpers.php");
 //changing quantity of cart
 if (isset($_POST["update"])) {
     if (update_data("Shop_Cart", $_POST["item_id"], $_POST)) {

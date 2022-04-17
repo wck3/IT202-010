@@ -65,7 +65,7 @@ if (!empty($col) && !empty($order)) {
 $query .= " LIMIT 10 ";
 
 $stmt = $db->prepare($query); //dynamically generated query
-//$stmt = $db->prepare("SELECT id, name, description, cost, stock, image FROM BGD_Items WHERE stock > 0 LIMIT 50");
+
 try {
     $stmt->execute($params); //dynamically populated params to bind
     $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -73,8 +73,7 @@ try {
         $results = $r;
     }
 } catch (PDOException $e) {
-    error_log(var_export($e, true));
-    echo $e;
+    error_log(var_export($e, true));  
     flash("Error fetching items", "danger");
 }
 

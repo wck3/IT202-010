@@ -3,21 +3,40 @@ require(__DIR__ . "/../../partials/nav.php");
 require_once(__DIR__ . "/../../lib/functions.php");
 require(__DIR__ . "/cart_helpers.php");
 require(__DIR__ . "/api/delete_cart.php");
-
 ?>
-<?php if(isset($_POST['delete'])): ?>
-
-<script>// window.location.reload(); </script>
-
-<?php endif;?>
 
 <!--WCK3 04/16/2022 user must be logged in for any cart activity-->
 <?php if(!is_logged_in()){
     //redirected to login page if not logged in
     flash("You must be logged in to view the cart.", "warning");
     die(header("Location: $BASE_PATH/login.php"));
+}
 
-} 
+//changing quantity of cart
+if (isset($_POST["update"])) {
+    if (update_data("Shop_Cart", $_POST["item_id"], $_POST)) {
+        flash("Updated Quantity", "success");
+    }
+    if($_POST["quantity"]==0){
+        deleteLineItem($_POST["item_id"], " ");
+    }
+}
+
+//removing a single item
+if (isset($_POST["delete"])) {
+
+    if (deleteLineItem($_POST["item_id"], " ")) {
+        flash("Removed item", "success");
+    }
+}
+
+//clearing entire cart
+if (isset($_POST["clear"])) {
+    if (deleteLineItem("", " ")) {
+        flash("Cart Cleared", "success");
+    }
+}
+
 
 $user_id = get_user_id();
 $results=[];
@@ -79,7 +98,17 @@ if ($user_id > 0) {
                     <tr>
                         <td><?php se($item, "name"); ?></td>
                         <td><?php se($item, "description"); ?></td>
-                        <td><?php se($item, "quantity"); ?></td>
+                        <td> 
+                        <form method="POST" >
+                            <div class="col-md-2">
+                                <label class="form-label" for="<?php se($item); ?>"></label>
+                                <input class="form-control " id="<?php se($item, "line_id"); ?>" type="number" min="0" value="<?php se($item, "quantity"); ?>" name="quantity" />
+                                <input class="form-control" hidden name="item_id" value="<?php se($item, "line_id");?>">
+                                <input class="btn btn-secondary" type="submit" value="Update" name="update" />
+                            </div>
+                            
+                        </form>
+                    </td>
                         <td>$<?php se($item, "subtotal"); ?></td>
                         <td>
                         <!-- WCK3 04/12/2022 more details button -->
@@ -89,9 +118,10 @@ if ($user_id > 0) {
                                 <button type="submit" class="btn btn-sm btn-secondary">More Details </button>
                             </form>
                         </div>
-                        
-                            <form onsubmit="deleteLineItem('<?php echo json_encode($item['line_id']); ?>')"  method="POST">
+                            <form method="POST"> 
+                            <input type="hidden" name="item_id" value="<?php se($item, "line_id");?>">
                                 <input class="btn btn-secondary" type="submit" value="Remove" name="delete"/>
+                               
                             </form>
                         </td>
                     </tr>
@@ -111,8 +141,10 @@ if ($user_id > 0) {
                  
                         <button onclick="purchase('<?php echo json_encode($item['line_id']); ?>')" class="btn btn-sm btn-secondary">Buy Now</button> 
                         <!-- WIP Delete all -->
-                        <button method="POST" onclick="deleteLineItem()"  class="btn btn-sm btn-secondary">Clear Cart</button> 
-                        </div>
+                        <form method="POST"> 
+                           <input class="btn btn-secondary" type="submit" value="Clear Cart" name="clear"/>
+                        </form>
+                    </div>
 
                 </div>
             <?php endif;?>

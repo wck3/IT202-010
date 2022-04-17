@@ -9,6 +9,5 @@ CREATE TABLE IF NOT EXISTS Shop_Cart(
     FOREIGN KEY (user_id) REFERENCES Users(id),
     FOREIGN KEY (item_id) REFERENCES Shop_Items(id),
     UNIQUE KEY (user_id, item_id),
-    check(quantity > 0)
-
-)
+    CHECK (quantity>=0);
+);

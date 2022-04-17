@@ -1,4 +1,6 @@
-<script>function get_cart() {
+<script>
+
+function get_cart() {
     postData({}, "/Project/api/get_cart.php").then(data => {
         console.log(data);
         let carts = document.getElementsByClassName("cart");
@@ -77,22 +79,7 @@
         }
     })
 }
-function deleteLineItem(line_id, ele) {
-    console.log("delete ele", ele);
-    postData({
-        line_id: line_id
-    }, "/Project/api/delete_cart.php").then(data => {
-        console.log(data);
-        //lazily assuming it worked and removing from the DOM
-        //you'd ideally want to check to be sure if using a similar process
-        //ele.closest("tr").remove();
-        //turns out since I have total shown I need to recalculate that, and I'm lazy so instead...
-        //I'll refresh the full cart
-        //if (get_cart) {
-        //    get_cart();
-        //}
-    });
-}
+
 function purchase_cart() {
     postData({}, "/Project/api/purchase_cart.php").then(data => {
         console.log(data);

@@ -21,6 +21,8 @@ $results = [];
 $db = getDB();
 //process filters/sorting
 //Sort and Filters
+
+//WCK3 04/15/2022 all filters done below
 $col = se($_GET, "col", "price", false);
 
 //allowed list
@@ -80,7 +82,7 @@ try {
 ?>
 
 <div class="container-fluid">
-    <!--Filters-->
+    <!--WK 04/15/2022 Filters-->
     <h1>Shop</h1>
     <form class="row row-cols-auto g-4 align-items-center">
         <div class="col">
@@ -147,7 +149,7 @@ try {
         </div>
     </form>
     <!--End Filters-->
-
+    <!--WK 04/15/2022 Items-->
     <?php if (count($results) == 0) : ?>
         <p>No results to show</p>
     <?php else : $item_count=0; ?>

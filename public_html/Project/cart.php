@@ -137,8 +137,12 @@ if ($user_id > 0) {
             Total: $<?php se($total); ?> <br>
                 <div class="row sm-1">
                     <div class="col">
-                 
-                        <button onclick="purchase('<?php echo json_encode($item['line_id']); ?>')" class="btn btn-sm btn-secondary">Buy Now</button> 
+                         <form action="checkout.php" method="GET">
+                                <input type="hidden" name="product_id" value="<?php echo $item["item_id"]?>">
+                                <button type="submit" class="btn btn-sm btn-secondary">Proceed to Checkout </button>
+                         </form>
+                        
+                
                         <!-- WIP Delete all -->
                         <form method="POST"> 
                            <input class="btn btn-secondary" type="submit" value="Clear Cart" name="clear"/>

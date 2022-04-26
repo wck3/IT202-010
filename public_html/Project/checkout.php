@@ -8,6 +8,8 @@ if(!is_logged_in()){
     die(header("Location: $BASE_PATH/login.php"));
 }
 
+
+//Fetch cart information to display items in checkout
 $user_id = get_user_id();
 $results=[];
 if ($user_id > 0) {
@@ -42,23 +44,51 @@ if(empty($results)){
 
                 <div class="col-4">
                     <div class="h4">Payment Info</div>
-                    <div class="mb-3">
-                        <label for="username">Username</label>
-                        <input  class="form-control" type="text" name="username" />
-                    </div>
-                    <div class="mb-3">
-                        <label for="address">Address</label>
-                        <input  class="form-control" type="text" name="address"/>
-                    </div>
-                    <div class="mb-3">
-                        <label for="payment">Payment Method</label>
-                        <input class="form-control" type="text" name="payment"  />
-                    </div>
-                    <div class="mb-3">
-                        <label for="payment_total">Payment Total</label>
-                        <input class="form-control" type="number" min="0" name="payment"  />
-                    </div>
-                        <input class="btn btn-secondary" type="submit" value="Submit" />
+                    <form method="POST"  onsubmit="return validate(this)" >
+                        <div class="mb-3">
+                            <label for="username">Username</label>
+                            <input  class="form-control" type="text" name="username" value="<?php se(get_username()); ?>"/>
+                        </div>
+                        <div class="mb-3">
+                            <label for="address">Address</label>
+                            <input  class="form-control" type="text" name="address"/>
+                        </div>
+                        <div class="mb-3">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="address">City</label>
+                                    <input  class="form-control" type="text" name="City"/>
+                                </div>
+                               
+                               <?php require(__DIR__ . "/address_fields.php");?>
+                              
+                            </div>
+                            <div class="row">  
+                                <div class="col">
+                                    <label for="address">Zip/postal code</label>
+                                    <input  class="form-control" type="text" name="state"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="payment">Payment Method: </label>
+                            <!--<input class="form-control" type="text" name="payment"  /> -->
+                            <select class="form-control-md-3 bg-white " name="payment_method">
+                    
+                                <option value="poop" selected>Select</i></option> 
+                                <option value="Cash" name="Cash" >Cash</option>
+                                <option value="Visa" name="Visa">Visa</option>
+                                <option value="MasterCard" name="MasterCard">MasterCard</option>
+                                <option value="Amex" name="Amex" >Amex</option>
+                                <option value="PayPal" name="PayPal" >PayPal</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="payment_total">Payment Total: $</label>
+                            <input class="form-control-3" type="number" min="0" name="payment"  />
+                        </div>
+                            <input class="btn btn-secondary" type="submit" value="Submit" />
+                    </form>
                 </div>
                 <div class="col-2"></div>
                 <div class="col-5">
@@ -103,6 +133,63 @@ if(empty($results)){
    
    
 </div> <!-- End Page-->
+
+<script>
+    //WCK3 4/26/2022 client side payment method validation
+    function validate(form) {
+        //template
+         
+        //let con = form.confirmPassword.value;
+        let username=form.username.value;
+        let address=form.address.value;
+        let city=form.City.value;
+        let state=form.state.value;
+        let payment_method=form.payment_method.value;
+        let money_recieved=form.payment.value;
+        let isValid=true;
+        
+        //regex expressions to validate various payment method fields
+        var usernamePattern = /[a-zA-Z0-9_-]{3,16}$/;
+        var addressPattern = /^[A-Za-z0-9'\.\-\s\,]$/;
+        var cityPattern = /^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/;
+        var currencyPattern = /^(?=.*?\d)^\$?(([1-9]\d{0,2}(,\d{3})*)|\d+)?(\.\d{1,2})?$/;
+
+        if((username.length < 3 || username.length > 16) || !usernamePattern.test(username)){
+            isValid=false;
+            flash("Invalid username. Username must only contain 3-16 characters a-z, 0-9, _, or -", "danger");
+        }
+        if(!addressPattern.test(address) || address.length==0){
+            isValid=false;
+            flash("Please enter a valid address", "warning");
+        }
+        if(!cityPattern.test(city) || city.length==0){
+            isValid=false;
+            flash("Please enter a valid city", "warning");
+        }
+        
+        //validates using array defined in address_fields partial
+        if(!states.includes(state)){
+            isValid=false;
+            flash("Please enter a valid state", "warning");
+        }
+        payment_methods=["Cash", "Visa", "MasterCard", "Amex", "PayPal"];
+        if(!payment_methods.includes(payment_method)){
+            isValid=false;
+            flash("Please enter a valid payment method", "warning");
+        }
+
+        if(!currencyPattern.test(money_recieved) || money_recieved.length==0){
+            isValid=false;
+            flash("Please enter a valid payment amount in USD", "warning");
+        }
+    
+        
+        return isValid;
+      
+        
+       
+    }
+</script>
 
 <?php 
 require_once(__DIR__ . "/../../partials/flash.php");

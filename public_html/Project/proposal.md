@@ -151,15 +151,15 @@
     - [https://wck3-prod.herokuapp.com/Project/cart.php](https://wck3-prod.herokuapp.com/Project/admin/cart.php)  
  - Milestone 3
   - [ ] (mm/dd/yyyy) User will be able to purchase items in their Cart
-    - Create an Orders table (id, user_id, created, total_price, address, payment_method, money_received)
+    - [x] Create an Orders table (id, user_id, created, total_price, address, payment_method, money_received)
       - [ ] Payment method will simply record (Cash, Visa, MasterCard, Amex, etc) We will not be recording CC numbers or anything of that nature, this is just a sample and in real world projects you’d commonly use a third party payment processor
       - [ ] Hint: This must be inserted first before you can insert into the OrderItems table
-    - Create an OrderItems table (id, order_id, product_id, quantity, unit_price)
+    - [x] Create an OrderItems table (id, order_id, product_id, quantity, unit_price)
       - [ ] Hint: This is basically a copy of the data from the Cart table, just persisted as a purchase
     - Checkout Form
       - [ ] Ask for payment method (Cash, Visa, MasterCard, Amex, etc)
-      - [ ] Do not ask for credit card number, this is just a sample
-      - [ ] Ask for a numerical value to be entered 
+      - [x] Do not ask for credit card number, this is just a sample
+      - [x] Ask for a numerical value to be entered 
         - Note: this will be a fake payment check to compare against the cart total to determine if the payment succeeds
         - This will be recorded as money_received
       - [ ] Ask for Address/shipping information

@@ -24,7 +24,13 @@ if ($user_id > 0) {
         error_log("Error fetching cart" . var_export($e, true));
     }
 }
+
+if(empty($results)){
+    flash("You must add items to your cart to checkout", "warning");
+    die(header("Location: $BASE_PATH/shop.php"));
+}
 ?>
+
 <div class="container-fluid">
     <br>
     <div class="card bg-dark">

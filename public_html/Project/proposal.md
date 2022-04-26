@@ -152,20 +152,20 @@
  - Milestone 3
   - [ ] (mm/dd/yyyy) User will be able to purchase items in their Cart
     - [x] Create an Orders table (id, user_id, created, total_price, address, payment_method, money_received)
-      - [ ] Payment method will simply record (Cash, Visa, MasterCard, Amex, etc) We will not be recording CC numbers or anything of that nature, this is just a sample and in real world projects you’d commonly use a third party payment processor
-      - [ ] Hint: This must be inserted first before you can insert into the OrderItems table
+      - [x] Payment method will simply record (Cash, Visa, MasterCard, Amex, etc) We will not be recording CC numbers or anything of that nature, this is just a sample and in real world projects you’d commonly use a third party payment processor
+      - [x] Hint: This must be inserted first before you can insert into the OrderItems table
     - [x] Create an OrderItems table (id, order_id, product_id, quantity, unit_price)
-      - [ ] Hint: This is basically a copy of the data from the Cart table, just persisted as a purchase
+      - [x] Hint: This is basically a copy of the data from the Cart table, just persisted as a purchase
     - Checkout Form
-      - [ ] Ask for payment method (Cash, Visa, MasterCard, Amex, etc)
+      - [x] Ask for payment method (Cash, Visa, MasterCard, Amex, etc)
       - [x] Do not ask for credit card number, this is just a sample
       - [x] Ask for a numerical value to be entered 
         - Note: this will be a fake payment check to compare against the cart total to determine if the payment succeeds
         - This will be recorded as money_received
-      - [ ] Ask for Address/shipping information
+      - [x] Ask for Address/shipping information
         - You’ll need to concatenate this into a single string to insert into the DB
-    - [ ] User will be asked for their Address for shipping purposes
-    - [ ] Address form should validate correctly
+    - [x] User will be asked for their Address for shipping purposes
+    - [x] Address form should validate correctly
       - Use this as a rough guide (likely you’ll want to prefill some of the data you already have about the user)
       (IMAGE)
 

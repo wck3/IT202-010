@@ -138,7 +138,6 @@ if ($user_id > 0) {
                 <div class="row sm-1">
                     <div class="col">
                          <form action="checkout.php" method="GET">
-                                <input type="hidden" name="product_id" value="<?php echo $item["item_id"]?>">
                                 <button type="submit" class="btn btn-sm btn-secondary">Proceed to Checkout </button>
                          </form>
                         

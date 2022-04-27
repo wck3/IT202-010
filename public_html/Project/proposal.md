@@ -170,11 +170,11 @@
       (IMAGE)
 
     - [ ] Order process (comment each part of the process):
-    - [ ] Calculate Cart Items
-    - [ ] Verify the current product price against the Products table
+    - [x] Calculate Cart Items
+    - [x] Verify the current product price against the Products table
       - Since our Cart is table-based it can be long lived so if a user added a Product at a sale and they attempt to purchase afterwards, it should pull the true Product cost.
       - You can also show the Cart.unit_price vs Product.unit_price to show a sale or an increase in price
-    - [ ] Verify desired product and desired quantity are still available in the Products table
+    - [x] Verify desired product and desired quantity are still available in the Products table
       - Users can’t purchase more than what’s in stock
       - Show an error message and prevent order from going through if something isn’t available
       - Let the user update their cart and try again

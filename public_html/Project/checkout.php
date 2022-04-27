@@ -57,7 +57,7 @@ if(empty($results)){
                             <div class="row">
                                 <div class="col">
                                     <label for="address">City</label>
-                                    <input  class="form-control" type="text" name="City"/>
+                                    <input class="form-control" type="text" name="City"/>
                                 </div>
                                
                                <?php require(__DIR__ . "/address_fields.php");?>
@@ -66,7 +66,7 @@ if(empty($results)){
                             <div class="row">  
                                 <div class="col">
                                     <label for="address">Zip/postal code</label>
-                                    <input  class="form-control" type="text" name="state"/>
+                                    <input  class="form-control" type="text" name="zip"/>
                                 </div>
                             </div>
                         </div>
@@ -85,7 +85,7 @@ if(empty($results)){
                         </div>
                         <div class="mb-3">
                             <label for="payment_total">Payment Total: $</label>
-                            <input class="form-control-3" type="number" min="0" name="payment"  />
+                            <input class="form-control-3" type="number" min="0" step="0.01" name="payment"  />
                         </div>
                             <input class="btn btn-secondary" type="submit" value="Submit" />
                     </form>
@@ -146,13 +146,16 @@ if(empty($results)){
         let state=form.state.value;
         let payment_method=form.payment_method.value;
         let money_recieved=form.payment.value;
+        let zipcode=form.zip.value;
         let isValid=true;
-        
+
+         
         //regex expressions to validate various payment method fields
         var usernamePattern = /[a-zA-Z0-9_-]{3,16}$/;
-        var addressPattern = /^[A-Za-z0-9'\.\-\s\,]$/;
+        var addressPattern = /^[#.0-9a-zA-Z\s,-]+$/;
         var cityPattern = /^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/;
         var currencyPattern = /^(?=.*?\d)^\$?(([1-9]\d{0,2}(,\d{3})*)|\d+)?(\.\d{1,2})?$/;
+        
 
         if((username.length < 3 || username.length > 16) || !usernamePattern.test(username)){
             isValid=false;
@@ -182,12 +185,15 @@ if(empty($results)){
             isValid=false;
             flash("Please enter a valid payment amount in USD", "warning");
         }
-    
+        if(zipcode.length < 5 || zipcode.length > 5){
+            isValid=false;
+            flash("Please enter a vaild 5-digit zipcode", "warning");
+        }
         
+        if(isValid){
+            console.log("client side validation successful");
+        }
         return isValid;
-      
-        
-       
     }
 </script>
 

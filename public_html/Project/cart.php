@@ -41,7 +41,7 @@ $user_id = get_user_id();
 $results=[];
 if ($user_id > 0) {
     $db = getDB();
-    $stmt = $db->prepare("SELECT name, c.id as line_id, item_id, quantity,description ,CAST(price / 100.00 AS decimal(18,2)) AS price , CAST((price*quantity) / 100.00 AS decimal(18,2)) as subtotal FROM Shop_Items i JOIN Shop_Cart c on c.item_id = i.id WHERE c.user_id = :uid");
+    $stmt = $db->prepare("SELECT name, c.id as line_id, item_id, quantity,description ,CAST(c.price / 100.00 AS decimal(18,2)) AS cart_price , CAST(( c.price *quantity) / 100.00 AS decimal(18,2)) as subtotal FROM Shop_Items i JOIN Shop_Cart c on c.item_id = i.id WHERE c.user_id = :uid");
     try {
         $stmt->execute([":uid" => $user_id]);
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -50,6 +50,7 @@ if ($user_id > 0) {
         } 
     
     } catch (PDOException $e) {
+         echo $e;
         error_log("Error fetching cart" . var_export($e, true));
     }
 }

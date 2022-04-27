@@ -8,28 +8,35 @@ if(!is_logged_in()){
     die(header("Location: $BASE_PATH/login.php"));
 }
 
-
 //Fetch cart information to display items in checkout
 $user_id = get_user_id();
 $results=[];
 if ($user_id > 0) {
     $db = getDB();
-    $stmt = $db->prepare("SELECT name, c.id as line_id, item_id, quantity,description ,CAST(price / 100.00 AS decimal(18,2)) AS price , CAST((price*quantity) / 100.00 AS decimal(18,2)) as subtotal FROM Shop_Items i JOIN Shop_Cart c on c.item_id = i.id WHERE c.user_id = :uid");
+    //get cart info
+    $stmt = $db->prepare("SELECT name, c.id as line_id, item_id, quantity,description ,CAST(c.price / 100.00 AS decimal(18,2)) AS price , CAST((c.price*quantity) / 100.00 AS decimal(18,2)) as subtotal FROM Shop_Items i JOIN Shop_Cart c on c.item_id = i.id WHERE c.user_id = :uid");
+    
     try {
         $stmt->execute([":uid" => $user_id]);
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         if ($results) {
             $cart_items = $results;
+        }
+        //total cost of cart items
+        foreach ($results as $row) {
+           
         } 
     
     } catch (PDOException $e) {
+    
         error_log("Error fetching cart" . var_export($e, true));
     }
 }
 
+
 if(empty($results)){
     flash("You must add items to your cart to checkout", "warning");
-    die(header("Location: $BASE_PATH/shop.php"));
+    //die(header("Location: $BASE_PATH/shop.php"));
 }
 ?>
 
@@ -59,8 +66,8 @@ if(empty($results)){
                                     <label for="address">City</label>
                                     <input class="form-control" type="text" name="City"/>
                                 </div>
-                               
-                               <?php require(__DIR__ . "/address_fields.php");?>
+                               <!-- partial used for state dropdown -->
+                               <?php require(__DIR__ . "/../../partials/address_fields.php");?>
                               
                             </div>
                             <div class="row">  
@@ -155,14 +162,17 @@ if(empty($results)){
         var addressPattern = /^[#.0-9a-zA-Z\s,-]+$/;
         var cityPattern = /^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/;
         var currencyPattern = /^(?=.*?\d)^\$?(([1-9]\d{0,2}(,\d{3})*)|\d+)?(\.\d{1,2})?$/;
-        
+        var current_user = "<?php se(get_username()); ?>";
+
+        var cart_price = "<?php se($total); ?>";
+       
 
         if((username.length < 3 || username.length > 16) || !usernamePattern.test(username)){
             isValid=false;
             flash("Invalid username. Username must only contain 3-16 characters a-z, 0-9, _, or -", "danger");
         }
-
-        if(username != "<?php se(get_user_id()); ?>"){
+    
+        if(username != current_user){
             isValid=false;
             flash("Username does not match account username", "warning");
         }
@@ -189,6 +199,10 @@ if(empty($results)){
         if(!currencyPattern.test(money_recieved) || money_recieved.length==0){
             isValid=false;
             flash("Please enter a valid payment amount in USD", "warning");
+        }
+        if(money_recieved != cart_price){
+            isValid=false;
+            flash("Entered payment total does not match cart price", "warning");
         }
         if(zipcode.length < 5 || zipcode.length > 5){
             isValid=false;

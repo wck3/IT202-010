@@ -4,14 +4,14 @@ require(__DIR__ . "/cart_helpers.php");
 
 ?>
 <script>
-    function purchase(item) {
+    function purchase(item, price) {
         //console.log("TODO purchase item", item);
         //alert("It's almost like you purchased an item, but not really");
         //TODO create JS helper to update all show-balance elements
         console.log("TODO purchase item", item);
         //alert("It's almost like you purchased an item, but not really");
         if (add_to_cart) {
-            add_to_cart(item);
+            add_to_cart(item, 1 , price*100);
         }
     }
 </script>
@@ -169,7 +169,7 @@ try {
                                 $<?php se($item, "price");?> </br>
                                 <div class="row">
                                     <div class="col">
-                                        <button onclick="purchase('<?php se($item, 'id'); ?>')" class="btn btn-sm btn-secondary">Add to Cart</button>
+                                        <button onclick="purchase('<?php se($item, 'id'); ?>', '<?php se($item, 'price'); ?>')" class="btn btn-sm btn-secondary">Add to Cart</button>
                                     </div>
                                     
                                     <!-- WCK3 04/12/2022 more details button -->

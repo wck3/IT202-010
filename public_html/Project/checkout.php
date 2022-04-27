@@ -161,6 +161,11 @@ if(empty($results)){
             isValid=false;
             flash("Invalid username. Username must only contain 3-16 characters a-z, 0-9, _, or -", "danger");
         }
+
+        if(username != "<?php se(get_user_id()); ?>"){
+            isValid=false;
+            flash("Username does not match account username", "warning");
+        }
         if(!addressPattern.test(address) || address.length==0){
             isValid=false;
             flash("Please enter a valid address", "warning");

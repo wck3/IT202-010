@@ -9,17 +9,24 @@ if(!is_logged_in()){
 }
 
 //Fetch cart information to display items in checkout
+$checkout_valid=true;
 $user_id = get_user_id();
 $results=[];
 $price_check=[];
+$over_stock=[];
+$no_stock=[];
 if ($user_id > 0) {
     $db = getDB();
     //for verifying price between cart and items tabls
     $stmt = $db->prepare("SELECT c.price, i.price FROM Shop_Cart c, Shop_Items i WHERE c.item_id = i.id and c.price <> i.price and c.user_id = :uid");
     //update price in cart if needed (logic below)
     $stmt2 = $db->prepare("UPDATE Shop_Cart c, Shop_Items i SET c.price = i.price WHERE c.item_id = i.id AND c.user_id = :uid");
+    //queries all cart items that exceed quantity of store items
+    $stmt3 = $db->prepare("SELECT name, i.stock FROM Shop_Items i, Shop_Cart c WHERE i.id = c.item_id AND (c.quantity > i.stock) AND c.user_id = :uid");
+    //queries all cart items that are out of stock in the shop items table
+    $stmt4 = $db->prepare("SELECT name, i.stock FROM Shop_Items i, Shop_Cart c WHERE i.id = c.item_id AND i.stock=0 AND c.user_id = :uid");
     //retrieve cart info
-    $stmt3 = $db->prepare("SELECT name, c.id as line_id, item_id, quantity,description ,CAST(c.price / 100.00 AS decimal(18,2)) AS price , CAST((c.price*quantity) / 100.00 AS decimal(18,2)) as subtotal FROM Shop_Items i JOIN Shop_Cart c on c.item_id = i.id WHERE c.user_id = :uid");
+    $stmt5 = $db->prepare("SELECT name, c.id as line_id, item_id, quantity,description ,CAST(c.price / 100.00 AS decimal(18,2)) AS price , CAST((c.price*quantity) / 100.00 AS decimal(18,2)) as subtotal FROM Shop_Items i JOIN Shop_Cart c on c.item_id = i.id WHERE c.user_id = :uid");
     try {
         
         $stmt->execute([":uid" => $user_id]);
@@ -29,22 +36,43 @@ if ($user_id > 0) {
             flash("the price of an item has been changed since being added to cart", "warning");
             $stmt2->execute([":uid" => $user_id]);
         }
-        //cart items are retrieved (after any price updates)
+        //if the cart items exceed the number of available items, the user is warned
         $stmt3->execute([":uid" => $user_id]);
-        $results = $stmt3->fetchAll(PDO::FETCH_ASSOC);
+        $over_stock = $stmt3->fetchAll(PDO::FETCH_ASSOC);
+        if($over_stock){
+            foreach ($over_stock as $item){
+                $checkout_valid=false;
+                flash("Cart contains more of item " . $item["name"] .  " than available stock: " . $item["stock"], "warning");
+            }
+        }
+
+        //if the cart item is out of stock, the user is warned
+        $stmt4->execute([":uid" => $user_id]);
+        $no_stock = $stmt4->fetchAll(PDO::FETCH_ASSOC);
+        if($no_stock){
+            foreach ($no_stock as $item){
+                $checkout_valid=false;
+                flash("Item " . $item["name"] .  " is out of stock", "warning");
+            }
+        }
+      
+        //cart items are retrieved (after any price updates)
+        $stmt5->execute([":uid" => $user_id]);
+        $results = $stmt5->fetchAll(PDO::FETCH_ASSOC);
         if ($results) {
             $cart_items = $results;
         }
+
     } catch (PDOException $e) {
         echo $e;
         error_log("Error fetching cart" . var_export($e, true));
     }
 }
 
-if(empty($results)){
+/*if(empty($results)){
     flash("You must have items to your cart to checkout", "warning");
     die(header("Location: $BASE_PATH/shop.php"));
-}
+}*/
 ?>
 
 <div class="container-fluid">

@@ -11,32 +11,38 @@ if(!is_logged_in()){
 //Fetch cart information to display items in checkout
 $user_id = get_user_id();
 $results=[];
+$price_check=[];
 if ($user_id > 0) {
     $db = getDB();
     //get cart info
     $stmt = $db->prepare("SELECT name, c.id as line_id, item_id, quantity,description ,CAST(c.price / 100.00 AS decimal(18,2)) AS price , CAST((c.price*quantity) / 100.00 AS decimal(18,2)) as subtotal FROM Shop_Items i JOIN Shop_Cart c on c.item_id = i.id WHERE c.user_id = :uid");
-    
+    $stmt2 = $db->prepare("SELECT c.price, i.price FROM Shop_Cart c, Shop_Items i WHERE c.item_id = i.id and c.user_id = :uid");
     try {
+        $price_check = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if (!$price_check){
+            flash("Price has updated since being added to cart", "warning");
+            
+            $stmt3 = $db->prepare("UPDATE Shop_Cart c, Shop_Items i SET c.price = i.price WHERE c.item_id = i.id AND c.user_id = :uid");
+            $stmt3->execute([":uid" => $user_id]);
+            
+        }
         $stmt->execute([":uid" => $user_id]);
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         if ($results) {
             $cart_items = $results;
         }
-        //total cost of cart items
-        foreach ($results as $row) {
-           
-        } 
-    
+        $stmt2->execute([":uid" => $user_id]);
+        $price_check = $stmt->fetchAll(PDO::FETCH_ASSOC);
+       
     } catch (PDOException $e) {
     
         error_log("Error fetching cart" . var_export($e, true));
     }
 }
 
-
 if(empty($results)){
-    flash("You must add items to your cart to checkout", "warning");
-    //die(header("Location: $BASE_PATH/shop.php"));
+    flash("You must have items to your cart to checkout", "warning");
+    die(header("Location: $BASE_PATH/shop.php"));
 }
 ?>
 

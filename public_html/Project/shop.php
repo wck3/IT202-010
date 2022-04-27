@@ -124,9 +124,9 @@ try {
                     document.forms[0].category.value = "<?php se($category); ?>";
             
                 </script>
-                <select class="form-control" name="order" value="<?php se($order); ?>">
-                    <option class="bg-white" value="asc">ascending</option>
-                    <option class="bg-white" value="desc">descending</option>
+                <select class="form-control  bg-secondary text-white" name="order" value="<?php se($order); ?>">
+                    <option class="bg-secondary" value="asc">ascending</option>
+                    <option class="bg-secondary" value="desc">descending</option>
                 </select>
                 <script data="this">
                     //quick fix to ensure proper value is selected since

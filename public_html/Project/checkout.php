@@ -69,10 +69,10 @@ if ($user_id > 0) {
     }
 }
 
-/*if(empty($results)){
+if(empty($results)){
     flash("You must have items to your cart to checkout", "warning");
     die(header("Location: $BASE_PATH/shop.php"));
-}*/
+}
 ?>
 
 <div class="container-fluid">

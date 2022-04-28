@@ -22,7 +22,6 @@ try {
         $results = $r;
     }
 } catch (PDOException $e) {
-    echo $e;
     error_log(var_export($e, true));
     flash("Error fetching items", "danger");
 }

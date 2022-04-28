@@ -67,12 +67,15 @@ session_start();
                         <ul class="dropdown-menu bg-secondary" aria-labelledby="itemsDropdown">
                              <li><a class="dropdown-item" href="<?php echo get_url('admin/add_product.php'); ?>">Add a Product</a></li>
                              <li><a class="dropdown-item" href="<?php echo get_url('admin/list_products.php'); ?>">List of Products</a></li>
+                             <li><a class="dropdown-item" href="<?php echo get_url('admin/all_purchase_hist.php'); ?>">All Purchases</a></li>
                         </ul>
                     </li>
                 <?php endif; ?>
-                <li class="nav-item"><a class="nav-link" href="<?php echo get_url('cart.php'); ?>">Cart</a></li>
                 <?php if (is_logged_in()) : ?>
+                    <li class="nav-item"><a class="nav-link" href="<?php echo get_url('cart.php'); ?>">Cart</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?php echo get_url('purchase_history.php'); ?>">Purchases</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?php echo get_url('logout.php'); ?>">Logout</a></li>
+           
                 <?php endif; ?>
                 </ul>
         </div>

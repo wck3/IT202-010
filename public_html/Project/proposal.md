@@ -122,7 +122,7 @@
     - Name, description, unit_price, stock, category
   - [x] (04/16/2022) User must be logged in for any Cart related activity below
     - [Milestone2.md](https://github.com/wck3/IT202-010/blob/Milestone2/public_html/Project/milestone2.md)
-    - [https://wck3-prod.herokuapp.com/Project/cart.php](https://wck3-prod.herokuapp.com/Project/admin/cart.php) 
+    - [https://wck3-prod.herokuapp.com/Project/cart.php](https://wck3-prod.herokuapp.com/Project/cart.php) 
   - [x] (04/16/2022) User will be able to add items to Cart
     - [Milestone2.md](https://github.com/wck3/IT202-010/blob/Milestone2/public_html/Project/milestone2.md)
     - [https://wck3-prod.herokuapp.com/Project/shop.php](https://wck3-prod.herokuapp.com/Project/shop.php)
@@ -133,62 +133,63 @@
     - Adding items to Cart will not affect the Product's quantity in the Products table
   - [x] (04/16/2022) User will be able to see their cart
     - [Milestone2.md](https://github.com/wck3/IT202-010/blob/Milestone2/public_html/Project/milestone2.md)
-    - [https://wck3-prod.herokuapp.com/Project/cart.php](https://wck3-prod.herokuapp.com/Project/admin/cart.php)  
+    - [https://wck3-prod.herokuapp.com/Project/cart.php](https://wck3-prod.herokuapp.com/Project/cart.php)  
     - List all the items
     - Show subtotal for each line item based on desired_quantity * unit_price (from the cart)
     - Show total cart value (sum of line item subtotals)
     - Will be able to click an item to see more details (Product Details Page)
   - [x] (04/17/2022) User will be able to change quantity of items in their cart
     - [Milestone2.md](https://github.com/wck3/IT202-010/blob/Milestone2/public_html/Project/milestone2.md)
-    - [https://wck3-prod.herokuapp.com/Project/cart.php](https://wck3-prod.herokuapp.com/Project/admin/cart.php)  
+    - [https://wck3-prod.herokuapp.com/Project/cart.php](https://wck3-prod.herokuapp.com/Project/cart.php)  
     - Quantity of 0 should also remove from cart
     - A negative Quantity is not valid
   - [x] (04/16/2022) User will be able to remove a single item from their cart via button click
     - [Milestone2.md](https://github.com/wck3/IT202-010/blob/Milestone2/public_html/Project/milestone2.md)
-    - [https://wck3-prod.herokuapp.com/Project/cart.php](https://wck3-prod.herokuapp.com/Project/admin/cart.php) 
+    - [https://wck3-prod.herokuapp.com/Project/cart.php](https://wck3-prod.herokuapp.com/Project/cart.php) 
   - [x] (04/17/2022) User will be able to clear their entire cart via a button click
     - [Milestone2.md](https://github.com/wck3/IT202-010/blob/Milestone2/public_html/Project/milestone2.md)
-    - [https://wck3-prod.herokuapp.com/Project/cart.php](https://wck3-prod.herokuapp.com/Project/admin/cart.php)  
+    - [https://wck3-prod.herokuapp.com/Project/cart.php](https://wck3-prod.herokuapp.com/Project/cart.php)  
  - Milestone 3
-  - [ ] (mm/dd/yyyy) User will be able to purchase items in their Cart
-    - Create an Orders table (id, user_id, created, total_price, address, payment_method, money_received)
-      - [ ] Payment method will simply record (Cash, Visa, MasterCard, Amex, etc) We will not be recording CC numbers or anything of that nature, this is just a sample and in real world projects you’d commonly use a third party payment processor
-      - [ ] Hint: This must be inserted first before you can insert into the OrderItems table
-    - Create an OrderItems table (id, order_id, product_id, quantity, unit_price)
-      - [ ] Hint: This is basically a copy of the data from the Cart table, just persisted as a purchase
+  - [x] (04/27/2022) User will be able to purchase items in their Cart
+    - [Milestone2.md](https://github.com/wck3/IT202-010/blob/Milestone2/public_html/Project/milestone2.md)
+    - [https://wck3-prod.herokuapp.com/Project/checkout.php](https://wck3-prod.herokuapp.com/Project/checkout.php)  
+    - [x] Create an Orders table (id, user_id, created, total_price, address, payment_method, money_received)
+      - [x] Payment method will simply record (Cash, Visa, MasterCard, Amex, etc) We will not be recording CC numbers or anything of that nature, this is just a sample and in real world projects you’d commonly use a third party payment processor
+      - [x] Hint: This must be inserted first before you can insert into the OrderItems table
+    - [x] Create an OrderItems table (id, order_id, product_id, quantity, unit_price)
+      - [x] Hint: This is basically a copy of the data from the Cart table, just persisted as a purchase
     - Checkout Form
-      - [ ] Ask for payment method (Cash, Visa, MasterCard, Amex, etc)
-      - [ ] Do not ask for credit card number, this is just a sample
-      - [ ] Ask for a numerical value to be entered 
+      - [x] Ask for payment method (Cash, Visa, MasterCard, Amex, etc)
+      - [x] Do not ask for credit card number, this is just a sample
+      - [x] Ask for a numerical value to be entered 
         - Note: this will be a fake payment check to compare against the cart total to determine if the payment succeeds
         - This will be recorded as money_received
-      - [ ] Ask for Address/shipping information
+      - [x] Ask for Address/shipping information
         - You’ll need to concatenate this into a single string to insert into the DB
-    - [ ] User will be asked for their Address for shipping purposes
-    - [ ] Address form should validate correctly
-      - Use this as a rough guide (likely you’ll want to prefill some of the data you already have about the user)
-      (IMAGE)
-
-    - [ ] Order process (comment each part of the process):
-    - [ ] Calculate Cart Items
-    - [ ] Verify the current product price against the Products table
+    - [x] User will be asked for their Address for shipping purposes
+    - [x] Address form should validate correctly
+    - [x] Order process (comment each part of the process):
+    - [x] Calculate Cart Items
+    - [x] Verify the current product price against the Products table
       - Since our Cart is table-based it can be long lived so if a user added a Product at a sale and they attempt to purchase afterwards, it should pull the true Product cost.
       - You can also show the Cart.unit_price vs Product.unit_price to show a sale or an increase in price
-    - [ ] Verify desired product and desired quantity are still available in the Products table
+    - [x] Verify desired product and desired quantity are still available in the Products table
       - Users can’t purchase more than what’s in stock
       - Show an error message and prevent order from going through if something isn’t available
       - Let the user update their cart and try again
       - Clearly show what the issue is (which product isn’t available, how much quantity is available if the cart exceeds it)
-    - [ ] Make an entry into the Orders table
-    - [ ] Get last Order ID from Orders table
-    - [ ] Copy the cart details into the OrderItems tables with the Order ID from the previous step
-    - [ ] Update the Products table Stock for each item to deduct the Ordered Quantity
-    - [ ] Clear out the user’s cart after successful order
-    - [ ] Redirect user to Order Confirmation Page
-  - [ ] (mm/dd/yyyy) Order Confirmation Page
+    - [x] Make an entry into the Orders table
+    - [x] Get last Order ID from Orders table
+    - [x] Copy the cart details into the OrderItems tables with the Order ID from the previous step
+    - [x] Update the Products table Stock for each item to deduct the Ordered Quantity
+    - [x] Clear out the user’s cart after successful order
+    - [x] Redirect user to Order Confirmation Page
+  - [x] (04/28/2022) Order Confirmation Page
+      - [Milestone2.md](https://github.com/wck3/IT202-010/blob/Milestone2/public_html/Project/milestone2.md)
+      - [https://wck3-prod.herokuapp.com/Project/thankyou.php](https://wck3-prod.herokuapp.com/Project/thankyou.php)   
       - Show the entire order details from the Order and OrderItems table (similar to cart)
-        - [ ] Including a the cost of each line item and the total value
-        - [ ] Show how they purchased and how much they paid
+        - [x] Including a the cost of each line item and the total value
+        - [x] Show how they purchased and how much they paid
       - Displays a Thank you message
   - [ ] (mm/dd/yyyy) User will be able to see their Purchase History
       - For now limit to 10 most recent orders

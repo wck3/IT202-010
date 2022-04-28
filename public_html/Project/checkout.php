@@ -244,7 +244,7 @@ if(empty($results)){
 //if all fields set and validated checkout can occur
 if(isset($_POST["address"]) && isset($_POST["City"]) && isset($_POST["state"]) && isset($_POST["zip"]) && isset($_POST["payment_method"]) && isset($_POST["payment"]) ){
     
-    $address = se($_POST, "address", "", false) . " " . se($_POST, "city", "", false) . ", " 
+    $address = se($_POST, "address", "", false) . " " . se($_POST, "City", "", false) . ", " 
     . se($_POST, "state", "", false) . " " . se($_POST, "zip", "", false) ;
 
     $pay_method = se($_POST, "payment_method", "", false);
@@ -284,7 +284,7 @@ if(isset($_POST["address"]) && isset($_POST["City"]) && isset($_POST["state"]) &
             $db = getDB();
             $stmt = $db->prepare("INSERT INTO Order_Items (order_id, item_id, quantity,  unit_price) VALUES(:order_id, :item_id, :quantity, :price)");
             try {
-                $stmt->execute([":order_id" => $curr_ID, ":item_id" => $item["item_id"], ":quantity" => $item["quantity"], ":price" => $item["price"]]);
+                $stmt->execute([":order_id" => $curr_ID, ":item_id" => $item["item_id"], ":quantity" => $item["quantity"], ":price" => $item["price"]*100]);
                 //flash("add to order items", "success");
             } catch (PDOException $e) {
                 echo $e;

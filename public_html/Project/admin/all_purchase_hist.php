@@ -4,7 +4,7 @@ is_logged_in(true);
 
 if (!has_role("Admin")) {
     flash("You don't have permission to view this page", "warning");
-    die(header("Location: $BASE_PATH" . "home.php"));
+    die(header("Location: $BASE_PATH" . "/home.php"));
 }
 //order items : quantity, item ID, subtotal (calculate)
 //shop orders : address, payment method, payment total

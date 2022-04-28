@@ -184,10 +184,12 @@
     - [x] Update the Products table Stock for each item to deduct the Ordered Quantity
     - [x] Clear out the user’s cart after successful order
     - [x] Redirect user to Order Confirmation Page
-  - [ ] (mm/dd/yyyy) Order Confirmation Page
+  - [x] (04/28/2022) Order Confirmation Page
+      - [Milestone2.md](https://github.com/wck3/IT202-010/blob/Milestone2/public_html/Project/milestone2.md)
+      - [https://wck3-prod.herokuapp.com/Project/thankyou.php](https://wck3-prod.herokuapp.com/Project/thankyou.php)   
       - Show the entire order details from the Order and OrderItems table (similar to cart)
-        - [ ] Including a the cost of each line item and the total value
-        - [ ] Show how they purchased and how much they paid
+        - [x] Including a the cost of each line item and the total value
+        - [x] Show how they purchased and how much they paid
       - Displays a Thank you message
   - [ ] (mm/dd/yyyy) User will be able to see their Purchase History
       - For now limit to 10 most recent orders

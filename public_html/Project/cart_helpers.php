@@ -94,11 +94,10 @@ function purchase_cart() {
         }
     })
 }
-function add_to_cart(item_id, quantity, price) {
+function add_to_cart(item_id, quantity = 1) {
     postData({
         item_id: item_id,
-        desired_quantity: quantity,
-        price: price
+        desired_quantity: quantity
     }, "/Project/api/add_to_cart.php").then(data => {
         if (data.status === 200) {
             flash(data.message, "success");

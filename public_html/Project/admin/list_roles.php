@@ -52,7 +52,7 @@ try {
             <input class="btn btn-secondary" type="submit" value="Search" />
         </div>
     </form>
-    <table class="table text-white">
+    <table class="table">
         <thead>
             <th>ID</th>
             <th>Name</th>

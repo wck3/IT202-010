@@ -57,21 +57,24 @@ try {
                         </div>
                         <div class="card-footer">
                             Price: $<?php se($item, "price");?><br>
-                            <div class="col">
-                                <button onclick="purchase('<?php se($item, 'id'); ?>')" class="btn btn-sm btn-secondary">Add to Cart</button>
-                            </div>
-                            <br>
-                            <div class="col">
-                                <!-- WCK3 04/12/2022 edit items button --> 
-                                <?php if(has_role("Admin")) : ?> 
-                                <form action="admin/edit_item.php" method="GET">
-                                    <input type="hidden" name="id" value="<?php echo $item["id"]?>">
-                                    <button type="submit" class="btn btn-sm btn-secondary ">Edit </button>
-                                    <?php if(se($item, "visibility", "", false)==0) : ?> 
-                                        Not Public
-                                    <?php endif; ?>
-                                </form>
-                                <?php endif;?> 
+                            <div class="row sm-1">
+                                <div class="col">
+                                    <button onclick="purchase('<?php se($item, 'id'); ?>')" class="btn btn-sm btn-secondary">Add to Cart</button>
+                                </div>
+                             
+                                <div class="col">
+                                    <!-- WCK3 04/12/2022 edit items button --> 
+                                    <?php if(has_role("Admin")) : ?> 
+                                    <form action="admin/edit_item.php" method="GET">
+                                        <input type="hidden" name="id" value="<?php echo $item["id"]?>">
+                                        <button type="submit" class="btn btn-sm btn-secondary ">Edit </button>
+                                        <?php if(se($item, "visibility", "", false)==0) : ?> 
+                                            Not Public
+                                        <?php endif; ?>
+                                    </form>
+                                    <?php endif;?> 
+                                </div>
+                                
                             </div>
                         </div>
                     </div>

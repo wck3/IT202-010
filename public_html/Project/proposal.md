@@ -151,7 +151,7 @@
     - [https://wck3-prod.herokuapp.com/Project/cart.php](https://wck3-prod.herokuapp.com/Project/cart.php)  
  - Milestone 3
   - [x] (04/27/2022) User will be able to purchase items in their Cart
-    - [Milestone2.md](https://github.com/wck3/IT202-010/blob/Milestone2/public_html/Project/milestone2.md)
+    - [Milestone3.md](https://github.com/wck3/IT202-010/blob/Milestone3/public_html/Project/milestone3.md)
     - [https://wck3-prod.herokuapp.com/Project/checkout.php](https://wck3-prod.herokuapp.com/Project/checkout.php)  
     - [x] Create an Orders table (id, user_id, created, total_price, address, payment_method, money_received)
       - [x] Payment method will simply record (Cash, Visa, MasterCard, Amex, etc) We will not be recording CC numbers or anything of that nature, this is just a sample and in real world projects you’d commonly use a third party payment processor
@@ -185,17 +185,23 @@
     - [x] Clear out the user’s cart after successful order
     - [x] Redirect user to Order Confirmation Page
   - [x] (04/28/2022) Order Confirmation Page
-      - [Milestone2.md](https://github.com/wck3/IT202-010/blob/Milestone2/public_html/Project/milestone2.md)
+      - [Milestone3.md](https://github.com/wck3/IT202-010/blob/Milestone3/public_html/Project/milestone3.md)
       - [https://wck3-prod.herokuapp.com/Project/thankyou.php](https://wck3-prod.herokuapp.com/Project/thankyou.php)   
       - Show the entire order details from the Order and OrderItems table (similar to cart)
         - [x] Including a the cost of each line item and the total value
         - [x] Show how they purchased and how much they paid
       - Displays a Thank you message
-  - [ ] (mm/dd/yyyy) User will be able to see their Purchase History
+  - [x] (04/28/2022) User will be able to see their Purchase History
+      - [Milestone3.md](https://github.com/wck3/IT202-010/blob/Milestone3/public_html/Project/milestone3.md)
+      - [https://wck3-prod.herokuapp.com/Project/purchase_history.php](https://wck3-prod.herokuapp.com/Project/purchase_history.php)
+      - [https://wck3-prod.herokuapp.com/Project/order_details.php](https://wck3-prod.herokuapp.com/Project/order_details.php)    
       - For now limit to 10 most recent orders
       - Show a summary of relevant information
       - A list item can be clicked to view the full details in the Order Details Page (similar to Order Confirmation Page except no “Thank you” message)
-  - [ ] (mm/dd/yyyy) Store Owner will be able to see all Purchase History
+  - [x] (04/28/2022) Store Owner will be able to see all Purchase History
+      - [Milestone3.md](https://github.com/wck3/IT202-010/blob/Milestone3/public_html/Project/milestone3.md)
+      - [https://wck3-prod.herokuapp.com/Project/admin/all_purchase_hist.php](https://wck3-prod.herokuapp.com/Project/admin/all_purchase_hist.php)
+      - [https://wck3-prod.herokuapp.com/Project/admin/admin_order_details.php](https://wck3-prod.herokuapp.com/Project/admin/admin_order_details.php)    
       - For now limit to 10 most recent orders
       - A list item can be clicked to view the full details in the Order Details Page (similar to Order Confirmation Page except no “Thank you” message)
 

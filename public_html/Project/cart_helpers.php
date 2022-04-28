@@ -112,5 +112,4 @@ function add_to_cart(item_id, quantity, price) {
         flash("There was a problem adding the item to cart", "danger");
     });
 }
-
 </script>

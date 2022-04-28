@@ -4,7 +4,7 @@ require(__DIR__ . "/../../../partials/nav.php");
 
 if (!has_role("Admin")) {
     flash("You don't have permission to view this page", "warning");
-    die(header("Location: $BASE_PATH" . "home.php"));
+    die(header("Location: $BASE_PATH" . "/home.php"));
 }
 //handle the toggle first so select pulls fresh data
 if (isset($_POST["role_id"])) {
@@ -52,7 +52,7 @@ try {
             <input class="btn btn-secondary" type="submit" value="Search" />
         </div>
     </form>
-    <table class="table">
+    <table class="table text-white">
         <thead>
             <th>ID</th>
             <th>Name</th>

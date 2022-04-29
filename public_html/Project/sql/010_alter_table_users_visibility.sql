@@ -1,1 +1,2 @@
-ALTER TABLE USERS ADD visibility tintint default 0;
+ALTER TABLE `Users` ADD visibility tinyint default 1;
+

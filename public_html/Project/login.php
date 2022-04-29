@@ -3,7 +3,7 @@ require(__DIR__ . "/../../partials/nav.php");
 ?>
 <form onsubmit="return validate(this)" method="POST">
     <div class="container-fluid">
-        <br>
+        <h1>Login</h1>
         <div class="col-2"> 
             <div class="mb-3">
                 <label for="email">Email/Username</label>

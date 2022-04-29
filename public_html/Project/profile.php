@@ -1,11 +1,13 @@
 <?php
 require_once(__DIR__ . "/../../partials/nav.php");
+require_once(__DIR__ . "/../../lib/functions.php");
 is_logged_in(true);
 ?>
 <?php
 if (isset($_POST["save"])) {
     $email = se($_POST, "email", null, false);
     $username = se($_POST, "username", null, false);
+    $visibility = se($_POST, "visibility", null, false);
     $hasError = false;
     //sanitize
     $email = sanitize_email($email);
@@ -19,9 +21,9 @@ if (isset($_POST["save"])) {
         $hasError = true;
     }
     if (!$hasError) {
-        $params = [":email" => $email, ":username" => $username, ":id" => get_user_id()];
+        $params = [":email" => $email, ":username" => $username, ":id" => get_user_id(),":visibility"=> $visibility];
         $db = getDB();
-        $stmt = $db->prepare("UPDATE Users set email = :email, username = :username where id = :id");
+        $stmt = $db->prepare("UPDATE Users set visibility = :visibility, email = :email, username = :username where id = :id");
         try {
             $stmt->execute($params);
             flash("Profile saved", "success");
@@ -91,6 +93,15 @@ if (isset($_POST["save"])) {
         }
     }
 }
+$db = getDB();
+$stmt = $db->prepare("SELECT visibility from Users where id = :id");
+try {
+    $stmt->execute([":id" => get_user_id()]);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+} catch (Exception $e) {
+    echo "<pre>" . var_export($e->errorInfo, true) . "</pre>";
+}
 ?>
 
 <?php
@@ -125,7 +136,34 @@ $username = get_username();
             <input class="form-control" type="password" name="confirmPassword" id="conp" />
         </div>
     </div>
-
+    <?php foreach ($result as $column => $value) : ?>
+        <!-- WCK3 4/28/2022 make visibility a radio option-->
+        <?php if( $column =="visibility" &&  se($value, "", "" ,false)==1) :  ?>
+            <label>make profile public?</label>
+            <br>
+            <div class="form-check form-check-inline">
+                <input type="radio" class="form-check-input" id="<?php se($column); ?>"  value="1" name="<?php se($column); ?>" checked >
+                <label class="form-check-label" for="<?php se($column); ?>">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input  type="radio" class="form-check-input" id="<?php se($column); ?>"value="0" name="<?php se($column); ?>">
+                <label class="form-check-label" for="<?php se($column); ?>">No</label>
+            </div>
+    
+        <?php elseif($column =="visibility" &&  se($value, "", "" ,false)==0) : ?>
+            <label>make profile public?</label>
+            <br>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" id="<?php se($column); ?>" type="radio"  value="<?php se(1)?>" name="<?php se($column); ?>" >
+                <label class="form-check-label" for="<?php se($column); ?>">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" id="<?php se($column); ?>" type="radio"  value="<?php se(0)?>" name="<?php se($column); ?>" checked>
+                <label class="form-check-label" for="<?php se($column); ?>">No</label>
+            </div>
+        <?php endif ?>
+    <?php endforeach; ?>
+    <br>
     <input type="submit" class="btn btn-secondary" value="Update Profile" name="save" />
  
 </div>

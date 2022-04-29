@@ -1,0 +1,1 @@
+ALTER TABLE USERS ADD visibility tintint default 0;

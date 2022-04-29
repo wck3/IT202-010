@@ -74,7 +74,7 @@ function map_column($col)
                         <label class="form-check-label" for="<?php se($column); ?>">No</label>
                     </div>
              
-                <?php elseif(get_type($column) =="tinyint" &&  se($value, "", "" ,false)==0) : ?>
+                <?php elseif($column =="tinyint" &&  se($value, "", "" ,false)==0) : ?>
                     <label>make item public?</label>
                     <br>
                     <div class="form-check form-check-inline">

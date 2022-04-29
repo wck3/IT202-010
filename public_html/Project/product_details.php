@@ -59,7 +59,7 @@ try {
                             Price: $<?php se($item, "price");?><br>
                             <div class="row sm-1">
                                 <div class="col">
-                                    <button onclick="purchase('<?php se($item, 'id'); ?>')" class="btn btn-sm btn-secondary">Add to Cart</button>
+                                    <button  onclick="purchase('<?php se($item, 'id'); ?>', '<?php se($item, 'price'); ?>')"  class="btn btn-sm btn-secondary">Add to Cart</button>
                                 </div>
                              
                                 <div class="col">

@@ -1,3 +1,4 @@
+
 <?php
 require(__DIR__ . "/../../partials/nav.php");
 require(__DIR__ . "/cart_helpers.php");
@@ -12,8 +13,9 @@ else{
     flash("error retrieving item", "warning");
 }
 
+
 //insert review into table
-if(isset($_POST["review"]) && isset($_POST["rating"]) && isset($_POST["comment"])){
+if(isset($_POST["rating"]) && isset($_POST["comment"])){
     $rating=$_POST["rating"];
     $comment=$_POST["comment"];
     $user=get_user_id();
@@ -21,6 +23,12 @@ if(isset($_POST["review"]) && isset($_POST["rating"]) && isset($_POST["comment"]
     $stmt = $db->prepare("INSERT INTO ratings (product_id, user_id, rating, comment) VALUE(:p_id,:u_id,:rating, :comment) ");
     try {
         $stmt->execute([":p_id"=>$id, "u_id" => $user, ":rating"=> $rating, ":comment"=>$comment]);
+       
+        //once inserted, unset post so review does not duplicate on refresh
+        unset($_POST);
+        flash("Review submitted. Thank you!", "success");
+        redirect("product_details.php?product_id=$id"); 
+        
     } catch (PDOException $e) {
         echo $e;
         error_log(var_export($e, true));
@@ -28,7 +36,7 @@ if(isset($_POST["review"]) && isset($_POST["rating"]) && isset($_POST["comment"]
     }
 
 }
-
+//fetch product details
 $results = [];
 $db = getDB();
 $stmt = $db->prepare("SELECT id, name, description, CAST(price / 100.00 AS decimal(18,2)) AS price, stock, visibility, category ,image FROM Shop_Items WHERE id=:id");
@@ -38,10 +46,38 @@ try {
     if ($r) {
         $results = $r;
     }
+
 } catch (PDOException $e) {
     error_log(var_export($e, true));
     flash("Error fetching items", "danger");
 }
+
+//fetch user reviews
+$reviews = [];
+$sum=0;
+$avg_review=0;
+$db = getDB();
+$stmt = $db->prepare("SELECT u.username ,r.id, r.rating, r.comment FROM Users u, ratings r WHERE r.user_id=u.id AND product_id=:p_id ORDER BY r.id DESC");
+
+try {
+    $stmt->execute([":p_id"=> $id]);
+    $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    if ($r) {
+        $reviews = $r;
+        foreach($reviews as $rev){
+            $sum+=$rev["rating"];
+        }
+        $avg_review=$sum/count($reviews);
+    }
+
+    //$avg_review = se($r, "avg_rate", "", false);
+} catch (PDOException $e) {
+    echo $e;
+    error_log(var_export($e, true));
+    flash("Error fetching reviews", "danger");
+}
+
+
 ?>
 <script>
     function purchase(item) {
@@ -76,18 +112,18 @@ try {
                        <h4>Write a review: </h4>
                        <br>
                        <?php if(is_logged_in()) :?>
-                            <form method="POST" > 
+                            <form autocomplete="off" method="POST"> 
                                     <label for="rating">Rating (out of 5 stars):</label>
                                     <div class="col-1">
                                     <input class="form-control" type="number" min="1" max="5" value="1" name="rating" />
                                     </div>
                                     <div class="col-6">
                                         <label for="comment">Comment:</label>
-                                        <textarea class="form-control input-lg" type="text" name="comment" rows="3"> </textarea>
+                                        <textarea class="form-control input-lg" type="text" name="comment" rows="3" placeholder=" "> </textarea>
                                     </div>
                                     <div class="col">
                                         <br>
-                                        <input type="submit" class="btn btn-secondary" value="Submit Review" name="review" />
+                                        <button class="btn btn-sm btn-secondary" name="review"> Submit Review</button>
                                     </div>
                             </form>
                         <?php else : ?>
@@ -129,10 +165,23 @@ try {
         <br>
         <div class="card bg-dark">
             <div class="card-header">
-                <h3>User Ratings</h3>
+                <?php if($reviews) : ?>
+                    <h3>User Ratings (<?php se(number_format($avg_review, 2, '.', '')); ?>/5 stars) </h3>
+                <?php else :  ?>
+                    <h3>User Ratings</h3>
+                <?php endif; ?>
             </div>
             <div class="card-body">
-
+                <?php if($reviews) : ?>
+                    <?php foreach($reviews as $r) : ?>
+                        <ul class="list-unstyled list-group-flush">
+                            <li class="list-group-item-dark"> <b>User:</b> <?php se($r, "username"); ?> <b>Rating:</b> <?php se($r, "rating"); ?>/5 stars</li>
+                            <li class="list-group-item-secondary">   <?php se($r, "comment"); ?></li>
+                        </ul>
+                    <?php endforeach;?>
+                <?php else: ?>
+                    No reviews
+                <?php endif; ?>
             </div>
             <div class="footer">
 
@@ -146,8 +195,7 @@ try {
 </div>
         
  
- 
-</div>
+
 <?php
 require_once(__DIR__ . "/../../partials/flash.php");
 ?>

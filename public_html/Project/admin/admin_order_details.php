@@ -6,7 +6,7 @@ is_logged_in(true);
 <?php
 if (!has_role("Admin")) {
     flash("You don't have permission to view this page", "warning");
-    die(header("Location: $BASE_PATH" . "/home.php"));
+    redirect("$BASE_PATH" . "/home.php");
 }
 
 if(isset($_GET["order_ID"])){

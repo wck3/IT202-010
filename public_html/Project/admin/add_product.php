@@ -8,7 +8,6 @@ if (!has_role("Admin")) {
 }
 if (isset($_POST["submit"])) {
     $id = save_data($TABLE_NAME, $_POST);
-    //die(header("Location: $BASE_PATH/admin/add_product.php"));
     if ($id > 0) {
         flash("Created Item with id $id", "success");
     }

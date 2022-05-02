@@ -2,9 +2,15 @@
 require_once(__DIR__ . "/../../partials/nav.php");
 require_once(__DIR__ . "/../../lib/functions.php");
 is_logged_in(true);
+
+$user_id = (int)se($_GET, "id", get_user_id(), false);
+$isMe = $user_id == get_user_id();
+$isEdit = isset($_GET["edit"]);
+
 ?>
+
 <?php
-if (isset($_POST["save"])) {
+if (isset($_POST["save"]) && $isMe && $isEdit) {
     $email = se($_POST, "email", null, false);
     $username = se($_POST, "username", null, false);
     $visibility = se($_POST, "visibility", null, false);
@@ -102,72 +108,135 @@ try {
 } catch (Exception $e) {
     echo "<pre>" . var_export($e->errorInfo, true) . "</pre>";
 }
+
+//select fresh data from table
+$stmt = $db->prepare("SELECT id, email, username,visibility, created from Users where id = :id LIMIT 1");
+$isVisible = false;
+try {
+    $stmt->execute([":id" => $user_id]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($user) {
+        if ($isMe) {
+            $_SESSION["user"]["email"] = $user["email"];
+            $_SESSION["user"]["username"] = $user["username"];
+        }
+        if (se($user, "visibility", 0, false) > 0) {
+
+            $isVisible = true;
+        }
+        $email = se($user, "email", "", false);
+        $username = se($user, "username", "", false);
+        $joined = se($user, "created", "", false);
+    } else {
+        flash("User doesn't exist", "danger");
+    }
+} catch (Exception $e) {
+    flash("An unexpected error occurred, please try again", "danger");
+    //echo "<pre>" . var_export($e->errorInfo, true) . "</pre>";
+}
+
 ?>
 
-<?php
-$email = get_user_email();
-$username = get_username();
-?>
 <form method="POST" onsubmit="return validate(this);">
   
 <div class="container-fluid">
-    <div class="col-2">
-        <div><h3>Email/Username</h3></div>
-        <div class="mb-3">
-            <label for="email">Email</label>
-            <input class="form-control" type="email" name="email" id="email" value="<?php se($email); ?>" />
-        </div>
-        <div class="mb-3">
-            <label for="username">Username</label>
-            <input class="form-control" type="text" name="username" id="username" value="<?php se($username); ?>" />
-        </div>
-        <!-- DO NOT PRELOAD PASSWORD -->
-        <div><h3>Password Reset</h3></div>
-        <div class="mb-3">
-            <label for="cp">Current Password</label>
-            <input class="form-control" type="password" name="currentPassword" id="cp" />
-        </div>
-        <div class="mb-3">
-            <label for="np">New Password</label>
-            <input class="form-control" type="password" name="newPassword" id="np" />
-        </div>
-        <div class="mb-3">
-            <label for="conp">Confirm Password</label>
-            <input class="form-control" type="password" name="confirmPassword" id="conp" />
-        </div>
-    </div>
-    <?php foreach ($result as $column => $value) : ?>
-        <!-- WCK3 4/28/2022 make visibility a radio option-->
-        <?php if( $column =="visibility" &&  se($value, "", "" ,false)==1) :  ?>
-            <label>make profile public?</label>
+    <!-- Edit Profile -->
+    <?php if ($isMe && $isEdit) : ?>
+        <h1>Edit Your Profile</h1>
+        <form method="POST" onsubmit="return validate(this);">
+            <div class="col-2">
+                <div><h4>Email/Username</h4></div>
+                <div class="mb-3">
+                    <label for="email">Email</label>
+                    <input class="form-control" type="email" name="email" id="email" value="<?php se($email); ?>" />
+                </div>
+                <div class="mb-3">
+                    <label for="username">Username</label>
+                    <input class="form-control" type="text" name="username" id="username" value="<?php se($username); ?>" />
+                </div>
+                <!-- DO NOT PRELOAD PASSWORD -->
+                <div><h4>Password Reset</h4></div>
+                <div class="mb-3">
+                    <label for="cp">Current Password</label>
+                    <input class="form-control" type="password" name="currentPassword" id="cp" />
+                </div>
+                <div class="mb-3">
+                    <label for="np">New Password</label>
+                    <input class="form-control" type="password" name="newPassword" id="np" />
+                </div>
+                <div class="mb-3">
+                    <label for="conp">Confirm Password</label>
+                    <input class="form-control" type="password" name="confirmPassword" id="conp" />
+                </div>
+            </div>
+            <?php foreach ($result as $column => $value) : ?>
+                <!-- WCK3 4/28/2022 make visibility a radio option-->
+                <?php if( $column =="visibility" &&  se($value, "", "" ,false)==1) :  ?>
+                    <label>make profile public?</label>
+                    <br>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" id="<?php se($column); ?>"  value="1" name="<?php se($column); ?>" checked >
+                        <label class="form-check-label" for="<?php se($column); ?>">Yes</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input  type="radio" class="form-check-input" id="<?php se($column); ?>"value="0" name="<?php se($column); ?>">
+                        <label class="form-check-label" for="<?php se($column); ?>">No</label>
+                    </div>
+            
+                <?php elseif($column =="visibility" &&  se($value, "", "" ,false)==0) : ?>
+                    <label>make profile public?</label>
+                    <br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" id="<?php se($column); ?>" type="radio"  value="<?php se(1)?>" name="<?php se($column); ?>" >
+                        <label class="form-check-label" for="<?php se($column); ?>">Yes</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" id="<?php se($column); ?>" type="radio"  value="<?php se(0)?>" name="<?php se($column); ?>" checked>
+                        <label class="form-check-label" for="<?php se($column); ?>">No</label>
+                    </div>
+                <?php endif ?>
+            <?php endforeach; ?>
             <br>
-            <div class="form-check form-check-inline">
-                <input type="radio" class="form-check-input" id="<?php se($column); ?>"  value="1" name="<?php se($column); ?>" checked >
-                <label class="form-check-label" for="<?php se($column); ?>">Yes</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input  type="radio" class="form-check-input" id="<?php se($column); ?>"value="0" name="<?php se($column); ?>">
-                <label class="form-check-label" for="<?php se($column); ?>">No</label>
-            </div>
-    
-        <?php elseif($column =="visibility" &&  se($value, "", "" ,false)==0) : ?>
-            <label>make profile public?</label>
+            <input type="submit" class="btn btn-secondary" value="Update Profile" name="save" />
+        </form>
+        <?php if ($isMe) : ?>
+            <a class="btn btn-secondary" href="<?php echo get_url("profile.php"); ?>">View Profile</a>
+        <?php endif?>
+        <!--Public/Private Profile-->
+    <?php else:  ?>
+        <?php if ($isVisible || $isMe) : ?>
             <br>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" id="<?php se($column); ?>" type="radio"  value="<?php se(1)?>" name="<?php se($column); ?>" >
-                <label class="form-check-label" for="<?php se($column); ?>">Yes</label>
+            <div class="col-3" >
+                <div class="card bg-dark">
+                    <div class="card-header">
+                        <?php if($isMe) : ?> 
+                            <h3>Your Profile</h3>
+                        <?php else: ?>
+                            <h3>Profile</h3>
+                        <?php endif;?>
+                    </div>
+                    <div class="card-body">
+                        Username: <?php se($username); ?>
+                        <br>
+                        Joined: <?php se($joined); ?>
+                    </div>
+                    <div class="card-footer">
+                        <?php if ($isMe) : ?>
+                            <div class="col-5">
+                                <a class="btn btn-secondary"href="?edit">Edit Profile</a>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
             </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" id="<?php se($column); ?>" type="radio"  value="<?php se(0)?>" name="<?php se($column); ?>" checked>
-                <label class="form-check-label" for="<?php se($column); ?>">No</label>
-            </div>
-        <?php endif ?>
-    <?php endforeach; ?>
-    <br>
-    <input type="submit" class="btn btn-secondary" value="Update Profile" name="save" />
- 
+        <?php else : ?>
+            <?php 
+            flash("Profile is private", "warning");
+            redirect("home.php");
+            ?>
+        <?php endif; ?>
+    <?php endif;?>
 </div>
-</form>
 
 <script>
     function validate(form) {

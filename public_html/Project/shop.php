@@ -1,5 +1,6 @@
 <?php
 require(__DIR__ . "/../../partials/nav.php");
+require_once(__DIR__ . "/../../lib/functions.php");
 require(__DIR__ . "/cart_helpers.php");
 
 ?>
@@ -23,7 +24,7 @@ $db = getDB();
 //Sort and Filters
 
 //WCK3 04/15/2022 all filters done below
-$col = se($_GET, "col", "default", false);
+$col = se($_GET, "col", "", false);
 
 //allowed list
 if (!in_array($col, ["price", "stock", "name", "created", ""])) {
@@ -33,7 +34,7 @@ if (!in_array($col, ["price", "stock", "name", "created", ""])) {
 $order = se($_GET, "order", "asc", false);
 //allowed list
 if (!in_array($order, ["asc", "desc"])) {
-    $order = "asc"; //default value, prevent sql injection
+    $order = ""; //default value, prevent sql injection
 }
 //get name partial search
 $name = se($_GET, "name", "", false);
@@ -61,7 +62,7 @@ if (!empty($name)) {
    
 //apply column and order sort
 if (!empty($col) && !empty($order)) {
-    //echo $col;  
+
     $query .= " ORDER BY $col $order"; 
 }
 
@@ -112,7 +113,7 @@ try {
             
                 <select class="form-control bg-secondary text-white" name="col" value="<?php se($col); ?>" data="took" >
                     
-                    <option value="default">none ▼</option> 
+                    <option value="">none ▼</option> 
                     <option value="price">price</option>
                     <option value="stock">stock</option>
                     <option value="name">name</option>
@@ -157,9 +158,10 @@ try {
             </div>
         </div>
         <div class="col">
-            <div class="input-group">
-                <input type="submit" class="btn btn-secondary" value="Apply" />
-            </div>
+           <input type="submit" class="btn btn-secondary" value="Apply" /> 
+        </div>
+        <div class="col"> 
+            <input type="Reset" class="btn btn-secondary" value="Reset" />
         </div>
     </form>
     <!--End Filters-->
@@ -209,6 +211,7 @@ try {
                             </div>
                         </div>
                     </div>
+                
                 <?php endif;?>  
             <?php endforeach; ?>
             <?php if($item_count>1) : ?>

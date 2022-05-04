@@ -23,7 +23,7 @@ if (!in_array($to, ["","01","02","03","04","05", "06", "07","08","09","10","11",
 $col = se($_GET, "col", "", false);
 //echo $col ." ";
 //allowed list
-if (!in_array($col, ["order_total", "name", "o.created",  ""])) {
+if (!in_array($col, ["money_recieved", "name", "o.created", ""])) {
     $col = ""; //default value, prevent sql injection
 }
 
@@ -75,18 +75,12 @@ if ($user_id > 0) {
 
     //apply column and order sort
     if (!empty($col) && !empty($order)) {
-        //echo $col;  
-        //$col="name";
-        echo $col;
         $query .= " ORDER BY $col $order ";  
-       
     }
-    else{
-        echo "col is empty " . $order;
-    }
+    
 
     //shop pagination
-    $per_page = 10;
+    $per_page = 4;
     paginate($total_query . $query, $params, $per_page);
 
     $query .= " LIMIT :offset, :count";
@@ -166,18 +160,7 @@ if ($user_id > 0) {
                     document.forms[0].to.value = "<?php se($to); ?>";
             
                 </script>
-                <select class="form-control bg-secondary text-white" name="col" value="<?php se($col); ?>" data="took" >
-                    
-                    <option value="default" selected >none ▼</option> 
-                    <option value="money_recieved">total</option>
-                    <option value="o.created">date</option>
-                    <option value="name">name</option>
-               
-                </select>
-                <script>
-                    document document.forms[0].col.value = "<?php se($col); ?>";
-                    
-                </script>
+                
                 <select class="form-control bg-secondary text-white md-3" name="category" value="<?php se($category); ?>" data="took" >
                    
                     <?php $db = getDB();
@@ -197,6 +180,18 @@ if ($user_id > 0) {
                     //value setting only works after the options are defined and php has the value set prior
                     document.forms[0].category.value = "<?php se($category); ?>";
             
+                </script>
+                <select class="form-control bg-secondary text-white" name="col" value="<?php se($col); ?>" data="took" >
+                    
+                    <option value="" selected>none ▼</option> 
+                    <option value="money_recieved">total</option>
+                    <option value="o.created">date</option>
+                    <option value="name">name</option>
+               
+                </select>
+                <script>
+                    document.forms[0].col.value = "<?php se($col); ?>";
+                    
                 </script>
                 <select class="form-control  bg-secondary text-white" name="order" value="<?php se($order); ?>">
                     <option class="bg-secondary" value="asc">ascending </option>

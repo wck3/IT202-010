@@ -220,21 +220,25 @@
     - Text Comment (use TEXT data type in sql)
     - Must be done on the Product Details Page
     - Ratings and Rating Comments will be visible on the Product Details page
-      - [ ] Show the latest 10 reviews
-      - [ ] Paginate anything beyond 10
+      - [x] Show the latest 10 reviews
+      - [x] Paginate anything beyond 10
     - Show the average rating on the Product Details Page
-  - [ ] (mm/dd/yyyy) User’s Purchase History Changes
+  - [x] (mm/dd/yyyy) User’s Purchase History Changes
+       - [Milestone4.md](https://github.com/wck3/IT202-010/blob/Milestone4/public_html/Project/milestone4.md)
+      - [https://wck3-prod.herokuapp.com/Project/purchase_history.php](https://wck3-prod.herokuapp.com/Project/purchase_history.php) 
       - Filter by date range
       - Filter by category
       - Sort by total, date purchased, etc
       - Add pagination
-        - [ ] Any filter/sort applied must be followed during the pagination process
-  - [ ] (mm/dd/yyyy) Store Owner Purchase History Changes
+        - [x] Any filter/sort applied must be followed during the pagination process
+  - [x] (mm/dd/yyyy) Store Owner Purchase History Changes
+    - [Milestone4.md](https://github.com/wck3/IT202-010/blob/Milestone4/public_html/Project/milestone4.md)
+    - [https://wck3-prod.herokuapp.com/Project/admin/all_purchase_hist.php](https://wck3-prod.herokuapp.com/Project/admin/all_purchase_hist.php)
     - Filter by Date Range
     - Filter by Category
     - Sort by total, date purchased, etc
     - Add pagination
-      - [ ] Any filter/sort applied must be followed during the pagination process
+      - [x] Any filter/sort applied must be followed during the pagination process
     - The result page should show the accurate total price of the combined search results (i.e., if just 3 records show each of $25, it should show $75 total for this view)
   - [ ] (mm/dd/yyyy) Add pagination to Shop Page (and any other product lists not yet mentioned)
   - [ ] (mm/dd/yyyy) Store Owner will be able to see all products out of stock

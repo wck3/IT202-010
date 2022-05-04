@@ -31,7 +31,7 @@ require(__DIR__ . "/update_data.php");
 
 
 //pagination function
-require(__DIR__ . "\paginate.php");
+require(__DIR__ . "/paginate.php");
 
 
 //redirect helper

@@ -8,5 +8,3 @@ CREATE TABLE IF NOT EXISTS `Users` (
     UNIQUE (`email`)
 )
 
-
-ALTER TABLE USERS 

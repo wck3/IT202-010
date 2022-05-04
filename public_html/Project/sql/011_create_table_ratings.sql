@@ -8,6 +8,6 @@ CREATE TABLE IF NOT EXISTS ratings (
     created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
     FOREIGN KEY (product_id) REFERENCES Shop_Items(id),
-    FOREIGN KEY (user_id) REFERENCES Users(id),
+    FOREIGN KEY (user_id) REFERENCES Users(id)
 
 )

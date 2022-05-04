@@ -35,6 +35,64 @@ if ($user_id > 0) {
 
 <div class="container-fluid">
     <h1>All Purchase History</h1>
+    <form class="row row-cols-auto g-4 align-items-center">
+        <div class="col-4">
+            <div class="input-group">
+                <div class="input-group-text bg-dark text-white">Sort By</div>
+                <!-- make sure these match the in_array filter above-->
+            
+                <select class="form-control bg-secondary text-white" name="col" value="<?php se($col); ?>" data="took" >
+                    
+                    <option value="default">none ▼</option> 
+                    <option value="price">price</option>
+                    <option value="stock">stock</option>
+                    <option value="name">name</option>
+                  
+                </select>
+               
+                <select class="form-control bg-secondary text-white" name="category" value="<?php se($category); ?>" data="took" >
+                   
+                    <?php $db = getDB();
+                    $stmt = $db->prepare("SELECT DISTINCT category from Shop_Items ORDER BY category");
+                    $stmt->execute();
+                    $r = $stmt->fetchAll(); ?>
+                        
+                    <option value="" selected >category: all ▼</i></option> 
+                    <?php foreach($r as $thing):?>
+                        <option value="<?php se($thing, 'category');?>"> <?php se($thing, 'category');?> </option>
+                    <?php endforeach;?>
+              
+                </select>
+                
+                <script>
+                    //quick fix to ensure proper value is selected since
+                    //value setting only works after the options are defined and php has the value set prior
+                    document.forms[0].col.value = "<?php se($col); ?>";
+                    document.forms[0].category.value = "<?php se($category); ?>";
+            
+                </script>
+                <select class="form-control  bg-secondary text-white" name="order" value="<?php se($order); ?>">
+                    <option class="bg-secondary" value="asc">ascending</option>
+                    <option class="bg-secondary" value="desc">descending</option>
+                </select>
+                <script data="this">
+                    //quick fix to ensure proper value is selected since
+                    //value setting only works after the options are defined and php has the value set prior
+                    document.forms[0].order.value = "<?php se($order); ?>";
+                    if (document.forms[0].order.value === "asc") {
+                        document.forms[0].order.className = "form-control bg-secondary text-white";
+                    } else {
+                        document.forms[0].order.className = "form-control bg-secondary text-white";
+                    }
+                </script>
+            </div>
+        </div>
+        <div class="col">
+            <div class="input-group">
+                <input type="submit" class="btn btn-secondary" value="Apply" />
+            </div>
+        </div>
+    </form>
     <?php if (count($results) == 0) : ?>
         <p>No results to show</p>
     <?php else : ?>

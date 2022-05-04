@@ -46,7 +46,7 @@ if ($user_id > 0) {
     //big big query
     $base_query= "SELECT o.id as order_id, si.name, i.item_id, i.quantity, CAST(( i.unit_price * quantity) / 100.00 AS decimal(18,2)) as subtotal, CAST(o.money_recieved / 100.00 AS decimal(18,2)) AS order_total , o.created as date , o.payment_method, o.address,
     CAST(i.unit_price / 100.00 AS decimal(18,2)) AS price
-    FROM Order_Items i JOIN Shop_Orders o on i.order_id = o.id JOIN Shop_Items si ON si.id = i.item_id";
+    FROM Order_Items i JOIN Shop_Orders o on i.order_id = o.id JOIN Shop_Items si ON si.id = i.item_id WHERE 1=1";
     $total_query = "SELECT count(1) as total FROM Order_Items i JOIN Shop_Orders o on i.order_id = o.id JOIN Shop_Items si ON si.id = i.item_id
     WHERE 1=1";
 
@@ -60,7 +60,7 @@ if ($user_id > 0) {
         $params[":category"] = $category;
     }
 
-    //order by date range query (month was easiest for me)
+    //order by date range query (by month was easiest for me)
     if(!empty($from) && !empty($to)){
         $query .= " AND MONTH(FROM_UNIXTIME(UNIX_TIMESTAMP(o.created))) >= :from AND MONTH(FROM_UNIXTIME(UNIX_TIMESTAMP(o.created))) <= :to";
         $params[":from"] = $from;
@@ -80,7 +80,7 @@ if ($user_id > 0) {
     
 
     //shop pagination
-    $per_page = 4;
+    $per_page = 10;
     paginate($total_query . $query, $params, $per_page);
 
     $query .= " LIMIT :offset, :count";
@@ -210,9 +210,10 @@ if ($user_id > 0) {
             </div>
         </div>
         <div class="col">
-            <div class="input-group">
-                <input type="submit" class="btn btn-secondary" value="Apply" />
-            </div>
+           <input type="submit" class="btn btn-secondary" value="Apply" /> 
+        </div>
+        <div class="col"> 
+            <input type="Reset" class="btn btn-secondary" value="Reset" />
         </div>
     </form>
     <?php if (count($results) == 0) : ?>

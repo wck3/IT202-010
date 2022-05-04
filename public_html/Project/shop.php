@@ -158,9 +158,10 @@ try {
             </div>
         </div>
         <div class="col">
-            <div class="input-group">
-                <input type="submit" class="btn btn-secondary" value="Apply" />
-            </div>
+           <input type="submit" class="btn btn-secondary" value="Apply" /> 
+        </div>
+        <div class="col"> 
+            <input type="Reset" class="btn btn-secondary" value="Reset" />
         </div>
     </form>
     <!--End Filters-->

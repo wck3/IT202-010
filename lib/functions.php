@@ -29,6 +29,11 @@ require(__DIR__ . "/save_data.php");
 require(__DIR__ . "/input_map.php");
 require(__DIR__ . "/update_data.php");
 
+
+//pagination function
+require(__DIR__ . "\paginate.php");
+
+
 //redirect helper
 function redirect($path)
 { //header headache

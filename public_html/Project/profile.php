@@ -200,12 +200,13 @@ try {
             <input type="submit" class="btn btn-secondary" value="Update Profile" name="save" />
         </form>
         <?php if ($isMe) : ?>
-            <a class="btn btn-secondary" href="<?php echo get_url("profile.php"); ?>">View Profile</a>
+            <a class="btn btn-secondary" href="<?php echo get_url('profile.php?id='); se(get_user_id()); ?>">View Profile</a>
         <?php endif?>
         <!--Public/Private Profile-->
     <?php else:  ?>
         <?php if ($isVisible || $isMe) : ?>
             <br>
+            <?php $_POST["id"]=$user; ?>
             <div class="col-3" >
                 <div class="card bg-dark">
                     <div class="card-header">

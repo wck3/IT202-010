@@ -4,7 +4,7 @@ reset_session();
 ?>
 <form onsubmit="return validate(this)" method="POST">
     <div class="container-fluid">
-        <br>
+        <h1>Register</h1>
         <div class="col-2">
             <div class="mb-3">
                 <label for="email">Email</label>
@@ -22,6 +22,20 @@ reset_session();
                 <label for="confirm">Confirm</label>
                 <input class="form-control" type="password" name="confirm"  />
             </div>
+          
+            <!-- WCK3 4/28/2022 make visibility a radio option-->
+            <label>make profile public?</label>
+            <br>
+            <div class="form-check form-check-inline">
+                <input type="radio" class="form-check-input" id="visYes"  value="1" name="visibility" checked >
+                <label class="form-check-label" >Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input  type="radio" class="form-check-input" id="visNo"value="0" name="visibility">
+                <label class="form-check-label">No</label>
+            </div>
+               
+            <br>
             <input class="btn btn-secondary" type="submit" value="Register" />
         </div>
     </div>
@@ -62,11 +76,12 @@ reset_session();
 </script>
 <?php
 //TODO 2: add PHP Code
-if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm"]) && isset($_POST["username"])) {
+if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm"]) && isset($_POST["username"]) && isset($_POST["visibility"])) {
     $email = se($_POST, "email", "", false);
     $password = se($_POST, "password", "", false);
     $confirm = se($_POST, "confirm", "", false);
     $username = se($_POST, "username", "", false);
+    $visibility = se($_POST, "visibility", "", false);
     //TODO 3
     $hasError = false;
     if (empty($email)) {
@@ -106,9 +121,9 @@ if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm
         //TODO 4
         $hash = password_hash($password, PASSWORD_BCRYPT);
         $db = getDB();
-        $stmt = $db->prepare("INSERT INTO Users (email, password, username) VALUES(:email, :password, :username)");
+        $stmt = $db->prepare("INSERT INTO Users (email, password, username, visibility) VALUES(:email, :password, :username, :visibility)");
         try {
-            $stmt->execute([":email" => $email, ":password" => $hash, ":username" => $username]);
+            $stmt->execute([":email" => $email, ":password" => $hash, ":username" => $username, ":visibility"=> $visibility]);
             flash("Successfully registered!", "success");
         } catch (Exception $e) {
             users_check_duplicate($e->errorInfo);

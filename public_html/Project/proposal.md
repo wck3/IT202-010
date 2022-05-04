@@ -206,9 +206,15 @@
       - A list item can be clicked to view the full details in the Order Details Page (similar to Order Confirmation Page except no “Thank you” message)
 
 - Milestone 4
-  - [ ] (mm/dd/yyyy) User can set their profile to be public or private (will need another column in Users table)
+  - [x] (05/2/2022) User can set their profile to be public or private (will need another column in Users table)
+    - [Milestone4.md](https://github.com/wck3/IT202-010/blob/Milestone4/public_html/Project/milestone4.md)
+    - [https://wck3-prod.herokuapp.com/Project/profile.php](https://wck3-prod.herokuapp.com/Project/profile.php)
+    - [https://wck3-prod.herokuapp.com/Project/profile.php?id=1](https://wck3-prod.herokuapp.com/Project/profile.php?id=1)
+    - [https://wck3-prod.herokuapp.com/Project/register.php](https://wck3-prod.herokuapp.com/Project/register.php)
     - If profile is public, hide email address from other users (email address should not be publicly visible to others)
-  - [ ] (mm/dd/yyyy) User will be able to rate a product they purchased
+  - [x] (05/04/2022) User will be able to rate a product they purchased
+    - [Milestone4.md](https://github.com/wck3/IT202-010/blob/Milestone4/public_html/Project/milestone4.md)
+    - [https://wck3-prod.herokuapp.com/Project/product_details.php?product_id=16](https://wck3-prod.herokuapp.com/Project/product_details.php?product_id=16)
     - Create table called Ratings (id, product_id, user_id, rating, comment, created, modified)
     - 1-5 rating
     - Text Comment (use TEXT data type in sql)

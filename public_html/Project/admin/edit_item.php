@@ -5,7 +5,7 @@ require(__DIR__ . "/../../../partials/nav.php");
 $TABLE_NAME = "Shop_Items";
 if (!has_role("Admin")) {
     flash("You don't have permission to view this page", "warning");
-    die(header("Location: $BASE_PATH/home.php"));
+    redirect("Location: $BASE_PATH/home.php");
 }
 //update the item
 if (isset($_POST["submit"])) {

@@ -8,7 +8,7 @@ require(__DIR__ . "/api/delete_cart.php");
 <?php if(!is_logged_in()){
     //redirected to login page if not logged in
     flash("You must be logged in to view the cart.", "warning");
-    die(header("Location: $BASE_PATH/login.php"));
+    redirect("$BASE_PATH/login.php");
 }
 require(__DIR__ . "/cart_helpers.php");
 //changing quantity of cart

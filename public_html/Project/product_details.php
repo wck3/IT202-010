@@ -5,9 +5,11 @@ require(__DIR__ . "/cart_helpers.php");
 
 
 if(isset($_GET['product_id'])){
-    $id=$_GET['product_id'];
+    $id=se($_GET, "product_id", "", false);
  
    /*if($id){echo $id . "is set";}*/
+   $id=(int)$id;
+  
 }
 else{
     flash("error retrieving item", "warning");
@@ -52,38 +54,58 @@ try {
     flash("Error fetching items", "danger");
 }
 
+//ratings queries
+//dynamic query
+$base_query = "SELECT u.username ,r.id, r.rating, r.comment, r.product_id FROM Users u, ratings r"; 
+$total_query = "SELECT count(*) as total FROM ratings r, Users u";
+$params = []; //define default params, add keys as needed and pass to execute
+$query = " WHERE 1=1"; 
+
+$query .= " AND product_id=:p_id";
+$params[":p_id"] = $id;
+
+$query .= " AND u.id = r.user_id";
+
+//rating  pagination
+$per_page = 10;
+paginate($total_query . $query, $params, $per_page);
+
+$query .= " LIMIT :offset, :count";
+$params[":offset"] = $offset;
+$params[":count"] = $per_page;
+//get the records
+$stmt = $db->prepare($base_query . $query); //dynamically generated query
+
+foreach ($params as $key => $value) {
+    $type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
+    $stmt->bindValue($key, $value, $type);
+}
+$params = null; //set it to null to avoid issues
+
 //fetch user reviews
 $reviews = [];
 $sum=0;
 $avg_review=0;
-$db = getDB();
-$stmt = $db->prepare("SELECT u.username ,r.id, r.rating, r.comment FROM Users u, ratings r WHERE r.user_id=u.id AND product_id=:p_id ORDER BY r.id DESC");
-
 try {
-    $stmt->execute([":p_id"=> $id]);
-    $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    if ($r) {
-        $reviews = $r;
-        foreach($reviews as $rev){
-            $sum+=$rev["rating"];
-        }
-        $avg_review=$sum/count($reviews);
+  
+     $stmt->execute($params);//dynamically populated params to bind
+     $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+     if ($r) {
+         $reviews = $r;
+         foreach($reviews as $rev){
+             $sum+=$rev["rating"];
+         }
+         $avg_review=$sum/count($reviews);
     }
-
-    //$avg_review = se($r, "avg_rate", "", false);
-} catch (PDOException $e) {
-    echo $e;
-    error_log(var_export($e, true));
-    flash("Error fetching reviews", "danger");
-}
-
+ } catch (PDOException $e) {
+     echo $e;
+     error_log(var_export($e, true));  
+     flash("Error fetching reviews", "danger");
+ }
 
 ?>
 <script>
     function purchase(item) {
-        console.log("TODO purchase item", item);
-        //alert("It's almost like you purchased an item, but not really");
-        //TODO create JS helper to update all show-balance elements
         if (add_to_cart) {
             add_to_cart(item);
         }
@@ -157,39 +179,34 @@ try {
                             </div>
                         </div>
                     </div>
-                    
                 </div>
             </div>
         </div>            
     <?php endforeach; ?>
-        <br>
-        <div class="card bg-dark">
-            <div class="card-header">
-                <?php if($reviews) : ?>
-                    <h3>User Ratings (<?php se(number_format($avg_review, 2, '.', '')); ?>/5 stars) </h3>
-                <?php else :  ?>
-                    <h3>User Ratings</h3>
-                <?php endif; ?>
-            </div>
-            <div class="card-body">
-                <?php if($reviews) : ?>
-                    <?php foreach($reviews as $r) : ?>
-                        <ul class="list-unstyled list-group-flush">
-                            <li class="list-group-item-dark"> <b>User:</b> <?php se($r, "username"); ?> <b>Rating:</b> <?php se($r, "rating"); ?>/5 stars</li>
-                            <li class="list-group-item-secondary">   <?php se($r, "comment"); ?></li>
-                        </ul>
-                    <?php endforeach;?>
-                <?php else: ?>
-                    No reviews
-                <?php endif; ?>
-            </div>
-            <div class="footer">
-
-            </div>
-
-
-
+    <br>
+    <div class="card bg-dark">
+        <div class="card-header">
+            <h3>User Ratings (<?php se(number_format($avg_review, 2, '.', '')); ?>/5 stars) </h3>
         </div>
+        <div class="card-body">
+            <?php if($reviews) : ?>
+                <?php foreach($reviews as $r) : ?>
+                    <ul class="list-unstyled list-group-flush">
+                        <li class="list-group-item-dark"> <b>User:</b> <?php se($r, "username"); ?> <b>Rating:</b> <?php se($r, "rating"); ?>/5 stars</li>
+                        <li class="list-group-item-secondary">   <?php se($r, "comment"); ?></li>
+                    </ul>
+                <?php endforeach;?>
+            <?php else: ?>
+                No reviews
+            <?php endif; ?>
+        </div>
+        <div class="card-footer">
+            <?php if($reviews) : ?>   
+                <?php require_once(__DIR__ . "/../../partials/pagination.php"); ?>
+            <?php endif; ?>
+        </div>
+    </div>
+    <br>
     
       
 </div>
@@ -197,5 +214,6 @@ try {
  
 
 <?php
+
 require_once(__DIR__ . "/../../partials/flash.php");
 ?>

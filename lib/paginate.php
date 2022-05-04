@@ -5,7 +5,7 @@
  * @param array $params
  * @param int $per_page
  */
-function paginate($query, $params = [], $per_page = 10)
+function paginate($query, $params, $per_page = 10)
 {
     if (!isset($query) || empty($query)) {
         flash("Dev note: Query is empty/null", "danger");
@@ -18,12 +18,14 @@ function paginate($query, $params = [], $per_page = 10)
         //safety for if page is received as not a number
         $page = 1;
     }
+    
     $db = getDB();
     $stmt = $db->prepare($query);
     try {
         $stmt->execute($params);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
+        echo $e;
         error_log("paginate error: " . var_export($e, true));
     }
     global $total;

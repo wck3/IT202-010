@@ -23,7 +23,7 @@ $db = getDB();
 //Sort and Filters
 
 //WCK3 04/15/2022 all filters done below
-$col = se($_GET, "col", "price", false);
+$col = se($_GET, "col", "default", false);
 
 //allowed list
 if (!in_array($col, ["price", "stock", "name", "created", ""])) {
@@ -58,11 +58,11 @@ if (!empty($name)) {
     $query .= " AND name like :name";
     $params[":name"] = "%$name%";
 }
-
+   
 //apply column and order sort
 if (!empty($col) && !empty($order)) {
     //echo $col;  
-    $query .= " ORDER BY $col $order"; //be sure you trust these values, I validate via the in_array checks above
+    $query .= " ORDER BY $col $order"; 
 }
 
 //shop pagination
@@ -74,7 +74,7 @@ $params[":offset"] = $offset;
 $params[":count"] = $per_page;
 //get the records
 $stmt = $db->prepare($base_query . $query); //dynamically generated query
-//we'll want to convert this to use bindValue so ensure they're integers so lets map our array
+
 foreach ($params as $key => $value) {
     $type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
     $stmt->bindValue($key, $value, $type);
@@ -89,7 +89,6 @@ try {
         $results = $r;
     }
 } catch (PDOException $e) {
-    echo $e;
     error_log(var_export($e, true));  
     flash("Error fetching items", "danger");
 }
@@ -113,7 +112,7 @@ try {
             
                 <select class="form-control bg-secondary text-white" name="col" value="<?php se($col); ?>" data="took" >
                     
-                    <option value=""selected>none ▼</i></option> 
+                    <option value="default">none ▼</option> 
                     <option value="price">price</option>
                     <option value="stock">stock</option>
                     <option value="name">name</option>

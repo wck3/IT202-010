@@ -223,7 +223,7 @@
       - [x] Show the latest 10 reviews
       - [x] Paginate anything beyond 10
     - Show the average rating on the Product Details Page
-  - [x] (mm/dd/yyyy) User’s Purchase History Changes
+  - [x] (05/04/2022) User’s Purchase History Changes
        - [Milestone4.md](https://github.com/wck3/IT202-010/blob/Milestone4/public_html/Project/milestone4.md)
       - [https://wck3-prod.herokuapp.com/Project/purchase_history.php](https://wck3-prod.herokuapp.com/Project/purchase_history.php) 
       - Filter by date range
@@ -231,7 +231,7 @@
       - Sort by total, date purchased, etc
       - Add pagination
         - [x] Any filter/sort applied must be followed during the pagination process
-  - [x] (mm/dd/yyyy) Store Owner Purchase History Changes
+  - [x] (05/04/2022) Store Owner Purchase History Changes
     - [Milestone4.md](https://github.com/wck3/IT202-010/blob/Milestone4/public_html/Project/milestone4.md)
     - [https://wck3-prod.herokuapp.com/Project/admin/all_purchase_hist.php](https://wck3-prod.herokuapp.com/Project/admin/all_purchase_hist.php)
     - Filter by Date Range
@@ -240,7 +240,10 @@
     - Add pagination
       - [x] Any filter/sort applied must be followed during the pagination process
     - The result page should show the accurate total price of the combined search results (i.e., if just 3 records show each of $25, it should show $75 total for this view)
-  - [ ] (mm/dd/yyyy) Add pagination to Shop Page (and any other product lists not yet mentioned)
+  - [x] (05/4/2022) Add pagination to Shop Page (and any other product lists not yet mentioned)
+      - [Milestone4.md](https://github.com/wck3/IT202-010/blob/Milestone4/public_html/Project/milestone4.md)
+      - [https://wck3-prod.herokuapp.com/Project/shop.php](https://wck3-prod.herokuapp.com/Project/shop.php)
+      - [https://wck3-prod.herokuapp.com/Project/admin/list_products.php](https://wck3-prod.herokuapp.com/Project/admin/list_products.php])
   - [ ] (mm/dd/yyyy) Store Owner will be able to see all products out of stock
       - This will be added as a filter to their product list page from Milestone 2
       - Pagination should account for this new filter

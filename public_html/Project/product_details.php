@@ -56,7 +56,7 @@ try {
 
 //ratings queries
 //dynamic query
-$base_query = "SELECT u.username ,r.id, r.rating, r.comment, r.product_id FROM Users u, ratings r"; 
+$base_query = "SELECT u.username ,r.user_id,r.id, r.rating, r.comment, r.product_id FROM Users u, ratings r"; 
 $total_query = "SELECT count(*) as total FROM ratings r, Users u";
 $params = []; //define default params, add keys as needed and pass to execute
 $query = " WHERE 1=1"; 
@@ -192,7 +192,8 @@ try {
             <?php if($reviews) : ?>
                 <?php foreach($reviews as $r) : ?>
                     <ul class="list-unstyled list-group-flush">
-                        <li class="list-group-item-dark"> <b>User:</b> <?php se($r, "username"); ?> <b>Rating:</b> <?php se($r, "rating"); ?>/5 stars</li>
+                        <li class="list-group-item-dark"> <b>User:</b> 
+                        <a href="<?php echo get_url("profile.php?id="); se($r, "user_id"); ?>"> <?php se($r, "username"); ?></a> <b>Rating:</b> <?php se($r, "rating"); ?>/5 stars</li>
                         <li class="list-group-item-secondary">   <?php se($r, "comment"); ?></li>
                     </ul>
                 <?php endforeach;?>

@@ -45,9 +45,8 @@ if (isset($_POST["save"]) && $isMe && $isEdit) {
                 //$_SESSION["user"] = $user;
                 $_SESSION["user"]["email"] = $user["email"];
                 $_SESSION["user"]["username"] = $user["username"];
-            } else {
-                flash("User doesn't exist", "danger");
             }
+          
         } catch (Exception $e) {
             flash("An unexpected error occurred, please try again", "danger");
             //echo "<pre>" . var_export($e->errorInfo, true) . "</pre>";
@@ -127,8 +126,6 @@ try {
         $email = se($user, "email", "", false);
         $username = se($user, "username", "", false);
         $joined = se($user, "created", "", false);
-    } else {
-        flash("User doesn't exist", "danger");
     }
 } catch (Exception $e) {
     flash("An unexpected error occurred, please try again", "danger");
@@ -233,7 +230,7 @@ try {
         <?php else : ?>
             <?php 
             flash("Profile is private", "warning");
-            redirect("home.php");
+            //redirect("home.php");
             ?>
         <?php endif; ?>
     <?php endif;?>

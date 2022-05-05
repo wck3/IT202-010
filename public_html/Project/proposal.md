@@ -206,36 +206,53 @@
       - A list item can be clicked to view the full details in the Order Details Page (similar to Order Confirmation Page except no “Thank you” message)
 
 - Milestone 4
-  - [ ] (mm/dd/yyyy) User can set their profile to be public or private (will need another column in Users table)
+  - [x] (05/02/2022) User can set their profile to be public or private (will need another column in Users table)
+    - [Milestone4.md](https://github.com/wck3/IT202-010/blob/Milestone4/public_html/Project/milestone4.md)
+    - [https://wck3-prod.herokuapp.com/Project/profile.php](https://wck3-prod.herokuapp.com/Project/profile.php)
+    - [https://wck3-prod.herokuapp.com/Project/profile.php?id=1](https://wck3-prod.herokuapp.com/Project/profile.php?id=1)
+    - [https://wck3-prod.herokuapp.com/Project/register.php](https://wck3-prod.herokuapp.com/Project/register.php)
     - If profile is public, hide email address from other users (email address should not be publicly visible to others)
-  - [ ] (mm/dd/yyyy) User will be able to rate a product they purchased
+  - [x] (05/04/2022) User will be able to rate a product they purchased
+    - [Milestone4.md](https://github.com/wck3/IT202-010/blob/Milestone4/public_html/Project/milestone4.md)
+    - [https://wck3-prod.herokuapp.com/Project/product_details.php?product_id=16](https://wck3-prod.herokuapp.com/Project/product_details.php?product_id=16)
     - Create table called Ratings (id, product_id, user_id, rating, comment, created, modified)
     - 1-5 rating
     - Text Comment (use TEXT data type in sql)
     - Must be done on the Product Details Page
     - Ratings and Rating Comments will be visible on the Product Details page
-      - [ ] Show the latest 10 reviews
-      - [ ] Paginate anything beyond 10
+      - [x] Show the latest 10 reviews
+      - [x] Paginate anything beyond 10
     - Show the average rating on the Product Details Page
-  - [ ] (mm/dd/yyyy) User’s Purchase History Changes
+  - [x] (05/04/2022) User’s Purchase History Changes
+       - [Milestone4.md](https://github.com/wck3/IT202-010/blob/Milestone4/public_html/Project/milestone4.md)
+      - [https://wck3-prod.herokuapp.com/Project/purchase_history.php](https://wck3-prod.herokuapp.com/Project/purchase_history.php) 
       - Filter by date range
       - Filter by category
       - Sort by total, date purchased, etc
       - Add pagination
-        - [ ] Any filter/sort applied must be followed during the pagination process
-  - [ ] (mm/dd/yyyy) Store Owner Purchase History Changes
+        - [x] Any filter/sort applied must be followed during the pagination process
+  - [x] (05/04/2022) Store Owner Purchase History Changes
+    - [Milestone4.md](https://github.com/wck3/IT202-010/blob/Milestone4/public_html/Project/milestone4.md)
+    - [https://wck3-prod.herokuapp.com/Project/admin/all_purchase_hist.php](https://wck3-prod.herokuapp.com/Project/admin/all_purchase_hist.php)
     - Filter by Date Range
     - Filter by Category
     - Sort by total, date purchased, etc
     - Add pagination
-      - [ ] Any filter/sort applied must be followed during the pagination process
+      - [x] Any filter/sort applied must be followed during the pagination process
     - The result page should show the accurate total price of the combined search results (i.e., if just 3 records show each of $25, it should show $75 total for this view)
-  - [ ] (mm/dd/yyyy) Add pagination to Shop Page (and any other product lists not yet mentioned)
-  - [ ] (mm/dd/yyyy) Store Owner will be able to see all products out of stock
+  - [x] (05/04/2022) Add pagination to Shop Page (and any other product lists not yet mentioned)
+      - [Milestone4.md](https://github.com/wck3/IT202-010/blob/Milestone4/public_html/Project/milestone4.md)
+      - [https://wck3-prod.herokuapp.com/Project/shop.php](https://wck3-prod.herokuapp.com/Project/shop.php)
+      - [https://wck3-prod.herokuapp.com/Project/admin/list_products.php](https://wck3-prod.herokuapp.com/Project/admin/list_products.php)
+  - [x] (05/04/2022) Store Owner will be able to see all products out of stock
+      - [Milestone4.md](https://github.com/wck3/IT202-010/blob/Milestone4/public_html/Project/milestone4.md)
+      - [https://wck3-prod.herokuapp.com/Project/admin/list_products.php](https://wck3-prod.herokuapp.com/Project/admin/list_products.php)
       - This will be added as a filter to their product list page from Milestone 2
       - Pagination should account for this new filter
       - Recommended to have the filter applied as a given value (i.e., where quantity is <= value)
-  - [ ] (mm/dd/yyyy) User can sort products by average rating on the Shop Page
+  - [x] (05/04/2022) User can sort products by average rating on the Shop Page
+      - [Milestone4.md](https://github.com/wck3/IT202-010/blob/Milestone4/public_html/Project/milestone4.md)
+      - [https://wck3-prod.herokuapp.com/Project/shop.php](https://wck3-prod.herokuapp.com/Project/shop.php)
       - Hint: may want to add an “average rating” field to the Products table and update this value any time a new rating is given for the product using an aggregate function
 
 ### Intructions

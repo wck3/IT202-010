@@ -5,7 +5,7 @@ require_once(__DIR__ . "/../../lib/functions.php");
 if(!is_logged_in()){
     //redirected to login page if not logged in
     flash("You must be logged in to view this page", "warning");
-    die(header("Location: $BASE_PATH/login.php"));
+    redirect("$BASE_PATH/login.php");
 }
 
 //Fetch cart information to display items in checkout
@@ -35,6 +35,7 @@ if ($user_id > 0) {
             $stmt2->execute([":uid" => $user_id]);
         }
         
+        //WCK3 04/27/2022
         //if the cart items exceed/fall short of the number of available items, the user is warned
         $stmt3->execute([":uid" => $user_id]);
         $stock_err = $stmt3->fetchAll(PDO::FETCH_ASSOC);
@@ -60,7 +61,7 @@ if ($user_id > 0) {
 
 if(empty($results)){
     flash("You must have items to your cart to checkout", "warning");
-    die(header("Location: $BASE_PATH/shop.php"));
+    redirect("$BASE_PATH/shop.php");
 }
 
 ?>
@@ -166,9 +167,7 @@ if(empty($results)){
 <script>
     //WCK3 4/26/2022 client side payment method validation
     function validate(form) {
-        //template
-         
-        //let con = form.confirmPassword.value;
+     
         let username=form.username.value;
         let address=form.address.value;
         let city=form.City.value;

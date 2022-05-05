@@ -182,13 +182,6 @@ try {
                             <?php endif; ?>
                             <div class="card-body"> 
                                 <h5 class="card-title"><?php se($item, "name"); ?></h5>
-                                <h6 class="card-title">
-                                    
-                                    (<?php $rate = 0; 
-                                              $rate = se($item, "avg_rate", "", false); se($rate/100); 
-                                        ?>/5 stars)
-                                
-                                </h6>
                                 <p class="card-text"><?php se($item, "description"); ?></p>
                             </div>
                             <div class="card-footer"> 

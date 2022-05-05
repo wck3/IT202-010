@@ -243,7 +243,7 @@
   - [x] (05/4/2022) Add pagination to Shop Page (and any other product lists not yet mentioned)
       - [Milestone4.md](https://github.com/wck3/IT202-010/blob/Milestone4/public_html/Project/milestone4.md)
       - [https://wck3-prod.herokuapp.com/Project/shop.php](https://wck3-prod.herokuapp.com/Project/shop.php)
-      - [https://wck3-prod.herokuapp.com/Project/admin/list_products.php](https://wck3-prod.herokuapp.com/Project/admin/list_products.php])
+      - [https://wck3-prod.herokuapp.com/Project/admin/list_products.php](https://wck3-prod.herokuapp.com/Project/admin/list_products.php)
   - [ ] (mm/dd/yyyy) Store Owner will be able to see all products out of stock
       - This will be added as a filter to their product list page from Milestone 2
       - Pagination should account for this new filter

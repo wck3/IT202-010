@@ -3,7 +3,7 @@ require(__DIR__ . "/../../partials/nav.php");
 ?>
 <form onsubmit="return validate(this)" method="POST">
     <div class="container-fluid">
-        <br>
+        <h1>Login</h1>
         <div class="col-2"> 
             <div class="mb-3">
                 <label for="email">Email/Username</label>
@@ -108,8 +108,9 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
                         } else {
                             $_SESSION["user"]["roles"] = []; //no roles
                         }
-                        flash("Welcome, " . get_username());
-                        die(header("Location: home.php"));
+                        flash("Welcome, " . get_username(), "success");
+                        redirect("home.php");
+                      
                     } else {
                         flash("Invalid password");
                     }

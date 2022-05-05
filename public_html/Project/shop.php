@@ -1,5 +1,6 @@
 <?php
 require(__DIR__ . "/../../partials/nav.php");
+require_once(__DIR__ . "/../../lib/functions.php");
 require(__DIR__ . "/cart_helpers.php");
 
 ?>
@@ -11,7 +12,7 @@ require(__DIR__ . "/cart_helpers.php");
         console.log("TODO purchase item", item);
         //alert("It's almost like you purchased an item, but not really");
         if (add_to_cart) {
-            add_to_cart(item, 1 , price*100);
+            add_to_cart(item, price*100);
         }
     }
 </script>
@@ -23,17 +24,17 @@ $db = getDB();
 //Sort and Filters
 
 //WCK3 04/15/2022 all filters done below
-$col = se($_GET, "col", "price", false);
+$col = se($_GET, "col", "", false);
 
 //allowed list
-if (!in_array($col, ["price", "stock", "name", "created", ""])) {
+if (!in_array($col, ["price", "stock", "name", "created","avg_rate" ,""])) {
     $col = ""; //default value, prevent sql injection
 }
 
 $order = se($_GET, "order", "asc", false);
 //allowed list
 if (!in_array($order, ["asc", "desc"])) {
-    $order = "asc"; //default value, prevent sql injection
+    $order = ""; //default value, prevent sql injection
 }
 //get name partial search
 $name = se($_GET, "name", "", false);
@@ -42,9 +43,10 @@ $name = se($_GET, "name", "", false);
 $category = se($_GET, "category", "", false);
 
 //dynamic query
-$query = "SELECT id, name, description, CAST(price / 100.00 AS decimal(18,2)) AS price, stock, visibility, category ,image FROM Shop_Items WHERE 1=1 and stock > 0"; //1=1 shortcut to conditionally build AND clauses
+$base_query = "SELECT id, name, avg_rate,description, CAST(price / 100.00 AS decimal(18,2)) AS price, stock, visibility, category ,image FROM Shop_Items"; //1=1 shortcut to conditionally build AND clauses
+$total_query = "SELECT count(1) as total FROM Shop_Items";
 $params = []; //define default params, add keys as needed and pass to execute
-
+$query = " WHERE 1=1 and stock > 0"; 
 
 //apply category filter
 if (!empty($category)){
@@ -57,17 +59,30 @@ if (!empty($name)) {
     $query .= " AND name like :name";
     $params[":name"] = "%$name%";
 }
-
+   
 //apply column and order sort
 if (!empty($col) && !empty($order)) {
-    //echo $col;  
-    $query .= " ORDER BY $col $order"; //be sure you trust these values, I validate via the in_array checks above
+
+    $query .= " ORDER BY $col $order"; 
 }
 
-$query .= " LIMIT 10 ";
+//shop pagination
+$per_page = 10;
+paginate($total_query . $query, $params, $per_page);
 
-$stmt = $db->prepare($query); //dynamically generated query
+$query .= " LIMIT :offset, :count";
+$params[":offset"] = $offset;
+$params[":count"] = $per_page;
+//get the records
+$stmt = $db->prepare($base_query . $query); //dynamically generated query
 
+foreach ($params as $key => $value) {
+    $type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
+    $stmt->bindValue($key, $value, $type);
+}
+$params = null; //set it to null to avoid issues
+
+//fetch items
 try {
     $stmt->execute($params); //dynamically populated params to bind
     $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -98,10 +113,11 @@ try {
             
                 <select class="form-control bg-secondary text-white" name="col" value="<?php se($col); ?>" data="took" >
                     
-                    <option value=""selected>none ▼</i></option> 
+                    <option value="">none ▼</option> 
                     <option value="price">price</option>
                     <option value="stock">stock</option>
                     <option value="name">name</option>
+                    <option value="avg_rate">average rating</option>
                   
                 </select>
                
@@ -143,9 +159,10 @@ try {
             </div>
         </div>
         <div class="col">
-            <div class="input-group">
-                <input type="submit" class="btn btn-secondary" value="Apply" />
-            </div>
+           <input type="submit" class="btn btn-secondary" value="Apply" /> 
+        </div>
+        <div class="col"> 
+            <input type="Reset" class="btn btn-secondary" value="Reset" />
         </div>
     </form>
     <!--End Filters-->
@@ -195,6 +212,7 @@ try {
                             </div>
                         </div>
                     </div>
+                
                 <?php endif;?>  
             <?php endforeach; ?>
             <?php if($item_count>1) : ?>
@@ -202,9 +220,11 @@ try {
             <?php endif;?>
         </div>
     <?php endif;?>
+    <br>
 </div> 
 
 <?php
-//equire_once(__DIR__ . "/cart.php");
+
+require(__DIR__ . "/../../partials/pagination.php");
 require_once(__DIR__ . "/../../partials/flash.php");
 ?>

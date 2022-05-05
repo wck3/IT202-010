@@ -7,3 +7,4 @@ CREATE TABLE IF NOT EXISTS `Users` (
     PRIMARY KEY (`id`),
     UNIQUE (`email`)
 )
+

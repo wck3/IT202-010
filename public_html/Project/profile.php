@@ -230,7 +230,7 @@ try {
         <?php else : ?>
             <?php 
             flash("Profile is private", "warning");
-            //redirect("home.php");
+            redirect("shop.php");
             ?>
         <?php endif; ?>
     <?php endif;?>

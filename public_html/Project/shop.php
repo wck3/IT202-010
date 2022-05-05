@@ -12,7 +12,7 @@ require(__DIR__ . "/cart_helpers.php");
         console.log("TODO purchase item", item);
         //alert("It's almost like you purchased an item, but not really");
         if (add_to_cart) {
-            add_to_cart(item, 1 , price*100);
+            add_to_cart(item, price*100);
         }
     }
 </script>

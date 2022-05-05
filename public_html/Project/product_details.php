@@ -14,27 +14,44 @@ if(isset($_GET['product_id'])){
 else{
     flash("error retrieving item", "warning");
 }
+$verify = [];
 
+$db = getDB();
+$user=get_user_id();
+$stmt = $db->prepare("SELECT o.user_id FROM Shop_Orders o, Order_Items i WHERE o.user_id = :u_id AND o.id = i.order_id AND i.item_id = :i_id");
+try {
+    $stmt->execute([":i_id"=>$id, "u_id" => $user]);
+    $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    if ($r) {
+        $verify=$r;
+    }
 
+}  catch (PDOException $e) {
+    echo $e;
+}
+       
 //insert review into table
 if(isset($_POST["rating"]) && isset($_POST["comment"])){
     $rating=$_POST["rating"];
     $comment=$_POST["comment"];
-    $user=get_user_id();
-    $db = getDB();
-    $stmt = $db->prepare("INSERT INTO ratings (product_id, user_id, rating, comment) VALUE(:p_id,:u_id,:rating, :comment) ");
-    try {
-        $stmt->execute([":p_id"=>$id, "u_id" => $user, ":rating"=> $rating, ":comment"=>$comment]);
-       
-        //once inserted, unset post so review does not duplicate on refresh
-        unset($_POST);
-        flash("Review submitted. Thank you!", "success");
-        redirect("product_details.php?product_id=$id"); 
+    if(!empty($verify)){
+        $stmt = $db->prepare("INSERT INTO ratings (product_id, user_id, rating, comment) VALUE(:p_id,:u_id,:rating, :comment) ");
+        try {
+            $stmt->execute([":p_id"=>$id, "u_id" => $user, ":rating"=> $rating, ":comment"=>$comment]);
         
-    } catch (PDOException $e) {
-        echo $e;
-        error_log(var_export($e, true));
-        flash("Error submitting rating", "danger");
+            //once inserted, unset post so review does not duplicate on refresh
+            unset($_POST);
+            flash("Review submitted. Thank you!", "success");
+            redirect("product_details.php?product_id=$id"); 
+            
+        } catch (PDOException $e) {
+            echo $e;
+            error_log(var_export($e, true));
+            flash("Error submitting rating", "danger");
+        }
+    }
+    else{
+        flash("you must purchase the item to before submitting a review", "warning");
     }
 
 }
@@ -87,7 +104,7 @@ $reviews = [];
 $sum=0;
 $avg_review=0;
 try {
-  
+    
      $stmt->execute($params);//dynamically populated params to bind
      $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
      if ($r) {

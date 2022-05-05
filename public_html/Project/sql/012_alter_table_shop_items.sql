@@ -1,0 +1,1 @@
+ALTER TABLE `Shop_Items` ADD COLUMN avg_rate int DEFAULT 0;

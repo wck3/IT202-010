@@ -215,5 +215,22 @@ try {
 
 <?php
 
+$db = getDB();
+    $stmt = $db->prepare("UPDATE Shop_Items SET avg_rate = :rate WHERE id=:p_id");
+    try {
+        $stmt->execute([":p_id"=>$id, ":rate"=> $avg_review*100]);
+       
+        
+        //redirect("product_details.php?product_id=$id"); 
+        
+    } catch (PDOException $e) {
+        echo $e;
+        error_log(var_export($e, true));
+        flash("Error submitting avg rating", "danger");
+    }
+
+
+
+
 require_once(__DIR__ . "/../../partials/flash.php");
 ?>

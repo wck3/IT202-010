@@ -18,7 +18,7 @@ if (isset($_POST["submit"])) {
 $result = [];
 $columns = get_columns($TABLE_NAME);
 //echo "<pre>" . var_export($columns, true) . "</pre>";
-$ignore = ["id", "modified", "created"];
+$ignore = ["id", "modified", "created", "avg_rate"];
 $db = getDB();
 //get the item
 $id = se($_GET, "id", -1, false); //here is where id is fetched
@@ -62,7 +62,7 @@ function map_column($col)
             <?php if (!in_array($column, $ignore)) : ?>
                 
                 <!-- WCK3 4/13/2022 make visibility a radio option-->
-                <?php if( get_type($column) =="tinyint" &&  se($value, "", "" ,false)==1) :  ?>
+                <?php if( $column =="visibility" &&  se($value, "", "" ,false)==1) :  ?>
                     <label>make item public?</label>
                     <br>
                     <div class="form-check form-check-inline">
@@ -74,7 +74,7 @@ function map_column($col)
                         <label class="form-check-label" for="<?php se($column); ?>">No</label>
                     </div>
              
-                <?php elseif($column =="tinyint" &&  se($value, "", "" ,false)==0) : ?>
+                <?php elseif($column =="visibility" &&  se($value, "", "" ,false)==0) : ?>
                     <label>make item public?</label>
                     <br>
                     <div class="form-check form-check-inline">

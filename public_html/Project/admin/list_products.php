@@ -8,7 +8,7 @@ if (!has_role("Admin")) {
 }
 //get name partial search
 $name = se($_POST, "name", "", false);
-
+$stock = se($_POST, "stock", "", false);
 
 $db = getDB();
 $results = [];
@@ -23,6 +23,18 @@ if (!empty($name)) {
     $query .= " AND name like :name";
     $params[":name"] = "%$name%";
 }
+if(!empty($stock)){
+    if($stock == 0){
+        $query .= " AND stock < :curr_stock";
+        $params[":curr_stock"] = $stock;
+    }
+    if($stock == 1){
+        $query .= " AND stock <= :curr_stock";
+        $params[":curr_stock"] = $stock;
+    }
+  
+}
+$query .= " ORDER BY NAME";
 
 //shop pagination
 $per_page = 10;
@@ -48,7 +60,8 @@ try {
         $results = $r;
     }
 } catch (PDOException $e) {
-    error_log(var_export($e, true));  
+    error_log(var_export($e, true));
+    echo $e;  
     flash("Error fetching items", "danger");
 }
 
@@ -56,11 +69,34 @@ try {
 ?>
 <div class="container-fluid">
     <h1>List Items</h1>
-    <form method="POST" class="row row-cols-lg-auto g-3 align-items-center">
+    <form method="POST" class="row row-cols-sm-auto g-3 align-items-center">
         <div class="input-group mb-3">
-            <input class="form-control" type="search" name="name" placeholder="Item Filter" value="<?php se($name); ?>"/>
-            <input class="btn btn-secondary" type="submit" value="Search" />
+            <div class="col-3">
+                <input class="form-control" type="search" name="name" placeholder="Item Filter" value="<?php se($name); ?>"/>
+            </div>
+            <div class="col-1">
+                <input class="btn btn-secondary" type="submit" value="Search" />
+            </div>
+            <div class="col-1">
+                <div class="input-group-text bg-dark text-white">Sort By</div>
+            </div>
+            <div class="col-1">
+               
+                    <select class="form-control bg-secondary text-white" name="stock" value="<?php se($stock); ?>" data="took" >
+                        <option value="0" selected>all stock ▼</option> 
+                        <option value="1">no stock ▼</option>
+                    </select>
+                    <script>
+                        document.forms[0].stock.value = "<?php se($stock); ?>";
+                    </script>
+                
+            </div>
+            <div class="col">
+                <input type="submit" class="btn btn-dark" value="Apply" /> 
+            </div>
+            
         </div>
+       
     </form>
     <?php if (count($results) == 0) : ?>
         <p>No results to show</p>

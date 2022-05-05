@@ -12,7 +12,7 @@ require(__DIR__ . "/cart_helpers.php");
         console.log("TODO purchase item", item);
         //alert("It's almost like you purchased an item, but not really");
         if (add_to_cart) {
-            add_to_cart(item, 1 , price*100);
+            add_to_cart(item, price*100);
         }
     }
 </script>
@@ -27,7 +27,7 @@ $db = getDB();
 $col = se($_GET, "col", "", false);
 
 //allowed list
-if (!in_array($col, ["price", "stock", "name", "created", ""])) {
+if (!in_array($col, ["price", "stock", "name", "created","avg_rate" ,""])) {
     $col = ""; //default value, prevent sql injection
 }
 
@@ -43,7 +43,7 @@ $name = se($_GET, "name", "", false);
 $category = se($_GET, "category", "", false);
 
 //dynamic query
-$base_query = "SELECT id, name, description, CAST(price / 100.00 AS decimal(18,2)) AS price, stock, visibility, category ,image FROM Shop_Items"; //1=1 shortcut to conditionally build AND clauses
+$base_query = "SELECT id, name, avg_rate,description, CAST(price / 100.00 AS decimal(18,2)) AS price, stock, visibility, category ,image FROM Shop_Items"; //1=1 shortcut to conditionally build AND clauses
 $total_query = "SELECT count(1) as total FROM Shop_Items";
 $params = []; //define default params, add keys as needed and pass to execute
 $query = " WHERE 1=1 and stock > 0"; 
@@ -117,6 +117,7 @@ try {
                     <option value="price">price</option>
                     <option value="stock">stock</option>
                     <option value="name">name</option>
+                    <option value="avg_rate">average rating</option>
                   
                 </select>
                
@@ -181,6 +182,13 @@ try {
                             <?php endif; ?>
                             <div class="card-body"> 
                                 <h5 class="card-title"><?php se($item, "name"); ?></h5>
+                                <h6 class="card-title">
+                                    
+                                    (<?php $rate = 0; 
+                                              $rate = se($item, "avg_rate", "", false); se($rate/100); 
+                                        ?>/5 stars)
+                                
+                                </h6>
                                 <p class="card-text"><?php se($item, "description"); ?></p>
                             </div>
                             <div class="card-footer"> 

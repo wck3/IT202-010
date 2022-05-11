@@ -3,7 +3,8 @@
 ## Github Link: https://github.com/wck3/IT202-010/tree/prod/public_html/Project
 ## Project Board Link: https://github.com/wck3/IT202-010/projects/1
 ## Website Link: https://wck3-prod.herokuapp.com/Project/login.php
-## Your Name: William Kaminski
+## Video Demonstration: https://www.youtube.com/watch?v=RQPzg4SYO60
+## Made By: William Kaminski
 
 <!-- Line item / Feature template (use this for each bullet point) -- DO NOT DELETE THIS SECTION
 

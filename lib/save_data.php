@@ -24,6 +24,7 @@ function save_data($table, $data, $ignore = ["submit"])
         //echo "Successfully added new record with id " . $db->lastInsertId();
         return $db->lastInsertId();
     } catch (PDOException $e) {
+        echo $e;
         error_log(var_export($e->errorInfo, true));
         flash("An error occurred saving data for table $table", "danger");
         return -1;

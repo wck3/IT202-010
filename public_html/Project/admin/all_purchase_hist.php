@@ -10,6 +10,7 @@ if (!has_role("Admin")) {
 $db = getDB();
 $results=[];
 $params=[];
+$total = 0;
 
 $from = se($_GET, "from", "01", false);
 $to = se($_GET, "to", "12", false);
@@ -79,7 +80,32 @@ if ($user_id > 0) {
     if (!empty($col) && !empty($order)) {
         $query .= " ORDER BY $col $order ";  
     }
-    
+
+    $stmt = $db->prepare($base_query . $query); //dynamically generated query
+    $subtotal=[];
+    try {
+        $stmt->execute($params); //dynamically populated params to bind
+        $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if ($r) {
+            $subtotal = $r;
+           
+        }
+    } catch (PDOException $e) {
+        echo $e;
+        error_log(var_export($e, true));  
+        flash("Error fetching items", "danger");
+    }
+
+    function total($result){
+        $total=0;
+        foreach($result as $column){
+            $total = $total + $column["subtotal"];
+        }
+       echo "$" . $total . " " ;
+      
+
+    }
+
     //shop pagination
     $per_page = 10;
     paginate($total_query . $query, $params, $per_page);
@@ -95,7 +121,6 @@ if ($user_id > 0) {
         $stmt->bindValue($key, $value, $type);
     }
     $params = null; //set it to null to avoid issues
-
     //fetch items
     try {
         $stmt->execute($params); //dynamically populated params to bind
@@ -217,6 +242,11 @@ if ($user_id > 0) {
         </div>
         <div class="col"> 
             <input type="Reset" class="btn btn-secondary" value="Reset" />
+        </div>
+        <div class="col" >
+        
+        <h5>Total of Orders: <?php $total = total($subtotal); ?></h5>
+
         </div>
     </form>
     <?php if (count($results) == 0) : ?>

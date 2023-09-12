@@ -20,7 +20,7 @@ function clear_flashes () {
     let flash = document.getElementById("flash");
     if (!flash_timeout && flash) {
         flash_timeout = setTimeout(() => {
-            console.log("removing");
+            console.log("removing flash");
             if (flash.children.length > 0) {
                 flash.children[0].remove();
             }

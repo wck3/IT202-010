@@ -1,7 +1,6 @@
 #  Simple PC Shop Concept
 ## This project is a simple e-commerce site for users to shop for PC parts. Administrators or store owners are able to manage inventory and users can manage their cart and "place" orders.
-## Github Link: https://github.com/wck3/IT202-010/tree/prod/public_html/Project
-## Project Board Link: https://github.com/wck3/IT202-010/projects/1
+## Github Link: [https://github.com/wck3/IT202-010/tree/prod/public_html/Project](https://github.com/wck3/PC-Parts-Shop)
 ## Website Link: https://wck3-prod.herokuapp.com/Project/login.php
 ## Video Demonstration: https://www.youtube.com/watch?v=RQPzg4SYO60
 ## Made By: William Kaminski

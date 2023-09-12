@@ -87,28 +87,27 @@ if(empty($results)){
                             <input  class="form-control" type="text" name="address"/>
                         </div>
                         <div class="mb-3">
-                            <div class="row">
-                                <div class="col">
-                                    <label for="address">City</label>
-                                    <input class="form-control" type="text" name="City"/>
-                                </div>
+                           
+                            <label for="address">City</label>
+                            <input class="form-control" type="text" name="City"/>
+                                
+                        </div>
+                        <div class="mb-3">
                                <!-- partial used for state dropdown -->
                                <?php require(__DIR__ . "/../../partials/address_fields.php");?>
+                        </div>
+                        <div class="mb-3">
+                           
+                            <label for="address">Zip/postal code</label>
+                            <input  class="form-control-2 rounded-3" type="text" name="zip"/>
                               
-                            </div>
-                            <div class="row">  
-                                <div class="col">
-                                    <label for="address">Zip/postal code</label>
-                                    <input  class="form-control" type="text" name="zip"/>
-                                </div>
-                            </div>
                         </div>
                         <div class="mb-3">
                             <label for="payment">Payment Method: </label>
                             <!--<input class="form-control" type="text" name="payment"  /> -->
-                            <select class="form-control-md-3 bg-white " name="payment_method">
+                            <select class="form-control-md-3 bg-white rounded-3" name="payment_method">
                     
-                                <option value="poop" selected>Select</i></option> 
+                                <option value="" selected>Select</i></option> 
                                 <option value="Cash" name="Cash" >Cash</option>
                                 <option value="Visa" name="Visa">Visa</option>
                                 <option value="MasterCard" name="MasterCard">MasterCard</option>
@@ -118,7 +117,7 @@ if(empty($results)){
                         </div>
                         <div class="mb-3">
                             <label for="payment_total">Payment Total: $</label>
-                            <input class="form-control-3" type="number" min="0" step="0.01" name="payment"  />
+                            <input class="form-control-3 rounded-3" type="number" min="0" step="0.01" name="payment"  />
                         </div>
                            <input class="btn btn-secondary" type="submit" value="Confirm Purchase" /> 
                     </form>

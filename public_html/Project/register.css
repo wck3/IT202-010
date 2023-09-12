@@ -1,0 +1,20 @@
+
+
+.register-body{
+    display:flex;
+    align-items:center;
+
+    flex-direction:column;
+    padding:5em;
+    min-height:max-content
+}
+
+.register-body h1{
+    padding-bottom:1em;
+}
+
+.btn{
+    width: 50%;
+}
+
+

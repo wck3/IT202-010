@@ -28,7 +28,32 @@ if (isset($_POST["name"]) && isset($_POST["description"])) {
     }
 }
 ?>
-<div class="container-fluid">
+
+
+<style>
+
+.role-body{
+    display:flex;
+    align-items:center;
+    flex-direction:column;
+    padding:5em;
+    min-height:max-content;
+}
+
+.role-body h1{
+    padding-bottom:1em;
+}
+
+.role-body .btn{
+    width:45%;
+}
+
+
+</style>
+
+
+<link rel="stylesheet" href="<?php echo get_url('create_role.css'); ?>">
+<div class="container-fluid role-body">
     <h1>Create Role</h1>
     <form method="POST">
         <div class="mb-3">

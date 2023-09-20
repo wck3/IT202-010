@@ -1,10 +1,14 @@
 <?php
 require(__DIR__ . "/../../partials/nav.php");
 ?>
+
+<link rel="stylesheet" href="<?php echo get_url('login.css'); ?>">
 <form onsubmit="return validate(event)" method="POST">
-    <div class="container-fluid">
-        <h1>Please Login</h1>
-        <div class="col-2"> 
+    <div class="container-fluid login-body" >
+        <div id="title"> 
+            <h1>Welcome! Please Login</h1>
+        </div>
+        <div class="col-2 form"> 
             <div class="mb-3">
                 <label for="email">Email/Username</label>
                 <input class="form-control" type="text" name="email"/>
@@ -13,8 +17,11 @@ require(__DIR__ . "/../../partials/nav.php");
                 <label for="pw">Password</label>
                 <input class="form-control" type="password" id="pw" name="password"/>
             </div>
+
         </div>
+
         <input class="btn btn-secondary"  type="submit" value="Login" />
+
     </div> 
 </form>
 

@@ -1,7 +1,7 @@
-<div class="container-fluid">
+
 
     <label for="payment">State </label>
-    <select class="form-select bg-white " name="state" value="">
+    <select class="form-select-2 bg-white  rounded-3" name="state" value="">
             <option> </option>
             <option value="AL">AL</option>
             <option value="AL">AL</option>
@@ -57,7 +57,7 @@
             <option value="WY">WY</option>
     </select>
 
-</div>
+
 
 
 <script> states=[ 'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 

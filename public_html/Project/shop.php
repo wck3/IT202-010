@@ -20,10 +20,9 @@ require(__DIR__ . "/cart_helpers.php");
 <?php
 $results = [];
 $db = getDB();
+
 //process filters/sorting
 //Sort and Filters
-
-//WCK3 04/15/2022 all filters done below
 $col = se($_GET, "col", "", false);
 
 //allowed list
@@ -98,7 +97,10 @@ try {
 
 <div class="container-fluid">
     <!--WK 04/15/2022 Filters-->
-    <h1>Shop</h1>
+    <div id="title">
+        <h1>Shop</h1>
+    </div>
+
     <form class="row row-cols-auto g-4 align-items-center">
         <div class="col">
             <div class="input-group" data="i">
@@ -109,61 +111,43 @@ try {
         <div class="col-4">
             <div class="input-group">
                 <div class="input-group-text bg-dark text-white">Sort By</div>
-                <!-- make sure these match the in_array filter above-->
-            
-                <select class="form-control bg-secondary text-white" name="col" value="<?php se($col); ?>" data="took" >
-                    
-                    <option value="">none ▼</option> 
+                <select class="form-control bg-secondary text-white" name="col" data="took" onchange="this.form.submit()">
+                    <option value="">attributes</option>
+                    <option value="avg_rate">rating</option>
                     <option value="price">price</option>
                     <option value="stock">stock</option>
                     <option value="name">name</option>
-                    <option value="avg_rate">average rating</option>
-                  
                 </select>
-               
-                <select class="form-control bg-secondary text-white" name="category" value="<?php se($category); ?>" data="took" >
-                   
+                <select class="form-control bg-secondary text-white" name="category" value="<?php se($category); ?>" data="took" onchange="this.form.submit()">
                     <?php $db = getDB();
                     $stmt = $db->prepare("SELECT DISTINCT category from Shop_Items ORDER BY category");
                     $stmt->execute();
                     $r = $stmt->fetchAll(); ?>
                         
-                    <option value="" selected >category: all ▼</i></option> 
+                    <option value="" selected >category: all</option>
                     <?php foreach($r as $thing):?>
                         <option value="<?php se($thing, 'category');?>"> <?php se($thing, 'category');?> </option>
                     <?php endforeach;?>
-              
                 </select>
-                
                 <script>
                     //quick fix to ensure proper value is selected since
                     //value setting only works after the options are defined and php has the value set prior
                     document.forms[0].col.value = "<?php se($col); ?>";
                     document.forms[0].category.value = "<?php se($category); ?>";
-            
                 </script>
-                <select class="form-control  bg-secondary text-white" name="order" value="<?php se($order); ?>">
-                    <option class="bg-secondary" value="asc">ascending</option>
-                    <option class="bg-secondary" value="desc">descending</option>
+                <select class="form-control  bg-secondary text-white" name="order" value="<?php se($order); ?>" onchange="this.form.submit()">
+                    <option class="bg-secondary" value="desc">ascending</option>
+                    <option class="bg-secondary" value="asc">descending</option>
                 </select>
                 <script data="this">
                     //quick fix to ensure proper value is selected since
                     //value setting only works after the options are defined and php has the value set prior
                     document.forms[0].order.value = "<?php se($order); ?>";
-                    if (document.forms[0].order.value === "asc") {
-                        document.forms[0].order.className = "form-control bg-secondary text-white";
-                    } else {
-                        document.forms[0].order.className = "form-control bg-secondary text-white";
-                    }
+                    
                 </script>
             </div>
         </div>
-        <div class="col">
-           <input type="submit" class="btn btn-secondary" value="Apply" /> 
-        </div>
-        <div class="col"> 
-            <input type="Reset" class="btn btn-secondary" value="Reset" />
-        </div>
+       
     </form>
     <!--End Filters-->
     <!--WK 04/15/2022 Items-->
@@ -172,47 +156,47 @@ try {
     <?php else : $item_count=0; ?>
          <div class="row row-cols-1 row-cols-md-5 g-4">
             <?php foreach ($results as $item) : ?>
-                <?php if(se($item, "visibility", "", false)==1 || has_role("Admin")) : ?> 
-                    <div class="col md-6">
-                        <div class="card bg-dark h-100">
-                            <div class="card-header">
-                            </div>
-                            <?php if (se($item, "image", "", false)) : ?>
-                                <img src="<?php se($item, "image"); ?>" class="card-img-top" alt="...">
-                            <?php endif; ?>
-                            <div class="card-body"> 
-                                <h5 class="card-title"><?php se($item, "name"); ?></h5>
-                                <p class="card-text"><?php se($item, "description"); ?></p>
-                            </div>
-                            <div class="card-footer"> 
-                                $<?php se($item, "price");?> </br>
-                                <div class="row">
-                                    <div class="col">
-                                        <button onclick="purchase('<?php se($item, 'id'); ?>', '<?php se($item, 'price'); ?>')" class="btn btn-sm btn-secondary">Add to Cart</button>
-                                    </div>
-                                    
-                                    <!-- WCK3 04/12/2022 more details button -->
-                                    <div class="col">
-                                        <form action="product_details.php" method="GET">
-                                            <input type="hidden" name="product_id" value="<?php echo $item["id"]?>">
-                                            <button type="submit" class="btn btn-sm btn-secondary">More Details </button>
-                                        </form>
-                                    </div>
-                                    <!-- WCK3 04/12/2022 edit items button --> 
-                                    <?php if(has_role("Admin")) : ?> 
-                                        <form action="admin/edit_item.php" method="GET">
-                                            <input type="hidden" name="id" value="<?php echo $item["id"]?>">
-                                            <button type="submit" class="btn btn-sm btn-secondary ">Edit </button>
-                                            <?php if(se($item, "visibility", "", false)==0) : ?> 
-                                                Not Public
-                                            <?php endif; ?>
-                                        </form>
-                                    <?php endif;?> 
+            <?php if(se($item, "visibility", "", false)==1 || has_role("Admin")) : ?> 
+                <div class="col md-6">
+                    <div class="card bg-dark h-100">
+                        <div class="card-header"></div>
+                        
+                        <?php if (se($item, "image", "", false)) : ?>
+                        <img src="<?php se($item, "image"); ?>" class="card-img-top" alt="...">
+                        <?php endif; ?>
+                        
+                        <div class="card-body"> 
+                            <h5 class="card-title"><?php se($item, "name"); ?></h5>
+                            <p class="card-text"><?php se($item, "description"); ?></p>
+                            <p class="card-text"><?php echo $item["avg_rate"]/100; ?>/5 ★</p>
+                        </div>
+                        <div class="card-footer"> 
+                            $<?php se($item, "price");?> </br>
+                            <div class="row">
+                                <div class="col">
+                                    <button onclick="purchase('<?php se($item, 'id'); ?>', '<?php se($item, 'price'); ?>')" class="btn btn-sm btn-secondary">Add to Cart</button>
                                 </div>
+                                <div class="col">
+                                    <form action="product_details.php" method="GET">
+                                        <input type="hidden" name="product_id" value="<?php echo $item["id"]?>">
+                                        <button type="submit" class="btn btn-sm btn-secondary">More Details </button>
+                                    </form>
+                                </div>
+                            
+                                <?php if(has_role("Admin")) : ?> 
+                                <form action="admin/edit_item.php" method="GET">
+                                    <input type="hidden" name="id" value="<?php echo $item["id"]?>">
+                                    <button type="submit" class="btn btn-sm btn-secondary ">Edit</button>
+                                    <?php if(se($item, "visibility", "", false)==0) : ?> 
+                                    Not Public
+                                    <?php endif; ?>
+                                </form>
+                                <?php endif;?> 
                             </div>
                         </div>
                     </div>
-                
+                </div>
+            
                 <?php endif;?>  
             <?php endforeach; ?>
             <?php if($item_count>1) : ?>

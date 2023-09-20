@@ -1,0 +1,23 @@
+
+
+
+
+.edit-body{
+    display:flex;
+    align-items:center;
+
+    flex-direction:column;
+    padding:5em;
+    min-height:max-content
+}
+
+.edit-body h1{
+    padding-bottom:1em;
+}
+
+.edit-body .btn{
+  
+    margin:.2em
+}
+
+

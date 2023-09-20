@@ -43,12 +43,38 @@ try {
     flash(var_export($e->errorInfo, true), "danger");
 }
 
+
+if (isset($_POST["name"]) && isset($_POST["description"])) {
+    $name = se($_POST, "name", "", false);
+    $desc = se($_POST, "description", "", false);
+    if (empty($name)) {
+        flash("Name is required", "warning");
+    } else {
+        $db = getDB();
+        $stmt = $db->prepare("INSERT INTO Roles (name, description, is_active) VALUES(:name, :desc, 1)");
+        try {
+            $stmt->execute([":name" => $name, ":desc" => $desc]);
+            flash("Successfully created role $name!", "success");
+            $_POST["name"] = NULL;
+            $_POST["description"] = NULL;
+
+            
+        } catch (PDOException $e) {
+            if ($e->errorInfo[1] === 1062) {
+                flash("A role with this name already exists, please try another", "warning");
+            } else {
+                flash(var_export($e->errorInfo, true), "danger");
+            }
+        }
+    }
+}
+
 ?>
 <div class="container-fluid">
     <h1>List Roles</h1>
     <form method="POST" class="row row-cols-lg-auto g-3 align-items-center">
         <div class="input-group mb-3">
-            <input class="form-control" type="search" name="role" placeholder="Role Filter" />
+            <input class="form-control" type="search" name="role" placeholder="Search Role Name"/>
             <input class="btn btn-secondary" type="submit" value="Search" />
         </div>
     </form>
@@ -87,7 +113,24 @@ try {
             <?php endif; ?>
         </tbody>
     </table>
-    <?php
-    //note we need to go up 1 more directory
-    require_once(__DIR__ . "/../../../partials/flash.php");
-    ?>
+
+
+<link rel="stylesheet" href="<?php echo get_url('create_role.css'); ?>">
+<div class="container-fluid role-body">
+    <h1>Create Role</h1>
+    <form method="POST">
+        <div class="mb-3">
+            <label class="form-label" for="name">Name</label>
+            <input class="form-control" id="name" name="name" required style="width:15%"/>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="d">Description</label>
+            <textarea class="form-control" name="description" id="d" style="width:50%"></textarea>
+        </div>
+        <input type="submit" class="btn btn-secondary" value="Create Role" />
+    </form>
+</div>
+<?php
+//note we need to go up 1 more directory
+require_once(__DIR__ . "/../../../partials/flash.php");
+?>

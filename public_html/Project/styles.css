@@ -14,6 +14,11 @@
     background-color: grey;
 }
 
+.alert{
+    text-align: center;
+    width:75%
+}
+
 /*links*/
 nav a:link{
     color:white;
@@ -32,5 +37,9 @@ nav li a{color: white}
 body{
     background-color: darkslategray;
     color: white;
+}
 
+.navbar-brand{
+  
+    font-family: OCR A Std, monospace;
 }

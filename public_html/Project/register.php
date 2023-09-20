@@ -2,9 +2,10 @@
 require(__DIR__ . "/../../partials/nav.php");
 reset_session();
 ?>
+<link rel="stylesheet" href="<?php echo get_url('register.css'); ?>">
 <form onsubmit="return validate(this)" method="POST">
-    <div class="container-fluid">
-        <h1>Register</h1>
+    <div class="container-fluid register-body">
+        <div id="title"><h1>Register</h1></div>
         <div class="col-2">
             <div class="mb-3">
                 <label for="email">Email</label>
@@ -126,7 +127,7 @@ if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm
             $stmt->execute([":email" => $email, ":password" => $hash, ":username" => $username, ":visibility"=> $visibility]);
             flash("Successfully registered!", "success");
         } catch (Exception $e) {
-            users_check_duplicate($e->errorInfo);
+            users_check_duplicate($e);
         }
     }
 }

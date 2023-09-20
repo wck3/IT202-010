@@ -134,12 +134,17 @@ try {
 
 ?>
 
+
+<link rel="stylesheet" href="<?php echo get_url('profile.css'); ?>">
+
 <form method="POST" onsubmit="return validate(this);">
   
-<div class="container-fluid">
+<div class="container-fluid edit-body">
     <!-- Edit Profile -->
     <?php if ($isMe && $isEdit) : ?>
-        <h1>Edit Your Profile</h1>
+        <div id="title">
+            <h1>Edit Your Profile</h1>
+        </div>
         <form method="POST" onsubmit="return validate(this);">
             <div class="col-2">
                 <div><h4>Email/Username</h4></div>
@@ -221,7 +226,7 @@ try {
                     <div class="card-footer">
                         <?php if ($isMe) : ?>
                             <div class="col-5">
-                                <a class="btn btn-secondary"href="?edit">Edit Profile</a>
+                                <a class="btn btn-secondary" href="?edit">Edit Profile</a>
                             </div>
                         <?php endif; ?>
                     </div>

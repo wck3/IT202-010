@@ -201,7 +201,9 @@ try {
         </div>            
     <?php endforeach; ?>
     <br>
+    <div id="title"></div>
     <div class="card bg-dark">
+   
         <div class="card-header">
             <h3>User Ratings (<?php se(number_format($avg_review, 2, '.', '')); ?>/5 stars) </h3>
         </div>

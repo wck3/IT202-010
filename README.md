@@ -2,6 +2,7 @@
 ## This project is a simple e-commerce site for users to shop for PC parts. Administrators or store owners are able to manage inventory and users can manage their cart and "place" orders.
 ## Website Link: https://wck3-prod.herokuapp.com/Project/shop.php
 ## Video Demonstration (before revisions): https://www.youtube.com/watch?v=RQPzg4SYO60
+
 ## Made By: William Kaminski
  
  ### Checklist and Evidence

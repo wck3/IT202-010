@@ -1,189 +1,80 @@
-#  Simple PC Shop Concept
-## This project is a simple e-commerce site for users to shop for PC parts. Administrators or store owners are able to manage inventory and users can manage their cart and "place" orders.
-## Website Link: https://wck3-prod.herokuapp.com/Project/shop.php
-## Video Demonstration (before revisions): https://www.youtube.com/watch?v=RQPzg4SYO60
+# PCB's
 
-## Made By: William Kaminski
- 
- ### Checklist and Evidence
+PCB's is a straightforward e-commerce site designed for users to shop for PC parts. Administrators or store owners can efficiently manage inventory, and users have the capability to handle their carts and place orders.
 
-- Milestone 1
- 
-  - [x] (02/22/2022) User will be able to register a new account
-    - [https://wck3-prod.herokuapp.com/Project/register.php](https://wck3-prod.herokuapp.com/Project/register.php)
-    - Form Fields
-      - [x] Username, email, password, confirm password
-      - [x] Email is required and validated
-      - [x] Username is required
-      - [x] Confirm password's match
-    - Users Table
-      - [x] Id, username, email, password (60 characters), created, modified
-    - Password hashed
-    - Email unique
-    - Username unique
-    - System should let user know if username or email is taken and allow the user to correct the error without wiping/clearing the form
-      - [x] The only fields that may be cleared are the password fields
-  - [x] (02/24/2022) User will be able to login to their account (given they enter the correct credentials)
-    - [https://wck3-prod.herokuapp.com/Project/login.php](https://wck3-prod.herokuapp.com/Project/login.php)
-    - Form
-      - [x] User can login with email or username
-      - [x] Password is required
-    - User sees friendly error messages when an account either doesn’t exist or if passwords don’t match
-    - Logging in fetches the user’s details (and roles) and saves them into the session.
-    - User will be directed to a landing page upon login
-      - [x] This is a protected page (non-logged in users shouldn’t have access)
-      - [x] This can be home, profile, a dashboard, etc
-  - [x] (02/24/2022) User will be able to logout
-    - [https://wck3-prod.herokuapp.com/Project/logout.php](https://wck3-prod.herokuapp.com/Project/logout.php)
-    - Logging out will redirect to login page
-    - User see a message that they’ve successfully logged out
-    - Session is destroyed 
-  - [x] (03/29/2022) Basic security rules implemented
-    - [https://wck3-prod.herokuapp.com/Project/profile.php](https://wck3-prod.herokuapp.com/Project/profile.php)
-    - Authentication
-      - [x] Function to check if user is logged in 
-      - [x] Function should be called on appropriate pages that only allow logged in users
-    - Roles/Authorization
-      - [x] Have a roles table 
-  - [x] (03/29/2022) Basic Roles implemented
-    - [https://wck3-prod.herokuapp.com/Project/admin/create_role.php](https://wck3-prod.herokuapp.com/Project/admin/create_role.php)
-    - [https://wck3-prod.herokuapp.com/Project/admin/list_roles.php](https://wck3-prod.herokuapp.com/Project/admin/list_roles.php)
-    - [https://wck3-prod.herokuapp.com/Project/admin/assign_roles.php](https://wck3-prod.herokuapp.com/Project/admin/assign_roles.php)
-    - Have a Roles table  (id, name, description, is_active, modified, created)
-    - Have a User Roles table (id, user_id, role_id, is_active, created, modified)
-    - Include a function to check if a user has a specific role 
-  - [x] (03/03/2022) User will be able to see their profile
-    - [https://wck3-prod.herokuapp.com/Project/profile.php](https://wck3-prod.herokuapp.com/Project/profile.php)
-    - Email, username, etc
-  - [x] (03/03/2022) User will be able to edit their profile
-    - [https://wck3-prod.herokuapp.com/Project/profile.php](https://wck3-prod.herokuapp.com/Project/profile.php)
-    - Changing username/email should properly check to see if it’s available before allowing the change
-    - Allow password reset (only if the existing correct password is provided)
-- Milestone 2
-  - [x] (04/12/2022) User with an admin role or shop owner role will be able to add products to inventory
-    - [https://wck3-prod.herokuapp.com/Project/add_product.php](https://wck3-prod.herokuapp.com/Project/admin/add_product.php)
-    - Table should be called Products (id, name, description, category, stock, created, modified, unit_price, visibility [true, false])
-  - [x] (04/15/2022) Any user will be able to see products with visibility = true on the Shop page
-    - [https://wck3-prod.herokuapp.com/Project/shop.php](https://wck3-prod.herokuapp.com/Project/shop.php)
-    - Product list page will be public
-    - For now limit results to 10 most recent
-    - User will be able to filter results by category
-    - User will be able to filter results by partial matches on the name
-    - User will be able to sort results by price
-    - All filters are additive
-  - [x] (04/13/2022) Admin/Shop owner will be able to see products with any visibility
-    - [https://wck3-prod.herokuapp.com/Project/shop.php](https://wck3-prod.herokuapp.com/Project/shop.php)
-      or
-    - [https://wck3-prod.herokuapp.com/Project/admin/list_products.php](https://wck3-prod.herokuapp.com/Project/admin/list_products.php)
-    - separate page from Shop, but it is similar
-  - [x] (04/13/2022) Admin/Shop owner will be able to edit any product
-    - [https://wck3-prod.herokuapp.com/Project/edit_item.php](https://wck3-prod.herokuapp.com/Project/admin/edit_item.php) 
-    - Edit button should be accessible for the appropriate role(s) anywhere a product is shown (Shop list, Product Details Page, etc)
-    - Edit name, description, category, stock, unit_price, visibility
-  - [x] (04/12/2022) User will be able to click an item from a list and view a full page with more info about the item (Product Details Page)
-    - [https://wck3-prod.herokuapp.com/Project/product_details.php](https://wck3-prod.herokuapp.com/Project/product_details.php)
-    - Name, description, unit_price, stock, category
-  - [x] (04/16/2022) User must be logged in for any Cart related activity 
-    - [https://wck3-prod.herokuapp.com/Project/cart.php](https://wck3-prod.herokuapp.com/Project/cart.php) 
-  - [x] (04/16/2022) User will be able to add items to Cart
-    - [https://wck3-prod.herokuapp.com/Project/shop.php](https://wck3-prod.herokuapp.com/Project/shop.php)
-    - Cart is table-based /(id, product_id, user_id, desired_quantity, unit_price, created, modified/)
-      - [x] Choose one and cross out which one you won’t support
-        - [x] If a user can have only 1 cart product_id and user_id should be a composite unique key
-    - Adding items to Cart will not affect the Product's quantity in the Products table
-  - [x] (04/16/2022) User will be able to see their cart
-    - [https://wck3-prod.herokuapp.com/Project/cart.php](https://wck3-prod.herokuapp.com/Project/cart.php)  
-    - List all the items
-    - Show subtotal for each line item based on desired_quantity * unit_price (from the cart)
-    - Show total cart value (sum of line item subtotals)
-    - Will be able to click an item to see more details (Product Details Page)
-  - [x] (04/17/2022) User will be able to change quantity of items in their cart
-    - [https://wck3-prod.herokuapp.com/Project/cart.php](https://wck3-prod.herokuapp.com/Project/cart.php)  
-    - Quantity of 0 should also remove from cart
-    - A negative Quantity is not valid
-  - [x] (04/16/2022) User will be able to remove a single item from their cart via button click
-    - [https://wck3-prod.herokuapp.com/Project/cart.php](https://wck3-prod.herokuapp.com/Project/cart.php) 
-  - [x] (04/17/2022) User will be able to clear their entire cart via a button click
-    - [https://wck3-prod.herokuapp.com/Project/cart.php](https://wck3-prod.herokuapp.com/Project/cart.php)  
- - Milestone 3
-  - [x] (04/27/2022) User will be able to purchase items in their Cart
-    - [https://wck3-prod.herokuapp.com/Project/checkout.php](https://wck3-prod.herokuapp.com/Project/checkout.php)  
-    - [x] Create an Orders table (id, user_id, created, total_price, address, payment_method, money_received)
-      - [x] Payment method will simply record (Cash, Visa, MasterCard, Amex, etc), this is just a sample
-    - [x] Create an OrderItems table (id, order_id, product_id, quantity, unit_price)
-    - Checkout Form
-      - [x] Ask for payment method (Cash, Visa, MasterCard, Amex, etc)
-      - [x] No credit card number, this is just a sample
-      - [x] Ask for a numerical value to be entered 
-      - [x] Ask for Address/shipping information
-    - [x] User will be asked for their Address for shipping purposes
-    - [x] Address form should validate correctly
-    - [x] Calculate Cart Items
-    - [x] Verify the current product price against the Products table
-    - [x] Verify desired product and desired quantity are still available in the Products table
-      - Users can’t purchase more than what’s in stock
-      - Show an error message and prevent order from going through if something isn’t available
-      - Let the user update their cart and try again
-    - [x] Make an entry into the Orders table
-    - [x] Get last Order ID from Orders table
-    - [x] Copy the cart details into the OrderItems tables with the Order ID from the previous step
-    - [x] Update the Products table Stock for each item to deduct the Ordered Quantity
-    - [x] Clear out the user’s cart after successful order
-    - [x] Redirect user to Order Confirmation Page
-  - [x] (04/28/2022) Order Confirmation Page
-      - [https://wck3-prod.herokuapp.com/Project/thankyou.php](https://wck3-prod.herokuapp.com/Project/thankyou.php)   
-      - Show the entire order details from the Order and OrderItems table (similar to cart)
-        - [x] Including a the cost of each line item and the total value
-        - [x] Show how they purchased and how much they paid
-      - Displays a Thank you message
-  - [x] (04/28/2022) User will be able to see their Purchase History
-      - [https://wck3-prod.herokuapp.com/Project/purchase_history.php](https://wck3-prod.herokuapp.com/Project/purchase_history.php)
-      - [https://wck3-prod.herokuapp.com/Project/order_details.php](https://wck3-prod.herokuapp.com/Project/order_details.php)    
-      - For now limit to 10 most recent orders
-      - Show a summary of relevant information
-      - A list item can be clicked to view the full details in the Order Details Page (similar to Order Confirmation Page except no “Thank you” message)
-  - [x] (04/28/2022) Store Owner will be able to see all Purchase History
-      - [https://wck3-prod.herokuapp.com/Project/admin/all_purchase_hist.php](https://wck3-prod.herokuapp.com/Project/admin/all_purchase_hist.php)
-      - [https://wck3-prod.herokuapp.com/Project/admin/admin_order_details.php](https://wck3-prod.herokuapp.com/Project/admin/admin_order_details.php)    
-      - For now limit to 10 most recent orders
-      - A list item can be clicked to view the full details in the Order Details Page (similar to Order Confirmation Page except no “Thank you” message)
-- Milestone 4
-  - [x] (05/02/2022) User can set their profile to be public or private (will need another column in Users table)
-    - [https://wck3-prod.herokuapp.com/Project/profile.php](https://wck3-prod.herokuapp.com/Project/profile.php)
-    - [https://wck3-prod.herokuapp.com/Project/profile.php?id=1](https://wck3-prod.herokuapp.com/Project/profile.php?id=1)
-    - [https://wck3-prod.herokuapp.com/Project/register.php](https://wck3-prod.herokuapp.com/Project/register.php)
-    - If profile is public, hide email address from other users (email address should not be publicly visible to others)
-  - [x] (05/04/2022) User will be able to rate a product they purchased
-    - [https://wck3-prod.herokuapp.com/Project/product_details.php?product_id=16](https://wck3-prod.herokuapp.com/Project/product_details.php?product_id=16)
-    - Create table called Ratings (id, product_id, user_id, rating, comment, created, modified)
-    - 1-5 rating
-    - Text Comment (use TEXT data type in sql)
-    - Must be done on the Product Details Page
-    - Ratings and Rating Comments will be visible on the Product Details page
-      - [x] Show the latest 10 reviews
-      - [x] Paginate anything beyond 10
-    - Show the average rating on the Product Details Page
-  - [x] (05/04/2022) User’s Purchase History Changes
-      - [https://wck3-prod.herokuapp.com/Project/purchase_history.php](https://wck3-prod.herokuapp.com/Project/purchase_history.php) 
-      - Filter by date range
-      - Filter by category
-      - Sort by total, date purchased, etc
-      - Add pagination
-        - [x] Any filter/sort applied must be followed during the pagination process
-  - [x] (05/04/2022) Store Owner Purchase History Changes
-    - [https://wck3-prod.herokuapp.com/Project/admin/all_purchase_hist.php](https://wck3-prod.herokuapp.com/Project/admin/all_purchase_hist.php)
-    - Filter by Date Range
-    - Filter by Category
-    - Sort by total, date purchased, etc
-    - Add pagination
-      - [x] Any filter/sort applied must be followed during the pagination process
-  - [x] (05/04/2022) Add pagination to Shop Page (and any other product lists not yet mentioned)
-      - [https://wck3-prod.herokuapp.com/Project/shop.php](https://wck3-prod.herokuapp.com/Project/shop.php)
-      - [https://wck3-prod.herokuapp.com/Project/admin/list_products.php](https://wck3-prod.herokuapp.com/Project/admin/list_products.php)
-  - [x] (05/04/2022) Store Owner will be able to see all products out of stock
-      - [https://wck3-prod.herokuapp.com/Project/admin/list_products.php](https://wck3-prod.herokuapp.com/Project/admin/list_products.php)
-      - Pagination should account for this new filter
-      - Recommended to have the filter applied as a given value (i.e., where quantity is <= value)
-  - [x] (05/04/2022) User can sort products by average rating on the Shop Page
-      - [https://wck3-prod.herokuapp.com/Project/shop.php](https://wck3-prod.herokuapp.com/Project/shop.php)
-    
+## Getting Started
+
+Website Link: [PCB's, deployed on Heroku](https://wck3-prod.herokuapp.com/Project/shop.php)
+
+Video Demonstration (before revisions): [YouTube Video](https://www.youtube.com/watch?v=RQPzg4SYO60)
+
+## Technologies Used
+
+PC Shop Concept is built using the following technologies:
+
+- [PHP](https://www.php.net/)
+- [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML)
+- [Bootstrap](https://getbootstrap.com/)
+- [MySQL](https://www.mysql.com/)
+- [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+
+## Features
+
+### User Management
+
+- **User Registration and Login:**
+  - Users can register with a unique username, email, and password.
+  - Passwords are securely hashed, and email and username uniqueness is enforced.
+  - User-friendly login with support for both email and username.
+
+- **Profile Management:**
+  - Users can view and edit their profiles, ensuring a personalized experience.
+  - Profile edits are subject to username and email availability checks.
+
+- **Role-based Access Control:**
+  - Implemented roles and permissions for administrators and users.
+  - Administrators have the authority to manage roles, ensuring secure access.
+
+### Inventory Management
+
+- **Product Management:**
+  - Admins can add products to the inventory, including details like name, description, category, stock, and unit price.
+  - Products are categorized and can be easily managed by administrators.
+
+- **Shop and Product Details:**
+  - Users can view a public shop page, with options to filter and sort products.
+  - Detailed product pages provide information like name, description, unit price, stock, and category.
+
+### Cart and Checkout
+
+- **Cart Functionality:**
+  - Users can add items to their cart, adjust quantities, and remove items.
+  - Cart information is stored securely for logged-in users.
+
+- **Checkout Process:**
+  - A secure checkout process is implemented, including address input and payment method selection.
+  - Orders are recorded in the database, and product quantities are appropriately updated.
+
+- **Order Confirmation and History:**
+  - Users receive an order confirmation with detailed information.
+  - Purchase history is available, showing recent orders with filtering options.
+
+### Additional Features
+
+- **Public/Private Profiles:**
+  - Users can set their profiles to be public or private.
+  - Email addresses are hidden from other users for public profiles.
+
+- **Product Ratings:**
+  - Users can rate products they purchased, with reviews visible on product pages.
+  - Average ratings are displayed for each product.
+
+- **Enhanced Purchase History:**
+  - Users and administrators can filter, sort, and paginate purchase history for better usability.
+
+- **Admin Tools:**
+  - Store owners can view products out of stock and manage all purchase history.
+  - Product lists include pagination, and products can be sorted by average rating.
+
+
+
